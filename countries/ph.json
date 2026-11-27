@@ -1,0 +1,27 @@
+{
+  "code": "PH",
+  "name": "Philippines",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "National emergency hotline",
+      "short": "Emergency hotline",
+      "number": "911",
+      "when": "Any emergency",
+      "wallet": true,
+      "sources": [
+        "s1"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "PH Emergency Hotlines",
+      "publisher": "eGovPH (e.gov.ph), the Philippine government portal",
+      "url": "https://ehotlines.e.gov.ph/",
+      "checked": "2026-11-18",
+      "note": "The page shows no update date. It also lists 117 for the police and Metro Manila landlines for fire, disaster and coast guard; those are left out because 911 covers them and the landlines are local."
+    }
+  ]
+}

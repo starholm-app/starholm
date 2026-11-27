@@ -1,0 +1,81 @@
+/* Offline maps (maps.js): the Maps tab's cards, the map viewer and the printed map page. Uses app.css's tokens, so
+   dark and light follow the app. maplibre-gl.css styles the viewer's own controls. */
+
+/* ---------- the Maps tab ---------- */
+.maps-facts { color: var(--text-faint); font-size: var(--fs-sm); margin: 0 0 14px; font-variant-numeric: tabular-nums; }
+.maps-note { color: var(--text-faint); font-size: var(--fs-xs); margin: 14px 2px 0; max-width: 70ch; }
+.map-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+.map-card { display: flex; flex-direction: column; min-width: 0; border-radius: var(--r-lg); overflow: hidden; background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--border); }
+.map-card-head { display: flex; flex-direction: column; justify-content: flex-end; gap: 4px; height: 96px; padding: 12px 14px;
+  background: var(--accent-soft); border-bottom: 1px solid var(--border); }
+.map-card-region { font-size: calc(var(--fs-xs) * 0.84); letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); }
+.map-card-name { font-family: var(--serif); font-size: var(--fs-xl); line-height: 1.2; color: var(--text); }
+.map-card-body { display: flex; flex-direction: column; gap: 10px; flex: 1; padding: 12px 14px 14px; }
+.map-meta { font-size: var(--fs-sm); color: var(--text-faint); font-variant-numeric: tabular-nums; }
+.map-state { display: flex; align-items: center; gap: 8px; font-size: var(--fs-sm); color: var(--text-muted); }
+.map-state .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-faint); flex: none; }
+.map-state.st-saved .dot { background: var(--ok); }
+.map-state.st-dl .dot { background: var(--accent); }
+.map-card .bar { height: 6px; border-radius: 99px; background: var(--surface-active); overflow: hidden; }
+.map-card .bar i { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 99px; }
+.map-problem { font-size: var(--fs-sm); color: var(--danger); }
+.map-btns { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+.btn.quiet { background: transparent; color: var(--text-muted); }
+.btn.quiet:not(:disabled):hover { background: var(--surface-hover); color: var(--text); }
+
+/* ---------- the map viewer: fills the main area, no page scroll ---------- */
+.main.is-map .scroll { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+.map-wrap { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.map-view { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.map-top { display: flex; align-items: center; gap: 10px; padding: 0 14px 8px; min-width: 0; }
+.map-title { flex: 1; min-width: 0; font-size: var(--fs-sm); color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.map-stage { position: relative; flex: 1; min-height: 240px; border-top: 1px solid var(--border); overflow: hidden; background: var(--surface-2); }
+.map-canvas { position: absolute; inset: 0; }
+.map-error { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; }
+.map-frame { position: absolute; border: 2px dashed var(--accent); border-radius: 4px; pointer-events: none; z-index: 2; }
+.map-frame span { position: absolute; top: -22px; left: -2px; font-size: var(--fs-xs); background: var(--accent); color: var(--accent-ink);
+  padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+.map-search { position: absolute; top: 12px; left: 12px; width: min(340px, calc(100% - 24px)); z-index: 3; border-radius: var(--r);
+  background: var(--surface); box-shadow: 0 6px 18px -6px var(--shadow); }
+.map-search .search { border-color: var(--border-strong); }
+.map-results { list-style: none; margin: 0; padding: 4px; border-top: 1px solid var(--border); max-height: 280px; overflow-y: auto; }
+.map-result { display: flex; align-items: center; gap: 10px; width: 100%; padding: 7px 8px; border-radius: var(--r-sm); font-size: var(--fs-sm);
+  text-align: left; color: var(--text); }
+.map-result:hover, .map-result:focus-visible { background: var(--surface-hover); }
+.map-result .i { color: var(--text-faint); flex: none; }
+.map-none { padding: 8px; font-size: var(--fs-sm); color: var(--text-muted); }
+.map-credit { position: absolute; right: 8px; bottom: 4px; margin: 0; z-index: 2; font-size: 10px; color: var(--text-muted);
+  background: color-mix(in srgb, var(--surface) 80%, transparent); padding: 1px 6px; border-radius: 4px; pointer-events: none; }
+.map-pin { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); border: 3px solid var(--accent-ink);
+  box-shadow: 0 1px 4px var(--shadow); }
+.map-actions { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: flex-start; padding: 12px 14px; border-top: 1px solid var(--border);
+  background: var(--surface); }
+.map-area { flex: 1 1 160px; min-width: 0; font-size: var(--fs-sm); color: var(--text); font-weight: var(--w-medium); align-self: center; }
+.map-act { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.map-act .hint { font-size: var(--fs-xs); color: var(--text-faint); max-width: 34ch; }
+/* MapLibre's controls in the app's colours */
+.map-stage .maplibregl-ctrl-group { background: var(--surface); box-shadow: 0 6px 18px -6px var(--shadow), inset 0 0 0 1px var(--border-strong); }
+.map-stage .maplibregl-ctrl-group button + button { border-top-color: var(--border); }
+.map-stage .maplibregl-ctrl-scale { background: color-mix(in srgb, var(--surface) 80%, transparent); color: var(--text); border-color: var(--text-muted); }
+.map-stage .maplibregl-ctrl-bottom-right { bottom: 18px; }
+:root[data-t="dark"] .map-stage .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(1); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-t="light"]) .map-stage .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(1); }
+}
+
+/* ---------- the printed page (print.html?map=1): always on white ---------- */
+.map-print h1 { margin: 0 0 2mm; font-size: 16pt; }
+.map-print .doc-src { margin: 0 0 3mm; }
+.map-print-box { position: relative; border: 0.4mm solid #1a1a1a; line-height: 0; }
+.map-print-img { display: block; width: 100%; height: auto; }
+.map-print-north { position: absolute; top: 3mm; right: 3mm; width: 7mm; height: 10mm; padding: 1mm; background: rgb(255 255 255 / 0.85);
+  border-radius: 1mm; }
+.map-print-scale { display: flex; flex-direction: column; align-items: flex-start; gap: 1mm; margin-top: 3mm; font-size: 8pt;
+  font-variant-numeric: tabular-nums; }
+.map-print-bar { display: flex; border: 0.3mm solid #1a1a1a; }
+/* borders, not backgrounds: the printout is made with backgrounds off */
+.map-print-bar b { flex: 1; height: 0; border-top: 1.6mm solid #1a1a1a; }
+.map-print-bar b:nth-child(2n) { border-top-color: #ffffff; }
+.map-print-credit { margin: 2mm 0 0; font-size: 7pt; color: #5e5e5e; }
+@media print { .map-print-box, .map-print-scale { break-inside: avoid; } }

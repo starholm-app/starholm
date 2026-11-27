@@ -1,0 +1,110 @@
+{
+  "code": "IT",
+  "name": "Italy",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "Single emergency number",
+      "short": "Emergency, EU no.",
+      "number": "112",
+      "when": "Any emergency, if you're not sure which to call",
+      "wallet": true,
+      "sources": [
+        "s1"
+      ]
+    },
+    {
+      "label": "State Police",
+      "short": "Police",
+      "number": "113",
+      "when": "Crime or danger from someone, needs help now",
+      "wallet": true,
+      "sources": [
+        "s2"
+      ]
+    },
+    {
+      "label": "Fire brigade",
+      "short": "Fire brigade",
+      "number": "115",
+      "when": "Fire, or someone trapped",
+      "wallet": true,
+      "sources": [
+        "s3"
+      ]
+    },
+    {
+      "label": "Ambulance",
+      "short": "Ambulance",
+      "number": "118",
+      "when": "Someone is seriously ill or hurt",
+      "wallet": true,
+      "sources": [
+        "s4"
+      ]
+    },
+    {
+      "label": "Coast Guard",
+      "short": "Coast Guard",
+      "number": "1530",
+      "when": "Trouble at sea",
+      "wallet": true,
+      "sources": [
+        "s5",
+        "s6"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Homepage - 1 1 2",
+      "publisher": "Italian Ministry of the Interior (112.gov.it)",
+      "url": "https://112.gov.it/",
+      "checked": "2026-11-18",
+      "note": "The page shows no update date. Some regions still answer 112 through the Carabinieri."
+    },
+    {
+      "id": "s2",
+      "title": "Contact Us",
+      "publisher": "Polizia di Stato",
+      "url": "https://www.poliziadistato.it/articolo/contact-us",
+      "checked": "2026-11-18",
+      "note": "The page shows no update date."
+    },
+    {
+      "id": "s3",
+      "title": "Emergenza 115",
+      "publisher": "Corpo Nazionale dei Vigili del Fuoco",
+      "url": "https://www.vigilfuoco.it/emergenza-115",
+      "checked": "2026-11-18",
+      "note": "The page shows no update date."
+    },
+    {
+      "id": "s4",
+      "title": "Ministero della Salute - Emergenza sanitaria territoriale",
+      "publisher": "Italian Ministry of Health",
+      "url": "https://www.salute.gov.it/new/it/tema/livelli-essenziali-di-assistenza/emergenza-sanitaria-territoriale/",
+      "updated": "2019-01-30",
+      "checked": "2026-11-18",
+      "note": "The page's own date is 30 January 2019. The page says 118 runs in every region."
+    },
+    {
+      "id": "s5",
+      "title": "1530 - Emergenza in mare",
+      "publisher": "Ministry of Infrastructure and Transport (mit.gov.it)",
+      "url": "https://www.mit.gov.it/come-fare-per/sicurezza/sicurezza-mare/1530-emergenza-mare",
+      "updated": "2016-02-09",
+      "checked": "2026-11-18",
+      "note": "The page's own date is 9 February 2016."
+    },
+    {
+      "id": "s6",
+      "title": "Home - Guardia Costiera",
+      "publisher": "Guardia Costiera (Italian Coast Guard)",
+      "url": "https://www.guardiacostiera.gov.it/",
+      "checked": "2026-11-18",
+      "note": "The page shows no update date. The home page links to 1530 for emergencies at sea."
+    }
+  ]
+}

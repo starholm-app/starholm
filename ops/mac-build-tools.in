@@ -1,0 +1,5 @@
+# Build-only tools for ops/build-mac-app.sh: CMake and Ninja compile the bundled Poppler. Nothing here ships in the app.
+# Regenerate: uv pip compile --generate-hashes --only-binary :all: --python-version 3.13 \
+#   --python-platform aarch64-apple-darwin ops/mac-build-tools.in -o ops/mac-build-tools.lock
+cmake
+ninja

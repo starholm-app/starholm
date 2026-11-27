@@ -1,0 +1,172 @@
+{
+  "code": "US",
+  "name": "United States",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "Police, fire and ambulance",
+      "short": "Police, fire, ambulance",
+      "number": "911",
+      "when": "Police, fire or ambulance",
+      "wallet": true,
+      "note": "Also the emergency number in Canada.",
+      "sources": [
+        "s1"
+      ]
+    }
+  ],
+  "extra": {
+    "call_notes": [
+      {
+        "text": "Call by voice if you can: a voice call gives the call centre more to work with.",
+        "sources": [
+          "s2"
+        ]
+      },
+      {
+        "text": "Texting 911 works only where the local call centre accepts texts, and the FCC keeps a list of those areas, updated monthly. If you are deaf, hard of hearing or can't speak and texting isn't available, use a TTY or a relay service.",
+        "sources": [
+          "s2"
+        ]
+      }
+    ],
+    "alerts": [
+      {
+        "text": "Wireless Emergency Alerts reach compatible phones in the targeted area. Each comes with a unique sound and a vibration, repeated twice. They are free and need no sign-up, and network congestion doesn't hold them up.",
+        "sources": [
+          "s3"
+        ]
+      },
+      {
+        "text": "State, local, tribal and territorial officials, the National Weather Service, the National Center for Missing and Exploited Children and the President send them, through FEMA's alert system. Some providers label them \"Government Alerts\" or \"Emergency Alert Messages\".",
+        "sources": [
+          "s3"
+        ]
+      },
+      {
+        "text": "The Emergency Alert System sends warnings on TV and radio. NOAA Weather Radio broadcasts continuous weather information from the nearest National Weather Service office.",
+        "sources": [
+          "s3"
+        ]
+      },
+      {
+        "text": "The FEMA app gives preparedness advice and real-time weather and emergency alerts.",
+        "sources": [
+          "s4"
+        ]
+      }
+    ],
+    "first_steps": [
+      {
+        "text": "If you don't get alerts, check your phone's settings. Older phones may not support them, and some models need you to turn them on.",
+        "sources": [
+          "s3"
+        ]
+      }
+    ],
+    "authorities": [
+      {
+        "name": "FEMA and Ready.gov",
+        "role": "Federal emergency preparedness. Runs the Integrated Public Alert and Warning System that officials use to send alerts.",
+        "url": "https://www.ready.gov",
+        "sources": [
+          "s3",
+          "s4"
+        ]
+      },
+      {
+        "name": "National Weather Service",
+        "role": "Issues weather warnings and runs NOAA Weather Radio.",
+        "url": "https://www.weather.gov",
+        "sources": [
+          "s3"
+        ]
+      },
+      {
+        "name": "Federal Communications Commission",
+        "role": "Sets the rules for 911 and for text-to-911.",
+        "url": "https://www.fcc.gov",
+        "sources": [
+          "s1",
+          "s2"
+        ]
+      }
+    ],
+    "hazards": [
+      {
+        "text": "Ready.gov has pages for avalanches, earthquakes, extreme heat, floods, hurricanes, landslides, power outages, radiation emergencies, tornadoes, tsunamis, volcanoes, wildfires and winter weather, among others.",
+        "sources": [
+          "s4"
+        ]
+      },
+      {
+        "text": "By region: earthquakes around the Pacific basin, hurricanes on the Atlantic and Gulf coasts, tornadoes in the Midwest and Southeast, mudslides in California, forest fires in the west, and volcanoes in Hawaii, western Alaska and the Pacific Northwest.",
+        "sources": [
+          "s6"
+        ]
+      },
+      {
+        "text": "Hurricane seasons: Atlantic 1 June to 30 November, eastern Pacific 15 May to 30 November.",
+        "sources": [
+          "s5"
+        ]
+      }
+    ],
+    "climate": {
+      "text": "Mostly temperate. Tropical in Hawaii and Florida, arctic in Alaska, semiarid on the Great Plains and arid in the southwest.",
+      "sources": [
+        "s6"
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "s1",
+      "title": "911 and E911 Services",
+      "publisher": "Federal Communications Commission",
+      "url": "https://www.fcc.gov/general/9-1-1-and-e9-1-1-services",
+      "updated": "2026-10-30",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s2",
+      "title": "Text to 911: What You Need to Know",
+      "publisher": "Federal Communications Commission",
+      "url": "https://www.fcc.gov/consumers/guides/what-you-need-know-about-text-911",
+      "updated": "2020-01-06",
+      "checked": "2026-11-18",
+      "note": "The page shows an updated or reviewed date of 6 January 2020."
+    },
+    {
+      "id": "s3",
+      "title": "Emergency Alerts",
+      "publisher": "Ready.gov (Department of Homeland Security, FEMA)",
+      "url": "https://www.ready.gov/alerts",
+      "updated": "2026-05-27",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s4",
+      "title": "Ready.gov home page and hazard list",
+      "publisher": "Ready.gov (Department of Homeland Security, FEMA)",
+      "url": "https://www.ready.gov/",
+      "updated": "2026-11-16",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s5",
+      "title": "Hurricanes",
+      "publisher": "Ready.gov (Department of Homeland Security, FEMA)",
+      "url": "https://www.ready.gov/hurricanes",
+      "updated": "2026-10-16",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s6",
+      "title": "United States, 2025 edition",
+      "publisher": "CIA World Factbook, final edition (23 January 2026), via worldfactbookarchive.org",
+      "url": "https://worldfactbookarchive.org/archive/2025/US",
+      "checked": "2026-11-18"
+    }
+  ]
+}

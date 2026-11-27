@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="print" viewBox="0 0 600 516" role="img" aria-labelledby="t d">
+<title id="t">Stopping severe bleeding</title>
+<desc id="d">1. Press hard on the wound with a pad, clean cloth, clothing or your hand. 2. Call your local emergency number and lay the person down, keeping them warm. 3. If blood soaks through, add a second pad on top and press harder; do not remove the first. 4. Only if pressure fails on an arm or leg, use a tourniquet 5 to 7.5 cm above the wound and write down the time.</desc>
+<style>
+.bg{fill:#ffffff}.ink{fill:#1a1a1a}.mut{fill:#5e5e5e}.af{fill:#9a6524}.df{fill:#b83b30}.tint{fill:#f6ede2}.dtint{fill:#fbeeec}.ln{stroke:#2b2b2b;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.hair{stroke:#8f8f8f;fill:none;stroke-width:1}.rule{stroke:#d6d6d4;fill:none;stroke-width:1}.acc{stroke:#9a6524;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.dng{stroke:#b83b30;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.hatch{stroke:#b83b30;fill:none;stroke-width:1;opacity:.55}
+text{font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-size:15px}
+.h{font-size:18px;font-weight:700}.b{font-weight:700}.s{font-size:13px}.c{font-size:12px;font-weight:700;letter-spacing:.08em}.m{font-family:ui-monospace,Menlo,monospace;font-size:14px}.n{font-family:ui-monospace,Menlo,monospace;font-size:18px;font-weight:700}
+@media (prefers-color-scheme:dark){.bg{fill:#262626}.ink{fill:#ececec}.mut{fill:#a3a3a3}.af{fill:#d9a066}.df{fill:#ec8277}.tint{fill:#332a21}.dtint{fill:#2f2322}.ln{stroke:#cfcfcf}.hair{stroke:#6f6f6f}.rule{stroke:#3a3a3a}.acc{stroke:#d9a066}.dng{stroke:#ec8277}.hatch{stroke:#ec8277}}
+:target .bg{fill:#ffffff}:target .ink{fill:#1a1a1a}:target .mut{fill:#5e5e5e}:target .af{fill:#9a6524}:target .df{fill:#b83b30}:target .tint{fill:#f6ede2}:target .dtint{fill:#fbeeec}:target .ln{stroke:#2b2b2b}:target .hair{stroke:#8f8f8f}:target .rule{stroke:#d6d6d4}:target .acc{stroke:#9a6524}:target .dng{stroke:#b83b30}:target .hatch{stroke:#b83b30}
+</style>
+<rect class="bg" width="600" height="516" rx="10"/>
+<!-- 1. Press -->
+<g transform="translate(16,16)">
+<rect class="rule" width="276" height="236" rx="8"/>
+<text class="ink h" x="16" y="32"><tspan class="af">1.</tspan> Press</text>
+<path class="rule" d="M16 46 H260"/>
+<path class="ln" d="M20 98 H226 Q246 98 246 112 Q246 126 226 126 H20"/>
+<path class="dng" d="M126 98 H150"/>
+<rect class="ln" x="114" y="86" width="48" height="12" rx="3"/>
+<rect class="tint" x="110" y="62" width="56" height="20" rx="9"/><rect class="acc" x="110" y="62" width="56" height="20" rx="9"/>
+<path class="acc" d="M96 56 v20 m-5 -6 l5 6 l5 -6 M180 56 v20 m-5 -6 l5 6 l5 -6"/>
+<text class="ink" x="16" y="160">Pad, cloth, clothing or your hand.</text>
+<text class="ink" x="16" y="190">Press hard, straight away</text>
+</g>
+<!-- 2. Call -->
+<g transform="translate(308,16)">
+<rect class="rule" width="276" height="236" rx="8"/>
+<text class="ink h" x="16" y="32"><tspan class="af">2.</tspan> Call</text>
+<path class="rule" d="M16 46 H260"/>
+<circle class="ln" cx="34" cy="114" r="8"/>
+<rect class="ln" x="46" y="106" width="72" height="16" rx="8"/>
+<path class="hair" d="M20 128 H128"/>
+<rect class="ln" x="156" y="56" width="48" height="72" rx="8"/>
+<path class="ln" d="M172 64 H188"/>
+<text class="df n" style="font-size:15px" x="180" y="100" text-anchor="middle">Call</text>
+<path class="acc" d="M214 82 q8 10 0 20 M224 76 q14 16 0 32"/>
+<text class="ink" x="16" y="156">Call your local emergency</text>
+<text class="ink" x="16" y="174">number or send someone.</text>
+<text class="ink" x="16" y="196">Phone on speaker if alone.</text>
+<text class="ink" x="16" y="222">Lay them down, keep them warm.</text>
+</g>
+<!-- 3. Soaked? -->
+<g transform="translate(16,264)">
+<rect class="rule" width="276" height="236" rx="8"/>
+<text class="ink h" x="16" y="32"><tspan class="af">3.</tspan> Soaked?</text>
+<path class="rule" d="M16 46 H260"/>
+<path class="ln" d="M20 98 H226 Q246 98 246 112 Q246 126 226 126 H20"/>
+<rect class="dtint" x="110" y="86" width="56" height="12" rx="3"/><rect class="dng" x="110" y="86" width="56" height="12" rx="3"/>
+<rect class="tint" x="114" y="70" width="48" height="12" rx="3"/><rect class="acc" x="114" y="70" width="48" height="12" rx="3"/>
+<path class="acc" d="M92 54 v22 m-5 -12 l5 6 l5 -6 m-10 6 l5 6 l5 -6 M184 54 v22 m-5 -12 l5 6 l5 -6 m-10 6 l5 6 l5 -6"/>
+<text class="ink" x="16" y="160">Add a second pad on top</text>
+<text class="ink" x="16" y="180">and press harder.</text>
+<text class="ink" x="16" y="210">Do not take the first pad off.</text>
+<text class="ink" x="16" y="230">Do not lift it to look.</text>
+</g>
+<!-- 4. Last resort -->
+<g transform="translate(308,264)">
+<rect class="rule" width="276" height="236" rx="8"/>
+<text class="ink h" x="16" y="32"><tspan class="af">4.</tspan> Last resort</text>
+<path class="rule" d="M16 46 H260"/>
+<path class="ln" d="M20 98 H226 Q246 98 246 112 Q246 126 226 126 H20"/>
+<path class="dng" d="M192 98 H212"/>
+<rect class="tint" x="110" y="92" width="14" height="40" rx="3"/><rect class="acc" x="110" y="92" width="14" height="40" rx="3"/>
+<path class="hair" d="M117 84 V74 M202 92 V74 M117 79 H202"/>
+<text class="ink m" x="160" y="68" text-anchor="middle">5 to 7.5 cm</text>
+<text class="ink" x="16" y="160">Arm or leg only, and</text>
+<text class="ink" x="16" y="180">only if pressure fails.</text>
+<text class="ink" x="16" y="210">5 to 7.5 cm above the wound.</text>
+<text class="ink" x="16" y="230">Note the time.</text>
+</g>
+</svg>

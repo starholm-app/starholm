@@ -1,0 +1,4 @@
+# The build backend for the one source package in requirements.lock (proxy-tools), pinned with hashes so no
+# unhashed code runs at install time. See the top of requirements.lock for how it is used.
+setuptools
+wheel

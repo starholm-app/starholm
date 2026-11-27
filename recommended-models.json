@@ -1,0 +1,8 @@
+{
+ "about": "The recommended-model table in Settings > Model (app/model_setup.py). One row per memory size: the smallest memory (GB) the row needs, the Ollama model name the one-click download pulls, its download size, and whether this project has tested it, and whether it is available yet. Every row is listed and downloadable; the row that fits this computer's memory best carries the \"Recommended for your computer\" badge. A row may still be marked \"available\": false to make it a placeholder with no download (none is today).",
+ "rows": [
+  {"memory_gb": 8, "size": "Small model", "name": "Gemma 4, 4B", "model": "gemma4:e4b-it-qat", "download_gb": 6.1, "tested": false},
+  {"memory_gb": 16, "size": "Medium model", "name": "Gemma 4, 12B", "model": "gemma4:12b-it-qat", "download_gb": 7.2, "tested": false},
+  {"memory_gb": 32, "size": "Large model", "name": "Gemma 4, 26B", "model": "gemma4:26b-a4b-it-qat", "download_gb": 16, "tested": true}
+ ]
+}

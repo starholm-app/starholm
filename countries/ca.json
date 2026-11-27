@@ -1,0 +1,185 @@
+{
+  "code": "CA",
+  "name": "Canada",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "Police, fire and ambulance",
+      "short": "Police, fire, ambulance",
+      "number": "911",
+      "when": "Any emergency: police, fire or ambulance",
+      "wallet": true,
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    },
+    {
+      "label": "Poison centre, anywhere in Canada",
+      "short": "Poison centre",
+      "number": "1 844 764 7669",
+      "when": "Poison advice, any hour. Collapsed? Call 911",
+      "wallet": true,
+      "note": "1-844 POISON-X. Sends you to your local poison centre.",
+      "sources": [
+        "s3"
+      ]
+    },
+    {
+      "label": "Poison centre, Quebec",
+      "short": "Poison centre, Quebec",
+      "number": "1 800 463 5060",
+      "when": "Poison advice in Quebec. Collapsed? Call 911",
+      "wallet": false,
+      "sources": [
+        "s3",
+        "s4"
+      ]
+    },
+    {
+      "label": "Suicide crisis helpline",
+      "short": "Suicide crisis line",
+      "number": "988",
+      "when": "Call or text if you are thinking of suicide",
+      "wallet": true,
+      "note": "Page says 24 hours a day, 7 days a week.",
+      "sources": [
+        "s2"
+      ]
+    },
+    {
+      "label": "Health advice line",
+      "short": "Health advice line",
+      "number": "811",
+      "when": "Nurse advice, BC, Alberta, Quebec. Not for emergencies",
+      "wallet": true,
+      "note": "Other provinces have 811 lines too; only these three were confirmed on official pages.",
+      "sources": [
+        "s5",
+        "s6",
+        "s7"
+      ]
+    },
+    {
+      "label": "Search and rescue, Ontario, Prairies, NWT, Nunavut",
+      "short": "Rescue, Ont. and West",
+      "number": "1 800 267 7270",
+      "when": "Search and rescue report. On land, call 911 first",
+      "wallet": false,
+      "sources": [
+        "s8"
+      ]
+    },
+    {
+      "label": "Search and rescue, New Brunswick, Nova Scotia, PEI",
+      "short": "Rescue, Atlantic",
+      "number": "1 800 565 1582",
+      "when": "Search and rescue report. On land, call 911 first",
+      "wallet": false,
+      "sources": [
+        "s8"
+      ]
+    },
+    {
+      "label": "Search and rescue, Newfoundland and Labrador",
+      "short": "Rescue, Newfoundland",
+      "number": "1 800 563 2444",
+      "when": "Search and rescue report. On land, call 911 first",
+      "wallet": false,
+      "sources": [
+        "s8"
+      ]
+    },
+    {
+      "label": "Search and rescue, Quebec",
+      "short": "Rescue, Quebec",
+      "number": "1 800 463 4393",
+      "when": "Search and rescue report. On land, call 911 first",
+      "wallet": false,
+      "sources": [
+        "s8"
+      ]
+    },
+    {
+      "label": "Search and rescue, British Columbia and Yukon",
+      "short": "Rescue, BC and Yukon",
+      "number": "1 800 567 5111",
+      "when": "Search and rescue report. On land, call 911 first",
+      "wallet": false,
+      "sources": [
+        "s8"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Emergency contacts",
+      "publisher": "Parks Canada",
+      "url": "https://parks.canada.ca/voyage-travel/securite-safety/urgence-emergency",
+      "updated": "2026-11-10",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s2",
+      "title": "Mental health support: get help",
+      "publisher": "Public Health Agency of Canada, Canada.ca",
+      "url": "https://www.canada.ca/en/public-health/services/mental-health-services/mental-health-get-help.html",
+      "updated": "2026-01-14",
+      "checked": "2026-11-18",
+      "note": "The date is the page's own 'page details' date."
+    },
+    {
+      "id": "s3",
+      "title": "Canada launches new toll-free 1-844 POISON-X number for poison centres",
+      "publisher": "Health Canada, Canada.ca",
+      "url": "https://www.canada.ca/en/health-canada/news/2023/03/canada-launches-new-toll-free-1-844-poison-x-number-for-poison-centres.html",
+      "updated": "2025-09-04",
+      "checked": "2026-11-18",
+      "note": "The date is the page's own 'page details' date."
+    },
+    {
+      "id": "s4",
+      "title": "Message from the Minister of Health - Poison Prevention Week",
+      "publisher": "Health Canada, Canada.ca",
+      "url": "https://www.canada.ca/en/health-canada/news/2024/03/message-from-the-minister-of-health-poison-prevention-week.html",
+      "updated": "2024-03-18",
+      "checked": "2026-11-18",
+      "note": "The date is the page's own 'page details' date."
+    },
+    {
+      "id": "s5",
+      "title": "HealthLink BC 8-1-1 services",
+      "publisher": "HealthLink BC, Government of British Columbia",
+      "url": "https://www.healthlinkbc.ca/find-care/healthlink-bc-8-1-1-services",
+      "updated": "2026-01-23",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s6",
+      "title": "Health Link - 811",
+      "publisher": "Government of Alberta (MyHealth.Alberta.ca)",
+      "url": "https://myhealth.alberta.ca/811",
+      "checked": "2026-11-18",
+      "note": "The page shows no update date, only a 2022 copyright line."
+    },
+    {
+      "id": "s7",
+      "title": "Info-Santé 811",
+      "publisher": "Gouvernement du Québec",
+      "url": "https://www.quebec.ca/en/health/finding-a-resource/info-sante-811",
+      "updated": "2022-12-08",
+      "checked": "2026-11-18",
+      "note": "The page's own last-updated date is old. The number matches the other two provinces."
+    },
+    {
+      "id": "s8",
+      "title": "Report a search and rescue incident",
+      "publisher": "Canadian Coast Guard, Canada.ca",
+      "url": "https://www.canada.ca/en/canadian-coast-guard/corporate/contact-us/emergency/report-search-rescue-incident.html",
+      "updated": "2026-01-09",
+      "checked": "2026-11-18",
+      "note": "The date is the page's own 'page details' date."
+    }
+  ]
+}

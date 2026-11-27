@@ -1,0 +1,7 @@
+[
+  {"slug": "knots-intro", "title": "Three knots", "summary": "Bowline, clove hitch, reef knot.", "group": "Camp", "order": 2},
+  {"slug": "water-basics", "title": "Safe water", "summary": "Boil, filter, store.", "group": "Water", "order": 1},
+  {"slug": "no-text", "title": "Listed without a guide.md", "summary": "", "group": "Water", "order": 2},
+  {"slug": "../escape", "title": "A slug that tries to leave", "summary": "", "group": "Water", "order": 3},
+  {"slug": "missing-folder", "title": "Listed with no folder", "summary": "", "group": "Water", "order": 4}
+]

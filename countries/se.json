@@ -1,0 +1,284 @@
+{
+  "code": "SE",
+  "name": "Sweden",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "Police, fire, ambulance and sea rescue",
+      "short": "All emergencies",
+      "number": "112",
+      "when": "Any emergency",
+      "wallet": true,
+      "note": "Operators speak Swedish and English.",
+      "sources": [
+        "s1"
+      ]
+    },
+    {
+      "label": "Police, not urgent",
+      "short": "Police, non-urgent",
+      "number": "114 14",
+      "when": "Police, not urgent",
+      "wallet": true,
+      "note": "Open around the clock. From abroad or on a foreign mobile, +46 77 114 14 00.",
+      "sources": [
+        "s1"
+      ]
+    },
+    {
+      "label": "Healthcare advice",
+      "short": "Healthcare advice",
+      "number": "1177",
+      "when": "Healthcare advice",
+      "wallet": true,
+      "sources": [
+        "s2"
+      ]
+    },
+    {
+      "label": "Poisons Information Centre, less urgent cases",
+      "short": "Poison information",
+      "number": "010 456 6700",
+      "when": "Poisoning advice, not acute",
+      "wallet": true,
+      "note": "Open day and night. In an acute case, call 112 and ask for poison information.",
+      "sources": [
+        "s3"
+      ]
+    },
+    {
+      "label": "Information during a serious incident",
+      "short": "Incident information",
+      "number": "113 13",
+      "when": "Information during a serious incident",
+      "wallet": true,
+      "sources": [
+        "s5"
+      ]
+    }
+  ],
+  "extra": {
+    "call_notes": [
+      {
+        "text": "A 112 call can reach the police, the fire service, an ambulance, sea, air and mountain rescue, poison information and social emergency services.",
+        "sources": [
+          "s1"
+        ]
+      },
+      {
+        "text": "The poison centre does not take text messages.",
+        "sources": [
+          "s3"
+        ]
+      }
+    ],
+    "alerts": [
+      {
+        "text": "An Important Public Announcement (in Swedish, VMA) is used when something serious has happened, such as a factory fire with toxic smoke or a risk of explosion. If it concerns the area you are in, follow the instructions at once.",
+        "sources": [
+          "s4"
+        ]
+      },
+      {
+        "text": "It reaches you by radio and TV, by text message to phones used in the affected area, by SE-Alert, on krisinformation.se and its app, in the SR Play app and in the SOS Alarm 112 app. Sirens are used only for truly serious incidents.",
+        "sources": [
+          "s4"
+        ]
+      },
+      {
+        "text": "SE-Alert is cell broadcast: every phone in the affected area gets a sharp signal, a vibration and a message on the screen, with no app and no sign-up. The phone must be an updated smartphone. Where needed, the alert can go out silently.",
+        "sources": [
+          "s4",
+          "s6"
+        ]
+      },
+      {
+        "text": "About 4,500 sirens stand on roofs and tall buildings across the country. They are tested at 3 pm on the first Monday (not a holiday) of March, June, September and December.",
+        "sources": [
+          "s5"
+        ]
+      },
+      {
+        "text": "Siren signals. Important announcement: a 7-second blast, then a 14-second pause. Go indoors, close windows, doors and ventilation, and tune to Sveriges Radio P4. Air raid alarm: short blasts for one minute. Go to the nearest shelter or basement. All clear: one 30-second continuous blast.",
+        "sources": [
+          "s5"
+        ]
+      },
+      {
+        "text": "Emergency alert (30-second blast, 15-second pause, for 5 minutes): the highest alert level for the whole country. Go indoors and listen to P4.",
+        "sources": [
+          "s5"
+        ]
+      },
+      {
+        "text": "Weather warnings come from SMHI in three levels: yellow, orange and red, with red the most serious.",
+        "sources": [
+          "s7"
+        ]
+      }
+    ],
+    "first_steps": [
+      {
+        "text": "Go indoors, close windows and doors, and put on Sveriges Radio P4 when you hear the important-announcement signal and it isn't a test.",
+        "sources": [
+          "s5"
+        ]
+      },
+      {
+        "text": "Near a nuclear power station: the same signal means go indoors, close doors, windows and ventilation, and tune to P4. Homes in the emergency zones have a special warning receiver that sounds a loud alarm.",
+        "sources": [
+          "s8"
+        ]
+      },
+      {
+        "text": "In an orange weather warning, avoid exposing yourself to the weather.",
+        "sources": [
+          "s7"
+        ]
+      }
+    ],
+    "authorities": [
+      {
+        "name": "SOS Alarm",
+        "role": "One of the services you reach when you call 112. It also passes on important public announcements and sends them as text messages.",
+        "url": null,
+        "sources": [
+          "s1",
+          "s4"
+        ]
+      },
+      {
+        "name": "Swedish Civil Defence and Resilience Agency",
+        "role": "Runs krisinformation.se, with information from Swedish authorities before, during and after a crisis.",
+        "url": "https://www.krisinformation.se",
+        "sources": [
+          "s4",
+          "s5"
+        ]
+      },
+      {
+        "name": "Swedish Police",
+        "role": "Police; 112 for urgent help, 114 14 for everything else.",
+        "url": "https://polisen.se",
+        "sources": [
+          "s1"
+        ]
+      },
+      {
+        "name": "SMHI (Swedish Meteorological and Hydrological Institute)",
+        "role": "Monitors the weather and issues warnings.",
+        "url": null,
+        "sources": [
+          "s7"
+        ]
+      },
+      {
+        "name": "Poisons Information Centre",
+        "role": "Advice on poisoning, day and night.",
+        "url": "https://giftinformation.se",
+        "sources": [
+          "s3"
+        ]
+      }
+    ],
+    "hazards": [
+      {
+        "text": "Severe weather, with warnings from SMHI.",
+        "sources": [
+          "s7"
+        ]
+      },
+      {
+        "text": "Accidents at the three nuclear power stations, each with its own warning sirens and household receivers in the emergency zones.",
+        "sources": [
+          "s8"
+        ]
+      },
+      {
+        "text": "Ice floes in the waters around the country, especially the Gulf of Bothnia, can disrupt shipping.",
+        "sources": [
+          "s9"
+        ]
+      }
+    ],
+    "climate": {
+      "text": "Temperate in the south, with cold, cloudy winters and cool, partly cloudy summers. Subarctic in the north.",
+      "sources": [
+        "s9"
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Contacting the Police",
+      "publisher": "Swedish Police Authority (polisen.se)",
+      "url": "https://polisen.se/en/contacting-the-police/",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s2",
+      "title": "1177 (home page)",
+      "publisher": "1177, the healthcare guide of Sweden's regions",
+      "url": "https://www.1177.se/",
+      "checked": "2026-11-18",
+      "note": "The page is in Swedish and tells you to call 1177 for healthcare advice."
+    },
+    {
+      "id": "s3",
+      "title": "Kontakta oss (Contact us)",
+      "publisher": "Giftinformationscentralen (Swedish Poisons Information Centre)",
+      "url": "https://giftinformation.se/kontakta-oss/",
+      "updated": "2026-03-24",
+      "checked": "2026-11-18",
+      "note": "The page is in Swedish. The date is the page's own fact-check date."
+    },
+    {
+      "id": "s4",
+      "title": "Important public announcement - how it works",
+      "publisher": "Krisinformation.se, run by the Swedish Civil Defence and Resilience Agency",
+      "url": "https://www.krisinformation.se/en/warning-systems/important-public-announcement-and-the-outdoor-warning-signal/important-public-announcement-how-it-works/",
+      "updated": "2026-11-17",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s5",
+      "title": "The outdoor alarm system",
+      "publisher": "Krisinformation.se, run by the Swedish Civil Defence and Resilience Agency",
+      "url": "https://www.krisinformation.se/en/warning-systems/important-public-announcement-and-the-outdoor-warning-signal/the-outdoor-alarm-system/",
+      "updated": "2026-10-29",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s6",
+      "title": "Test of Swedish new warning system on 7 December",
+      "publisher": "Krisinformation.se, run by the Swedish Civil Defence and Resilience Agency",
+      "url": "https://www.krisinformation.se/en/latest/news/test-of-swedish-new-warning-system-on-7-december/",
+      "updated": "2026-11-17",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s7",
+      "title": "Weather warnings",
+      "publisher": "Krisinformation.se, run by the Swedish Civil Defence and Resilience Agency",
+      "url": "https://www.krisinformation.se/en/warning-systems/weather-warnings/",
+      "updated": "2026-09-27",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s8",
+      "title": "Warning system for nuclear plants",
+      "publisher": "Krisinformation.se, run by the Swedish Civil Defence and Resilience Agency",
+      "url": "https://www.krisinformation.se/en/warning-systems/warning-system-for-nuclear-plants/",
+      "updated": "2026-09-27",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s9",
+      "title": "Sweden, 2025 edition",
+      "publisher": "CIA World Factbook, final edition (23 January 2026), via worldfactbookarchive.org",
+      "url": "https://worldfactbookarchive.org/archive/2025/SE",
+      "checked": "2026-11-18"
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "code": "FI",
+  "name": "Finland",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "Emergency number",
+      "short": "Emergency",
+      "number": "112",
+      "when": "Any emergency, free from any phone",
+      "wallet": true,
+      "note": "Emergency text message to 112 only for people registered in advance.",
+      "sources": [
+        "s1"
+      ]
+    },
+    {
+      "label": "Medical advice line, 24 hours",
+      "short": "Medical advice",
+      "number": "116117",
+      "when": "Urgent health problem, not life-threatening",
+      "wallet": true,
+      "note": "Free. Not for Åland. Call 112 in an emergency.",
+      "sources": [
+        "s2"
+      ]
+    },
+    {
+      "label": "Poison information (HUS)",
+      "short": "Poison information",
+      "number": "0800 147 111",
+      "when": "Poisoning advice, any hour",
+      "wallet": true,
+      "note": "Free on HUS's own page. Standard-rate line: 09 471 977.",
+      "sources": [
+        "s3"
+      ]
+    },
+    {
+      "label": "Sea rescue",
+      "short": "Sea rescue",
+      "number": "0294 1000",
+      "when": "Emergency at sea. 112 also works",
+      "wallet": true,
+      "sources": [
+        "s4",
+        "s1"
+      ]
+    },
+    {
+      "label": "Police advice line",
+      "short": "Police advice",
+      "number": "+358 295 419 800",
+      "when": "Police, not for emergencies. Weekdays 8 to 16:15",
+      "wallet": false,
+      "note": "Finnish and Swedish only. For passports, permits, traffic and similar.",
+      "sources": [
+        "s5"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Hätäilmoituksen tekeminen - Hätäkeskuslaitos",
+      "publisher": "Suomi.fi, the Finnish government portal",
+      "url": "https://www.suomi.fi/palvelut/hatailmoituksen-tekeminen-hatakeskuslaitos/01a571b5-3eb9-4b49-a27e-ec8427737c5b",
+      "updated": "2025-09-26",
+      "checked": "2026-11-18",
+      "note": "The page is in Finnish. 112.fi would not open, so this portal page was used."
+    },
+    {
+      "id": "s2",
+      "title": "Päivystysapu 116117 - DigiFinland Oy",
+      "publisher": "Suomi.fi, the Finnish government portal",
+      "url": "https://www.suomi.fi/palvelut/paivystysapu-116117-digifinland-oy/d19f25d1-1c31-44e6-8a20-12152053af7b",
+      "updated": "2026-09-22",
+      "checked": "2026-11-18",
+      "note": "The page is in Finnish. The page writes the number as 116117."
+    },
+    {
+      "id": "s3",
+      "title": "Myrkytystietokeskus (Poison Information Center, HUS)",
+      "publisher": "HUS Helsinki University Hospital",
+      "url": "https://www.hus.fi/potilaalle/sairaalat-ja-toimipisteet/myrkytystietokeskus",
+      "updated": "2026-08-27",
+      "checked": "2026-11-18",
+      "note": "A Suomi.fi page for the same service shows a call fee note. The page of the service itself says toll-free, and that one is used."
+    },
+    {
+      "id": "s4",
+      "title": "Veden varaan joutuminen",
+      "publisher": "Suomi.fi, the Finnish government portal",
+      "url": "https://www.suomi.fi/kansalaiselle/turvallisuus/hatatilanteet-ja-turvallisuus/opas/nain-toimit-hatatilanteissa/veden-varaan-joutuminen",
+      "updated": "2025-12-01",
+      "checked": "2026-11-18",
+      "note": "The page is in Finnish. It says to call 112 or, in sea areas, the sea rescue number 0294 1000."
+    },
+    {
+      "id": "s5",
+      "title": "Poliisin neuvontapalvelu",
+      "publisher": "Suomi.fi, the Finnish government portal",
+      "url": "https://www.suomi.fi/palvelut/puhelinasiointi/poliisin-neuvontapalvelu-poliisi/3b9cb5ca-d07b-4c5e-a2d7-83cbe578eee9",
+      "updated": "2026-02-04",
+      "checked": "2026-11-18",
+      "note": "The page is in Finnish. poliisi.fi would not open, so this portal page was used."
+    }
+  ]
+}

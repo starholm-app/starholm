@@ -1,0 +1,266 @@
+{
+  "code": "SG",
+  "name": "Singapore",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "Fire and ambulance (SCDF)",
+      "short": "Fire, ambulance",
+      "number": "995",
+      "when": "Fire or ambulance",
+      "wallet": true,
+      "note": "For emergencies only.",
+      "sources": [
+        "s1",
+        "s2",
+        "s6"
+      ]
+    },
+    {
+      "label": "Police",
+      "short": "Police",
+      "number": "999",
+      "when": "Police",
+      "wallet": true,
+      "sources": [
+        "s3"
+      ]
+    },
+    {
+      "label": "Text for fire or ambulance, registered users",
+      "short": "SMS fire, ambulance",
+      "number": "70995",
+      "when": "Fire or ambulance by text, registered users",
+      "wallet": true,
+      "note": "For registered deaf, hard-of-hearing and speech-impaired users. Say what, where and which service.",
+      "sources": [
+        "s2"
+      ]
+    },
+    {
+      "label": "Text for police, if it is not safe to talk",
+      "short": "SMS police",
+      "number": "70999",
+      "when": "Police by text, when talking isn't safe",
+      "wallet": true,
+      "sources": [
+        "s3"
+      ]
+    },
+    {
+      "label": "NurseFirst, nurse advice for non-emergencies",
+      "short": "NurseFirst",
+      "number": "6262 6262",
+      "when": "Medical advice that isn't an emergency",
+      "wallet": true,
+      "sources": [
+        "s2"
+      ]
+    }
+  ],
+  "extra": {
+    "call_notes": [
+      {
+        "text": "About one in ten 995 calls is not an emergency, and each one can delay help for someone in danger. Unless you can't speak, call 995 rather than texting.",
+        "sources": [
+          "s2"
+        ]
+      },
+      {
+        "text": "The 1777 non-emergency ambulance line closes on 1 January 2027. For non-emergency trips to hospital, SCDF points to private ambulance operators, taxis and ride-hailing; the list is at go.gov.sg/pao.",
+        "sources": [
+          "s2"
+        ]
+      },
+      {
+        "text": "The SCDF hotline 1800 280 0000 stops on 21 December 2026. For emergencies call 995 or text 70995.",
+        "sources": [
+          "s1"
+        ]
+      },
+      {
+        "text": "Texting 70995 is for registered users who are deaf, hard of hearing or have a speech impairment. SCDF replies to their texts to say it is on its way.",
+        "sources": [
+          "s2"
+        ]
+      }
+    ],
+    "alerts": [
+      {
+        "text": "SG Alert sends emergency messages to phones by cell broadcast, for major fires, chemical incidents or terror incidents. It needs no app, no account and no mobile data, and nobody can unsubscribe.",
+        "sources": [
+          "s4"
+        ]
+      },
+      {
+        "text": "A pop-up shows with a distinct alert tone and vibration for up to 10 seconds, and it gets through Do Not Disturb and silent mode. It is free, and visitors on Singapore networks, data-only eSIMs included, receive it in the affected area.",
+        "sources": [
+          "s4"
+        ]
+      },
+      {
+        "text": "SG Alert is being rolled out one operator at a time, so it may not reach your phone yet. SCDF's page targets StarHub by the end of 2026, and M1 and SIMBA by mid-2027. Keep your phone's software up to date.",
+        "sources": [
+          "s4"
+        ]
+      },
+      {
+        "text": "A network of sirens covers the island. Three signals: Alarm means an air raid or shelling is about to happen, so go to a shelter at once. All Clear means the threat is over. Important Message means tune in to any local FM radio station or TV channel.",
+        "sources": [
+          "s5"
+        ]
+      },
+      {
+        "text": "SCDF also warns by free-to-air TV and radio, social media and the SGSecure mobile app.",
+        "sources": [
+          "s4"
+        ]
+      }
+    ],
+    "first_steps": [
+      {
+        "text": "When you call 995, give your name and phone number and the address or postal code. Without one, give a landmark such as a lamp post number or a bus stop number.",
+        "sources": [
+          "s2"
+        ]
+      },
+      {
+        "text": "On a medical call, describe the patient's signs briefly, stay on the line until the call taker says you can hang up, and send someone to meet the crew at the door or the lift lobby.",
+        "sources": [
+          "s2"
+        ]
+      },
+      {
+        "text": "In the open with no landmarks, call 995 through the myResponder app so your location is recorded.",
+        "sources": [
+          "s2"
+        ]
+      },
+      {
+        "text": "If you can't contain a fire, leave home at once and call 995.",
+        "sources": [
+          "s6"
+        ]
+      },
+      {
+        "text": "Read the alert carefully and follow the instructions in it.",
+        "sources": [
+          "s4"
+        ]
+      }
+    ],
+    "authorities": [
+      {
+        "name": "Singapore Civil Defence Force (SCDF)",
+        "role": "Fire, rescue and ambulance; runs the sirens and SG Alert.",
+        "url": "https://www.scdf.gov.sg",
+        "sources": [
+          "s1",
+          "s2",
+          "s4"
+        ]
+      },
+      {
+        "name": "Singapore Police Force",
+        "role": "Police; 999 and the text line 70999.",
+        "url": "https://www.police.gov.sg",
+        "sources": [
+          "s3"
+        ]
+      },
+      {
+        "name": "SGSecure",
+        "role": "National movement on the terror threat; has a mobile app that carries alerts.",
+        "url": "https://www.sgsecure.gov.sg",
+        "sources": [
+          "s4",
+          "s7"
+        ]
+      }
+    ],
+    "hazards": [
+      {
+        "text": "Flash floods.",
+        "sources": [
+          "s8"
+        ]
+      },
+      {
+        "text": "SCDF's sirens are for attacks from the air, land or sea, and for natural and other man-made disasters.",
+        "sources": [
+          "s5"
+        ]
+      }
+    ],
+    "climate": {
+      "text": "Tropical, hot, humid and rainy. Two monsoons: northeast from December to March and southwest from June to September, with frequent afternoon and evening thunderstorms between them.",
+      "sources": [
+        "s8"
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Singapore Civil Defence Force (home page)",
+      "publisher": "Singapore Civil Defence Force",
+      "url": "https://www.scdf.gov.sg/home/",
+      "updated": "2026-11-11",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s2",
+      "title": "Emergency Medical Services",
+      "publisher": "Singapore Civil Defence Force",
+      "url": "https://www.scdf.gov.sg/home/about-scdf/emergency-medical-services",
+      "updated": "2026-07-01",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s3",
+      "title": "Singapore Police Force (home page, Contact Us)",
+      "publisher": "Singapore Police Force",
+      "url": "https://www.police.gov.sg/",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s4",
+      "title": "Emergency Alert (SG Alert)",
+      "publisher": "Singapore Civil Defence Force",
+      "url": "https://www.scdf.gov.sg/home/civil-defence-shelter/emergency-alert-(sg-alert)",
+      "updated": "2026-10-16",
+      "checked": "2026-11-18",
+      "note": "SCDF's Civil Defence Emergency Handbook (10th edition, 2026) says Singtel subscribers get SG Alert from mid-2026 and all telcos by mid-2027, which is not the same plan. The page above is used."
+    },
+    {
+      "id": "s5",
+      "title": "Public Warning System",
+      "publisher": "Singapore Civil Defence Force",
+      "url": "https://www.scdf.gov.sg/home/civil-defence-shelter/public-warning-system",
+      "updated": "2026-10-06",
+      "checked": "2026-11-18",
+      "note": "The same page gives yearly siren tests on 15 February and 15 September at 6:20 pm, but SCDF's news page announced the 2026 island-wide sounding for 1 February at 3 pm. The test dates are left off the card."
+    },
+    {
+      "id": "s6",
+      "title": "Civil Defence Emergency Handbook, 10th edition",
+      "publisher": "Singapore Civil Defence Force",
+      "url": "https://www.scdf.gov.sg/docs/default-source/comm.---volunteers-(docs)/(2026)-scdf-emergency-handbook-(english).pdf?sfvrsn=1407b4dd_1",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s7",
+      "title": "SGSecure",
+      "publisher": "Singapore Government (sgsecure.gov.sg)",
+      "url": "https://www.sgsecure.gov.sg/",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s8",
+      "title": "Singapore, 2025 edition",
+      "publisher": "CIA World Factbook, final edition (23 January 2026), via worldfactbookarchive.org",
+      "url": "https://worldfactbookarchive.org/archive/2025/SG",
+      "checked": "2026-11-18"
+    }
+  ]
+}

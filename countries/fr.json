@@ -1,0 +1,101 @@
+{
+  "code": "FR",
+  "name": "France",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "European emergency number",
+      "short": "Emergency, EU no.",
+      "number": "112",
+      "when": "Any emergency, if you're not sure which to call",
+      "wallet": true,
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    },
+    {
+      "label": "Ambulance and medical emergency (SAMU)",
+      "short": "Ambulance (SAMU)",
+      "number": "15",
+      "when": "Someone is seriously ill or hurt",
+      "wallet": true,
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    },
+    {
+      "label": "Police",
+      "short": "Police",
+      "number": "17",
+      "when": "Crime or danger from someone, needs help now",
+      "wallet": true,
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    },
+    {
+      "label": "Fire brigade",
+      "short": "Fire brigade",
+      "number": "18",
+      "when": "Fire, accident, or a life in danger",
+      "wallet": true,
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    },
+    {
+      "label": "Emergency by text, for people who can't speak or hear",
+      "short": "Emergency by text",
+      "number": "114",
+      "when": "Can't speak or hear on a call. Text instead",
+      "wallet": false,
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    },
+    {
+      "label": "Sea rescue",
+      "short": "Sea rescue",
+      "number": "196",
+      "when": "Trouble at sea. Call from the coast",
+      "wallet": true,
+      "sources": [
+        "s1",
+        "s2",
+        "s3"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Quels sont les numéros en cas d'urgence (Samu, pompiers...) et les numéros d'écoute ?",
+      "publisher": "service-public.gouv.fr",
+      "url": "https://www.service-public.gouv.fr/particuliers/vosdroits/F33954",
+      "updated": "2026-08-25",
+      "checked": "2026-11-18",
+      "note": "The date is the page's own 'verified' date."
+    },
+    {
+      "id": "s2",
+      "title": "Les numéros utiles nationaux",
+      "publisher": "Ma Sécurité, French Ministry of the Interior",
+      "url": "https://www.masecurite.interieur.gouv.fr/fr/fiches-pratiques/famille-et-aides-aux-victimes/numeros-utiles-nationaux",
+      "updated": "2026-11-10",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s3",
+      "title": "Surveillance et sauvetage en mer",
+      "publisher": "French Ministry of Ecological Transition (mer.gouv.fr)",
+      "url": "https://www.mer.gouv.fr/surveillance-et-sauvetage-en-mer",
+      "updated": "2026-10-06",
+      "checked": "2026-11-18"
+    }
+  ]
+}

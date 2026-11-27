@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="print" viewBox="0 0 600 268" role="img" aria-labelledby="t d">
+<title id="t">Before you walk out the door</title>
+<desc id="d">Six quick steps: tell your outside contact where you are going; lock doors and windows; unplug small appliances, leaving the fridge and freezer on unless flooding is likely; shut off water, gas and electricity only if damaged and told to; leave a note saying when you left and where; wear sturdy shoes, long sleeves and a hat.</desc>
+<style>
+.bg{fill:#ffffff}.ink{fill:#1a1a1a}.mut{fill:#5e5e5e}.af{fill:#9a6524}.df{fill:#b83b30}.tint{fill:#f6ede2}.dtint{fill:#fbeeec}.ln{stroke:#2b2b2b;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.hair{stroke:#8f8f8f;fill:none;stroke-width:1}.rule{stroke:#d6d6d4;fill:none;stroke-width:1}.acc{stroke:#9a6524;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.dng{stroke:#b83b30;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.hatch{stroke:#b83b30;fill:none;stroke-width:1;opacity:.55}
+text{font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-size:15px}
+.h{font-size:18px;font-weight:700}.b{font-weight:700}.s{font-size:13px}.c{font-size:12px;font-weight:700;letter-spacing:.08em}.m{font-family:ui-monospace,Menlo,monospace;font-size:14px}.n{font-family:ui-monospace,Menlo,monospace;font-size:18px;font-weight:700}
+@media (prefers-color-scheme:dark){.bg{fill:#262626}.ink{fill:#ececec}.mut{fill:#a3a3a3}.af{fill:#d9a066}.df{fill:#ec8277}.tint{fill:#332a21}.dtint{fill:#2f2322}.ln{stroke:#cfcfcf}.hair{stroke:#6f6f6f}.rule{stroke:#3a3a3a}.acc{stroke:#d9a066}.dng{stroke:#ec8277}.hatch{stroke:#ec8277}}
+:target .bg{fill:#ffffff}:target .ink{fill:#1a1a1a}:target .mut{fill:#5e5e5e}:target .af{fill:#9a6524}:target .df{fill:#b83b30}:target .tint{fill:#f6ede2}:target .dtint{fill:#fbeeec}:target .ln{stroke:#2b2b2b}:target .hair{stroke:#8f8f8f}:target .rule{stroke:#d6d6d4}:target .acc{stroke:#9a6524}:target .dng{stroke:#b83b30}:target .hatch{stroke:#b83b30}
+</style>
+<rect class="bg" width="600" height="268" rx="10"/>
+<text class="ink h" x="24" y="34">Before you walk out the door</text>
+<path class="rule" d="M24 48 H576"/>
+<!-- 1 phone -->
+<g transform="translate(16,64)"><rect class="rule" width="276" height="56" rx="8"/><text class="af n" x="14" y="34">1</text>
+<rect class="ln" x="42" y="16" width="16" height="26" rx="3"/><path class="ln" d="M47 21 h6"/>
+<text class="ink" x="76" y="33">Tell your outside contact</text></g>
+<!-- 2 lock -->
+<g transform="translate(308,64)"><rect class="rule" width="276" height="56" rx="8"/><text class="af n" x="14" y="34">2</text>
+<rect class="ln" x="40" y="26" width="20" height="16" rx="2"/><path class="ln" d="M44 26 v-5 a6 6 0 0 1 12 0 v5"/>
+<text class="ink" x="76" y="33">Lock doors and windows</text></g>
+<!-- 3 plug -->
+<g transform="translate(16,130)"><rect class="rule" width="276" height="56" rx="8"/><text class="af n" x="14" y="34">3</text>
+<path class="ln" d="M46 14 v6 M54 14 v6 M42 20 h16 v8 q0 6 -8 6 q-8 0 -8 -6 z M50 34 v8"/>
+<text class="ink" x="76" y="25">Unplug small appliances;</text><text class="ink" x="76" y="44">fridge on unless flooding</text></g>
+<!-- 4 valve -->
+<g transform="translate(308,130)"><rect class="rule" width="276" height="56" rx="8"/><text class="af n" x="14" y="34">4</text>
+<circle class="ln" cx="50" cy="22" r="8"/><path class="ln" d="M44 22 h12 M50 30 v6 M38 40 h24"/>
+<text class="ink" x="76" y="25">Water, gas, power off</text><text class="ink" x="76" y="44">only if damaged and told to</text></g>
+<!-- 5 note -->
+<g transform="translate(16,196)"><rect class="rule" width="276" height="56" rx="8"/><text class="af n" x="14" y="34">5</text>
+<path class="ln" d="M40 14 h14 l6 6 v22 h-20 z M54 14 v6 h6"/><path class="hair" d="M44 28 h12 M44 34 h12"/>
+<text class="ink" x="76" y="25">Leave a note: when you</text><text class="ink" x="76" y="44">left, where you went</text></g>
+<!-- 6 shoe -->
+<g transform="translate(308,196)"><rect class="rule" width="276" height="56" rx="8"/><text class="af n" x="14" y="34">6</text>
+<path class="ln" d="M40 16 h10 v12 q10 2 14 8 v6 h-24 z M40 38 h24"/>
+<text class="ink" x="76" y="25">Sturdy shoes, long</text><text class="ink" x="76" y="44">sleeves, a hat</text></g>
+</svg>

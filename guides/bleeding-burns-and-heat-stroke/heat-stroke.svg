@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="print" viewBox="0 0 600 364" role="img" aria-labelledby="t d">
+<title id="t">Heat exhaustion and heat stroke</title>
+<desc id="d">Heat exhaustion: heavy sweating, pale clammy skin, cramps, headache, dizziness, a fast weak pulse; move somewhere cool, cool the skin, give fluids; not better in 30 minutes, treat as heat stroke. Heat stroke: hot flushed skin that is often dry, confusion or strange behavior, seizure or collapse; sweating may still be present after hard exercise; call your local emergency number first, move to shade, strip outer clothing, cold water up to the neck for about 15 minutes if possible, otherwise a wet sheet, ice packs and fanning.</desc>
+<style>
+.bg{fill:#ffffff}.ink{fill:#1a1a1a}.mut{fill:#5e5e5e}.af{fill:#9a6524}.df{fill:#b83b30}.tint{fill:#f6ede2}.dtint{fill:#fbeeec}.ln{stroke:#2b2b2b;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.hair{stroke:#8f8f8f;fill:none;stroke-width:1}.rule{stroke:#d6d6d4;fill:none;stroke-width:1}.acc{stroke:#9a6524;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.dng{stroke:#b83b30;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.hatch{stroke:#b83b30;fill:none;stroke-width:1;opacity:.55}
+text{font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-size:15px}
+.h{font-size:18px;font-weight:700}.b{font-weight:700}.s{font-size:13px}.c{font-size:12px;font-weight:700;letter-spacing:.08em}.m{font-family:ui-monospace,Menlo,monospace;font-size:14px}.n{font-family:ui-monospace,Menlo,monospace;font-size:18px;font-weight:700}
+@media (prefers-color-scheme:dark){.bg{fill:#262626}.ink{fill:#ececec}.mut{fill:#a3a3a3}.af{fill:#d9a066}.df{fill:#ec8277}.tint{fill:#332a21}.dtint{fill:#2f2322}.ln{stroke:#cfcfcf}.hair{stroke:#6f6f6f}.rule{stroke:#3a3a3a}.acc{stroke:#d9a066}.dng{stroke:#ec8277}.hatch{stroke:#ec8277}}
+:target .bg{fill:#ffffff}:target .ink{fill:#1a1a1a}:target .mut{fill:#5e5e5e}:target .af{fill:#9a6524}:target .df{fill:#b83b30}:target .tint{fill:#f6ede2}:target .dtint{fill:#fbeeec}:target .ln{stroke:#2b2b2b}:target .hair{stroke:#8f8f8f}:target .rule{stroke:#d6d6d4}:target .acc{stroke:#9a6524}:target .dng{stroke:#b83b30}:target .hatch{stroke:#b83b30}
+</style>
+<rect class="bg" width="600" height="364" rx="10"/>
+<g transform="translate(16,16)">
+<rect class="rule" width="276" height="332" rx="8"/>
+<text class="af h" x="16" y="32">Heat exhaustion</text>
+<rect class="ln" x="244" y="12" width="10" height="24" rx="5"/><circle class="tint" cx="249" cy="38" r="6"/><circle class="acc" cx="249" cy="38" r="6"/><path class="acc" d="M249 32 V24"/>
+<path class="rule" d="M16 46 H260"/>
+<text class="mut c" x="16" y="68">SIGNS</text>
+<text class="ink" x="16" y="88">Heavy sweating</text>
+<text class="ink" x="16" y="106">Pale, clammy skin</text>
+<text class="ink" x="16" y="124">Cramps, headache, dizziness</text>
+<text class="ink" x="16" y="142">Fast, weak pulse, thirst</text>
+<text class="mut c" x="16" y="172">DO</text>
+<text class="ink" x="16" y="192">Move somewhere cool</text>
+<text class="ink" x="16" y="210">Take off extra clothing</text>
+<text class="ink" x="16" y="228">Cool the skin, fan</text>
+<text class="ink" x="16" y="246">Give water or a sports drink</text>
+<path class="rule" d="M16 262 H260"/>
+<text class="df b" x="16" y="282">Not better in 30 minutes?</text>
+<text class="df b" x="16" y="300">Treat it as heat stroke.</text>
+</g>
+<g transform="translate(308,16)">
+<rect class="rule" width="276" height="332" rx="8"/>
+<text class="df h" x="16" y="32">Heat stroke: emergency</text>
+<rect class="ln" x="244" y="12" width="10" height="24" rx="5"/><circle class="dtint" cx="249" cy="38" r="6"/><circle class="dng" cx="249" cy="38" r="6"/><path class="dng" d="M249 32 V15"/>
+<path class="rule" d="M16 46 H230"/>
+<text class="mut c" x="16" y="68">SIGNS</text>
+<text class="ink" x="16" y="88">Hot, flushed skin, often dry</text>
+<text class="ink" x="16" y="106">(may still sweat after exercise)</text>
+<text class="ink" x="16" y="124">Confusion, strange behavior</text>
+<text class="ink" x="16" y="142">Seizure or collapse</text>
+<text class="mut c" x="16" y="172">DO</text>
+<text class="df b" x="16" y="192">1. Call your local emergency</text>
+<text class="df b" x="34" y="210">number first</text>
+<text class="ink" x="16" y="230">2. Shade, outer clothing off</text>
+<text class="ink" x="16" y="248">3. Cold water up to the neck,</text>
+<text class="ink" x="34" y="266">15 minutes. If you cannot: wet</text>
+<text class="ink" x="34" y="284">sheet, ice packs, fan</text>
+<text class="ink" x="16" y="302">4. Do not wait for a thermometer</text>
+<text class="mut s" x="16" y="322">Passes out? Recovery position.</text>
+</g>
+</svg>

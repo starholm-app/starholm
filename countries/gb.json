@@ -1,0 +1,347 @@
+{
+  "code": "GB",
+  "name": "United Kingdom",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "Police, ambulance and fire",
+      "short": "Police, ambul., fire",
+      "number": "999",
+      "when": "Danger to life, or a crime happening now",
+      "wallet": true,
+      "note": "Free. For danger to life, or a crime happening now.",
+      "sources": [
+        "s2",
+        "s3",
+        "s5"
+      ]
+    },
+    {
+      "label": "Same services, European number",
+      "short": "Same, European no.",
+      "number": "112",
+      "when": "Same as 999",
+      "wallet": true,
+      "note": "Works in the UK as well as 999.",
+      "sources": [
+        "s1"
+      ]
+    },
+    {
+      "label": "Police, not an emergency",
+      "short": "Police, non-urgent",
+      "number": "101",
+      "when": "Crime that isn't an emergency",
+      "wallet": true,
+      "note": "Free.",
+      "sources": [
+        "s2"
+      ]
+    },
+    {
+      "label": "NHS 111",
+      "short": "NHS 111",
+      "number": "111",
+      "when": "Medical help that isn't a 999 emergency",
+      "wallet": true,
+      "sources": [
+        "s4"
+      ]
+    },
+    {
+      "label": "Power cut line, England, Scotland and Wales",
+      "short": "Power cut",
+      "number": "105",
+      "when": "Report a power cut",
+      "wallet": true,
+      "sources": [
+        "s6"
+      ]
+    },
+    {
+      "label": "Power cut line, Northern Ireland",
+      "short": "Power cut, N. Ireland",
+      "number": "03457 643643",
+      "when": "Report a power cut",
+      "wallet": false,
+      "sources": [
+        "s6"
+      ]
+    },
+    {
+      "label": "Floodline",
+      "short": "Floodline",
+      "number": "0345 988 1188",
+      "when": "Flood warnings and advice, 24 hours",
+      "wallet": false,
+      "sources": [
+        "s7"
+      ]
+    },
+    {
+      "label": "Anti-terrorist hotline",
+      "short": "Anti-terror hotline",
+      "number": "0800 789 321",
+      "when": "Terrorism tip-off, if not happening now",
+      "wallet": false,
+      "note": "For an immediate threat, call 999 or this hotline. Free.",
+      "sources": [
+        "s2"
+      ]
+    }
+  ],
+  "extra": {
+    "call_notes": [
+      {
+        "text": "If you can't speak, call 999 and listen to the operator. If you are on a mobile and get asked, press 55 and the call goes to the police. Pressing 55 does not let the police track where you are.",
+        "sources": [
+          "s9"
+        ]
+      },
+      {
+        "text": "If you are deaf or can't use a phone, register with the emergency text service: text REGISTER to 999 while you are safe. You get a text back that says what to do next, and after that you can text in an emergency.",
+        "sources": [
+          "s9"
+        ]
+      },
+      {
+        "text": "NHS 111 is online for people aged 5 and over. For a child under 5, call 111.",
+        "sources": [
+          "s4"
+        ]
+      }
+    ],
+    "alerts": [
+      {
+        "text": "Emergency Alerts come to your phone for a life-threatening emergency such as wildfire, severe flooding or an extreme storm. The phone makes a loud siren-like sound even on silent, vibrates, and may read the alert out. This lasts about 10 seconds.",
+        "sources": [
+          "s8"
+        ]
+      },
+      {
+        "text": "They go by your current location, not where you live or work. You don't need location services on, and the government does not need your number.",
+        "sources": [
+          "s8"
+        ]
+      },
+      {
+        "text": "Only the emergency services and government bodies that deal with emergencies can send them. An alert carries a phone number or a GOV.UK link. The service never e-mails you or asks for personal details, so treat an e-mail about it as a scam.",
+        "sources": [
+          "s8"
+        ]
+      },
+      {
+        "text": "An alert does not replace local news, radio or television. Without a compatible phone, the emergency services have other ways to warn you.",
+        "sources": [
+          "s8"
+        ]
+      },
+      {
+        "text": "For weather warnings, the Met Office website has the latest warnings and e-mail alerts. GOV.UK shows current flood warnings and the flood risk for the next 5 days.",
+        "sources": [
+          "s7",
+          "s10"
+        ]
+      }
+    ],
+    "first_steps": [
+      {
+        "text": "Stop what you're doing when an alert comes and follow its instructions. Don't read it while driving: find a safe, legal place to stop first.",
+        "sources": [
+          "s8"
+        ]
+      },
+      {
+        "text": "Get out, stay out and call 999 if there is a fire. Don't tackle it yourself.",
+        "sources": [
+          "s5"
+        ]
+      },
+      {
+        "text": "Be ready for 3 days: keep water, a torch with spare batteries, a battery or wind-up FM radio and a power bank. Write the frequencies of your radio stations on paper. Torches are safer than candles.",
+        "sources": [
+          "s10",
+          "s11"
+        ]
+      },
+      {
+        "text": "Write down the number to report a power cut. You may lose internet and some mobile signal.",
+        "sources": [
+          "s6"
+        ]
+      }
+    ],
+    "authorities": [
+      {
+        "name": "Emergency Alerts (GOV.UK)",
+        "role": "The government system that sends phone alerts in a life-threatening emergency.",
+        "url": "https://www.gov.uk/alerts",
+        "sources": [
+          "s8"
+        ]
+      },
+      {
+        "name": "Be Ready campaign (GOV.UK)",
+        "role": "National guidance on getting ready for emergencies, including a checklist.",
+        "url": "https://beready.campaign.gov.uk",
+        "sources": [
+          "s10"
+        ]
+      },
+      {
+        "name": "Cabinet Office",
+        "role": "Publishes the National Risk Register, the government's assessment of the most serious risks to the UK.",
+        "url": null,
+        "sources": [
+          "s13"
+        ]
+      },
+      {
+        "name": "Met Office",
+        "role": "Weather warnings; the Be Ready site sends readers there.",
+        "url": null,
+        "sources": [
+          "s10"
+        ]
+      }
+    ],
+    "hazards": [
+      {
+        "text": "The Be Ready site covers cold weather, snow and ice, droughts, fires in the home, flooding, hot weather and heatwaves, power cuts, storms, water supply failures, phone and broadband outages, infectious disease and terrorism, among others.",
+        "sources": [
+          "s12"
+        ]
+      },
+      {
+        "text": "Winter windstorms and floods.",
+        "sources": [
+          "s14"
+        ]
+      },
+      {
+        "text": "Power cuts are mostly short and local, but wider ones lasting several days can happen. Gas boilers, ovens and home internet stop without power, and your mains water may be affected.",
+        "sources": [
+          "s6"
+        ]
+      }
+    ],
+    "climate": {
+      "text": "Temperate, softened by southwest winds over the North Atlantic. More than half of all days are overcast.",
+      "sources": [
+        "s14"
+      ]
+    }
+  },
+  "notices": [
+    "Contains public sector information licensed under the Open Government Licence v3.0."
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Emergency situations and keeping safe",
+      "publisher": "Northern Ireland Government (nidirect.gov.uk)",
+      "url": "https://www.nidirect.gov.uk/articles/emergency-situations-and-keeping-safe",
+      "checked": "2026-11-18",
+      "note": "The only government page found that says 112 works in the UK; it is a Northern Ireland page, and the numbers it gives are national."
+    },
+    {
+      "id": "s2",
+      "title": "Contact the police",
+      "publisher": "GOV.UK",
+      "url": "https://www.gov.uk/contact-police",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s3",
+      "title": "When to call 999",
+      "publisher": "NHS",
+      "url": "https://www.nhs.uk/nhs-services/urgent-and-emergency-care-services/when-to-call-999/",
+      "updated": "2023-02-03",
+      "checked": "2026-11-18",
+      "note": "The page's own review date is 3 February 2023, with the next review due 3 February 2026. It is past due."
+    },
+    {
+      "id": "s4",
+      "title": "When to use NHS 111 online or call 111",
+      "publisher": "NHS",
+      "url": "https://www.nhs.uk/nhs-services/urgent-and-emergency-care-services/when-to-use-111/",
+      "updated": "2022-11-14",
+      "checked": "2026-11-18",
+      "note": "The page's own review date is 14 November 2022."
+    },
+    {
+      "id": "s5",
+      "title": "Fires in the home",
+      "publisher": "Be Ready (UK Government)",
+      "url": "https://beready.campaign.gov.uk/be-informed-about-hazards/fires-in-the-home/",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s6",
+      "title": "Power cuts",
+      "publisher": "Be Ready (UK Government)",
+      "url": "https://beready.campaign.gov.uk/be-informed-about-hazards/power-cuts/",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s7",
+      "title": "Check for flooding",
+      "publisher": "GOV.UK",
+      "url": "https://www.gov.uk/check-flooding",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s8",
+      "title": "About Emergency Alerts",
+      "publisher": "GOV.UK Emergency Alerts",
+      "url": "https://www.gov.uk/alerts",
+      "checked": "2026-11-18",
+      "note": "The service is marked as a beta."
+    },
+    {
+      "id": "s9",
+      "title": "Domestic abuse: how to get help",
+      "publisher": "GOV.UK",
+      "url": "https://www.gov.uk/guidance/domestic-abuse-how-to-get-help",
+      "updated": "2025-04-29",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s10",
+      "title": "Be ready for emergencies (home page)",
+      "publisher": "Be Ready (UK Government)",
+      "url": "https://beready.campaign.gov.uk/",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s11",
+      "title": "Be ready for emergencies (checklist)",
+      "publisher": "Be Ready (UK Government)",
+      "url": "https://beready.campaign.gov.uk/be-ready-for-emergencies/",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s12",
+      "title": "Be informed about hazards",
+      "publisher": "Be Ready (UK Government)",
+      "url": "https://beready.campaign.gov.uk/be-informed-about-hazards/",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s13",
+      "title": "National Risk Register 2025",
+      "publisher": "Cabinet Office, GOV.UK",
+      "url": "https://www.gov.uk/government/publications/national-risk-register-2025",
+      "updated": "2025-01-16",
+      "checked": "2026-11-18",
+      "note": "The date is the publication date."
+    },
+    {
+      "id": "s14",
+      "title": "United Kingdom, 2025 edition",
+      "publisher": "CIA World Factbook, final edition (23 January 2026), via worldfactbookarchive.org",
+      "url": "https://worldfactbookarchive.org/archive/2025/GB",
+      "checked": "2026-11-18"
+    }
+  ]
+}

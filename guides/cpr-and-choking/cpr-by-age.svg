@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="print" viewBox="0 0 600 344" role="img" aria-labelledby="t d">
+<title id="t">CPR by age</title>
+<desc id="d">Adult: start with 30 pushes in the center of the chest, about 5 cm deep, using the heel of two hands. Child, 1 year to about puberty: 5 breaths first, then 30 pushes about 5 cm deep with one or two hands. Baby, under 1 year: 5 breaths first, then 30 pushes at least one third of the chest depth, about 4 cm, with two thumbs, hands around the chest. For all: 100 to 120 pushes a minute, then 2 breaths after every 30.</desc>
+<style>
+.bg{fill:#ffffff}.ink{fill:#1a1a1a}.mut{fill:#5e5e5e}.af{fill:#9a6524}.df{fill:#b83b30}.tint{fill:#f6ede2}.dtint{fill:#fbeeec}.ln{stroke:#2b2b2b;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.hair{stroke:#8f8f8f;fill:none;stroke-width:1}.rule{stroke:#d6d6d4;fill:none;stroke-width:1}.acc{stroke:#9a6524;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.dng{stroke:#b83b30;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.hatch{stroke:#b83b30;fill:none;stroke-width:1;opacity:.55}
+text{font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-size:15px}
+.h{font-size:18px;font-weight:700}.b{font-weight:700}.s{font-size:13px}.c{font-size:12px;font-weight:700;letter-spacing:.08em}.m{font-family:ui-monospace,Menlo,monospace;font-size:14px}.n{font-family:ui-monospace,Menlo,monospace;font-size:18px;font-weight:700}
+@media (prefers-color-scheme:dark){.bg{fill:#262626}.ink{fill:#ececec}.mut{fill:#a3a3a3}.af{fill:#d9a066}.df{fill:#ec8277}.tint{fill:#332a21}.dtint{fill:#2f2322}.ln{stroke:#cfcfcf}.hair{stroke:#6f6f6f}.rule{stroke:#3a3a3a}.acc{stroke:#d9a066}.dng{stroke:#ec8277}.hatch{stroke:#ec8277}}
+:target .bg{fill:#ffffff}:target .ink{fill:#1a1a1a}:target .mut{fill:#5e5e5e}:target .af{fill:#9a6524}:target .df{fill:#b83b30}:target .tint{fill:#f6ede2}:target .dtint{fill:#fbeeec}:target .ln{stroke:#2b2b2b}:target .hair{stroke:#8f8f8f}:target .rule{stroke:#d6d6d4}:target .acc{stroke:#9a6524}:target .dng{stroke:#b83b30}:target .hatch{stroke:#b83b30}
+</style>
+<rect class="bg" width="600" height="344" rx="10"/>
+<!-- figures to relative size: adult, child, baby -->
+<g class="ln">
+<circle cx="134" cy="22" r="7"/><rect x="127" y="32" width="14" height="34" rx="6"/>
+<circle cx="292" cy="38" r="6"/><rect x="286" y="47" width="12" height="19" rx="5"/>
+<circle cx="450" cy="54" r="5"/><rect x="456" y="50" width="20" height="10" rx="5"/>
+</g>
+<path class="hair" d="M24 66 H576"/>
+<text class="ink h" x="120" y="92">Adult</text>
+<text class="ink h" x="280" y="92">Child</text>
+<text class="ink h" x="440" y="92">Baby</text>
+<text class="mut s" x="280" y="110">1 year to puberty</text>
+<text class="mut s" x="440" y="110">under 1 year</text>
+<path class="rule" d="M24 122 H576 M24 170 H576 M24 226 H576 M24 280 H576"/>
+<text class="mut b" x="24" y="151">First</text>
+<text class="ink" x="120" y="151">30 pushes</text>
+<text class="af b" x="280" y="151">5 breaths</text>
+<text class="af b" x="440" y="151">5 breaths</text>
+<text class="mut b" x="24" y="200">Hands</text>
+<text class="ink" x="120" y="200">heel of 2 hands</text>
+<text class="ink" x="280" y="200">1 or 2 hands</text>
+<text class="ink" x="440" y="196">2 thumbs, hands</text>
+<text class="ink" x="440" y="214">round the chest</text>
+<text class="mut b" x="24" y="254">Depth</text>
+<text class="ink" x="120" y="254">about 5 cm</text>
+<text class="ink" x="280" y="254">a third, about 5 cm</text>
+<text class="ink" x="440" y="250">at least a third,</text>
+<text class="ink" x="440" y="268">about 4 cm</text>
+<text class="mut b" x="24" y="308">Then</text>
+<text class="ink" x="120" y="308">2 breaths after every 30 pushes,</text>
+<text class="ink" x="120" y="326">100 to 120 pushes a minute, all ages</text>
+</svg>

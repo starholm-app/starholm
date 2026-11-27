@@ -1,0 +1,108 @@
+{
+  "code": "CH",
+  "name": "Switzerland",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "Police",
+      "short": "Police",
+      "number": "117",
+      "when": "Police, in an emergency",
+      "wallet": true,
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    },
+    {
+      "label": "Fire brigade",
+      "short": "Fire brigade",
+      "number": "118",
+      "when": "Fire, in an emergency",
+      "wallet": true,
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    },
+    {
+      "label": "Ambulance",
+      "short": "Ambulance",
+      "number": "144",
+      "when": "Medical emergency",
+      "wallet": true,
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    },
+    {
+      "label": "European emergency number",
+      "short": "European emergency",
+      "number": "112",
+      "when": "Any emergency, from a mobile or any phone",
+      "wallet": true,
+      "note": "Free.",
+      "sources": [
+        "s2",
+        "s3"
+      ]
+    },
+    {
+      "label": "Poison information (Tox Info Suisse)",
+      "short": "Poison information",
+      "number": "145",
+      "when": "Poisoning advice",
+      "wallet": true,
+      "note": "Free. The page calls it the poisons hotline.",
+      "sources": [
+        "s2"
+      ]
+    },
+    {
+      "label": "Air rescue (Rega)",
+      "short": "Air rescue",
+      "number": "1414",
+      "when": "Mountain or remote emergency needing a helicopter",
+      "wallet": false,
+      "note": "The call is charged.",
+      "sources": [
+        "s4"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Emergency call services",
+      "publisher": "Federal Office of Communications OFCOM (bakom.admin.ch)",
+      "url": "https://www.bakom.admin.ch/en/emergency-call-services",
+      "updated": "2024-08-07",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s2",
+      "title": "Other numbers: free of charge or not?",
+      "publisher": "Federal Office of Communications OFCOM (bakom.admin.ch)",
+      "url": "https://www.bakom.admin.ch/en/other-numbers-free-of-charge-or-not",
+      "updated": "2024-05-22",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s3",
+      "title": "Who receives my emergency call? (OFCOM)",
+      "publisher": "Federal geodata portal (geo.admin.ch)",
+      "url": "https://www.geo.admin.ch/en/dataset-21072025",
+      "updated": "2025-07-21",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s4",
+      "title": "Gewitter",
+      "publisher": "Federal Chancellery, hazard pages (media.bk.admin.ch)",
+      "url": "https://www.media.bk.admin.ch/web/gefahren_de/ereignisfall_gew.html",
+      "checked": "2026-11-18",
+      "note": "The page is in German and shows no date. It names 1414 as Rega. ch.ch returned an error page, so it was not used."
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "code": "NO",
+  "name": "Norway",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "Police",
+      "short": "Police",
+      "number": "112",
+      "when": "Police, in an emergency",
+      "wallet": true,
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    },
+    {
+      "label": "Fire and rescue",
+      "short": "Fire and rescue",
+      "number": "110",
+      "when": "Fire, or a rescue",
+      "wallet": true,
+      "sources": [
+        "s2",
+        "s3"
+      ]
+    },
+    {
+      "label": "Ambulance",
+      "short": "Ambulance",
+      "number": "113",
+      "when": "Medical emergency, danger to life",
+      "wallet": true,
+      "sources": [
+        "s2",
+        "s4"
+      ]
+    },
+    {
+      "label": "Out-of-hours doctor",
+      "short": "Out-of-hours doctor",
+      "number": "116 117",
+      "when": "Ill, not life-threatening, GP closed",
+      "wallet": true,
+      "note": "Around the clock, free.",
+      "sources": [
+        "s4",
+        "s5"
+      ]
+    },
+    {
+      "label": "Poison information",
+      "short": "Poison information",
+      "number": "22 59 13 00",
+      "when": "Poisoning advice, any hour",
+      "wallet": true,
+      "note": "Call 113 for severe symptoms.",
+      "sources": [
+        "s6"
+      ]
+    },
+    {
+      "label": "Police, not an emergency",
+      "short": "Police, non-urgent",
+      "number": "02800",
+      "when": "Police, not for emergencies",
+      "wallet": false,
+      "note": "From abroad, +47 02800.",
+      "sources": [
+        "s1"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Contact the police",
+      "publisher": "Norwegian Police (politiet.no)",
+      "url": "https://www.politiet.no/english/contact-the-police",
+      "checked": "2026-11-18",
+      "note": "The page shows no date."
+    },
+    {
+      "id": "s2",
+      "title": "Nødmeldetjenesten",
+      "publisher": "Directorate for Civil Protection (DSB)",
+      "url": "https://www.dsb.no/brannsikkerhet/nodmelding/nodmeldetjenesten/",
+      "checked": "2026-11-18",
+      "note": "The page is in Norwegian and shows no date."
+    },
+    {
+      "id": "s3",
+      "title": "110-sentralene",
+      "publisher": "Directorate for Civil Protection (DSB)",
+      "url": "https://www.dsb.no/brannsikkerhet/nodmelding/110-sentralene/",
+      "checked": "2026-11-18",
+      "note": "The page shows no date."
+    },
+    {
+      "id": "s4",
+      "title": "Healthcare in Norway",
+      "publisher": "Helsenorge, the Norwegian health portal",
+      "url": "https://www.helsenorge.no/en/healthcare",
+      "updated": "2023-10-03",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s5",
+      "title": "Out-of-hours medical service in Norway (legevakt)",
+      "publisher": "Helsenorge, the Norwegian health portal",
+      "url": "https://helsenorge.no/other-languages/english/out-of-hours-medical-service",
+      "updated": "2023-03-09",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s6",
+      "title": "Førstehjelp ved forgiftninger - Giftinformasjonen",
+      "publisher": "Helsenorge, the Norwegian health portal",
+      "url": "https://helsenorge.no/en/poison-information/forstehjelp-ved-forgiftninger",
+      "updated": "2020-03-03",
+      "checked": "2026-11-18",
+      "note": "The page is a few years old and notes long waits on the line."
+    }
+  ]
+}

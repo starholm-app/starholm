@@ -1,0 +1,146 @@
+{
+  "code": "IE",
+  "name": "Ireland",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "Police, ambulance, fire and coast guard",
+      "short": "112, any emergency",
+      "number": "112",
+      "when": "Any emergency. At sea, ask for the Coast Guard",
+      "wallet": true,
+      "note": "Free from any phone. Works in any EU country.",
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    },
+    {
+      "label": "Same services, second number",
+      "short": "999, any emergency",
+      "number": "999",
+      "when": "Same as 112",
+      "wallet": true,
+      "note": "Free from any phone.",
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    },
+    {
+      "label": "Garda Confidential Line",
+      "short": "Garda confidential",
+      "number": "1800 666 111",
+      "when": "Confidential tip-off about a crime. Not for emergencies",
+      "wallet": false,
+      "note": "There is no single national non-urgent Garda number.",
+      "sources": [
+        "s2",
+        "s3"
+      ]
+    },
+    {
+      "label": "Poisons Information Line",
+      "short": "Poison information",
+      "number": "01 809 2166",
+      "when": "Child poisoning advice, 8am to 10pm. Collapsed? Call 999",
+      "wallet": true,
+      "sources": [
+        "s4"
+      ]
+    },
+    {
+      "label": "HSE Live",
+      "short": "HSE Live",
+      "number": "1800 700 700",
+      "when": "Health information, Monday to Saturday. Not for emergencies",
+      "wallet": true,
+      "sources": [
+        "s5",
+        "s6"
+      ]
+    },
+    {
+      "label": "Samaritans, emotional support",
+      "short": "Samaritans",
+      "number": "116 123",
+      "when": "Someone to talk to when you are struggling",
+      "wallet": false,
+      "sources": [
+        "s1"
+      ]
+    },
+    {
+      "label": "Power cut, ESB Networks",
+      "short": "Power cut",
+      "number": "1800 372 999",
+      "when": "Report a power cut or fault",
+      "wallet": true,
+      "sources": [
+        "s6"
+      ]
+    },
+    {
+      "label": "Gas Networks Ireland",
+      "short": "Gas Networks Ireland",
+      "number": "1800 20 50 50",
+      "when": "Smell of gas, any hour. Can't get through? Call 112 or 999",
+      "wallet": false,
+      "sources": [
+        "s6"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "How to contact emergency services in Ireland",
+      "publisher": "Department of the Taoiseach, gov.ie",
+      "url": "https://www.gov.ie/en/department-of-the-taoiseach/services/how-to-contact-emergency-services-in-ireland/",
+      "updated": "2025-04-11",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s2",
+      "title": "Garda Síochána - national police force",
+      "publisher": "Citizens Information",
+      "url": "https://www.citizensinformation.ie/en/justice/law-enforcement/garda-siochana-national-police-force/",
+      "updated": "2026-06-16",
+      "checked": "2026-11-18",
+      "note": "The date is the page's own 'page edited' date."
+    },
+    {
+      "id": "s3",
+      "title": "Contact Us",
+      "publisher": "An Garda Síochána",
+      "url": "https://www.garda.ie/en/contact-us/",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s4",
+      "title": "Poisoning in children",
+      "publisher": "Health Service Executive (HSE)",
+      "url": "https://www2.hse.ie/babies-children/first-aid/poisoning-in-children/",
+      "updated": "2026-07-19",
+      "checked": "2026-11-18",
+      "note": "The date is the page's own 'last reviewed' date."
+    },
+    {
+      "id": "s5",
+      "title": "Emergency care - adults",
+      "publisher": "Health Service Executive (HSE)",
+      "url": "https://www2.hse.ie/emergencies/when-to-call-112-or-999/",
+      "updated": "2022-10-19",
+      "checked": "2026-11-18",
+      "note": "The page's own review date is 19 October 2022, with the next review due 19 October 2025. It is past due."
+    },
+    {
+      "id": "s6",
+      "title": "Emergency contacts",
+      "publisher": "Office of Emergency Planning, gov.ie",
+      "url": "https://www.gov.ie/en/office-of-emergency-planning/publications/emergency-contacts/",
+      "updated": "2026-08-27",
+      "checked": "2026-11-18"
+    }
+  ]
+}

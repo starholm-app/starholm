@@ -1,0 +1,26 @@
+{
+ "about": "The maps on offer in the Maps tab: Kiwix's OpenStreetMap map files (maps2zim), one per country, group or continent that Kiwix publishes. Prefixes and file names checked against https://download.kiwix.org/zim/maps/ on 2026-11-24. listed: the newest file then, and its size as the listing rounds it. A download always takes the newest file Kiwix lists and checks it against that file's own .meta4. Countries with no file of their own come with their continent: Finland, Ireland, Spain and Portugal with Europe, India with Asia. The Gulf states file covers Bahrain, Kuwait, Oman, Qatar, Saudi Arabia and the other Gulf states. No country is offered in parts.",
+ "maps": [
+  {"id": "united-states", "name": "United States", "region": "North America", "prefix": "maps_en_united-states-of-america", "listed": {"file": "maps_en_united-states-of-america_2026-06.zim", "size": 16106127360, "read": "2026-11-24"}},
+  {"id": "canada", "name": "Canada", "region": "North America", "prefix": "maps_en_canada", "listed": {"file": "maps_en_canada_2026-06.zim", "size": 10737418240, "read": "2026-11-24"}},
+  {"id": "austria", "name": "Austria", "region": "Europe", "prefix": "maps_en_austria", "listed": {"file": "maps_en_austria_2026-06.zim", "size": 1181116006, "read": "2026-11-24"}},
+  {"id": "belgium", "name": "Belgium", "region": "Europe", "prefix": "maps_en_belgium", "listed": {"file": "maps_en_belgium_2026-06.zim", "size": 826277888, "read": "2026-11-24"}},
+  {"id": "denmark", "name": "Denmark", "region": "Europe", "prefix": "maps_en_denmark", "listed": {"file": "maps_en_denmark_2026-06.zim", "size": 622854144, "read": "2026-11-24"}},
+  {"id": "france", "name": "France", "region": "Europe", "prefix": "maps_en_france", "listed": {"file": "maps_en_france_2026-06.zim", "size": 5798205850, "read": "2026-11-24"}},
+  {"id": "germany", "name": "Germany", "region": "Europe", "prefix": "maps_en_germany", "listed": {"file": "maps_en_germany_2026-06.zim", "size": 3972844749, "read": "2026-11-24"}},
+  {"id": "italy", "name": "Italy", "region": "Europe", "prefix": "maps_en_italy", "listed": {"file": "maps_en_italy_2026-06.zim", "size": 2684354560, "read": "2026-11-24"}},
+  {"id": "netherlands", "name": "Netherlands", "region": "Europe", "prefix": "maps_en_netherlands", "listed": {"file": "maps_en_netherlands_2026-06.zim", "size": 1181116006, "read": "2026-11-24"}},
+  {"id": "norway", "name": "Norway", "region": "Europe", "prefix": "maps_en_norway", "listed": {"file": "maps_en_norway_2026-06.zim", "size": 4187593114, "read": "2026-11-24"}},
+  {"id": "sweden", "name": "Sweden", "region": "Europe", "prefix": "maps_en_sweden", "listed": {"file": "maps_en_sweden_2026-06.zim", "size": 2147483648, "read": "2026-11-24"}},
+  {"id": "switzerland", "name": "Switzerland", "region": "Europe", "prefix": "maps_en_switzerland", "listed": {"file": "maps_en_switzerland_2026-06.zim", "size": 684720128, "read": "2026-11-24"}},
+  {"id": "united-kingdom", "name": "United Kingdom", "region": "Europe", "prefix": "maps_en_united-kingdom", "listed": {"file": "maps_en_united-kingdom_2026-06.zim", "size": 1932735283, "read": "2026-11-24"}},
+  {"id": "europe", "name": "Europe (the whole continent)", "region": "Europe", "prefix": "maps_en_europe", "listed": {"file": "maps_en_europe_2026-08.zim", "size": 26843545600, "read": "2026-11-24"}},
+  {"id": "gulf", "name": "Gulf states", "region": "Middle East", "prefix": "maps_en_gcc-states", "listed": {"file": "maps_en_gcc-states_2026-06.zim", "size": 621805568, "read": "2026-11-24"}},
+  {"id": "south-africa", "name": "South Africa", "region": "Africa", "prefix": "maps_en_south-africa", "listed": {"file": "maps_en_south-africa_2026-06.zim", "size": 702545920, "read": "2026-11-24"}},
+  {"id": "malaysia-singapore-brunei", "name": "Malaysia, Singapore and Brunei", "region": "Asia", "prefix": "maps_en_malaysia-singapore-and-brunei", "listed": {"file": "maps_en_malaysia-singapore-and-brunei_2026-06.zim", "size": 380633088, "read": "2026-11-24"}},
+  {"id": "philippines", "name": "Philippines", "region": "Asia", "prefix": "maps_en_philippines", "listed": {"file": "maps_en_philippines_2026-06.zim", "size": 553648128, "read": "2026-11-24"}},
+  {"id": "asia", "name": "Asia (the whole continent)", "region": "Asia", "prefix": "maps_en_asia", "listed": {"file": "maps_en_asia_2026-08.zim", "size": 21474836480, "read": "2026-11-24"}},
+  {"id": "australia", "name": "Australia", "region": "Oceania", "prefix": "maps_en_australia", "listed": {"file": "maps_en_australia_2026-06.zim", "size": 1932735283, "read": "2026-11-24"}},
+  {"id": "new-zealand", "name": "New Zealand", "region": "Oceania", "prefix": "maps_en_new-zealand", "listed": {"file": "maps_en_new-zealand_2026-06.zim", "size": 3972844749, "read": "2026-11-24"}}
+ ]
+}

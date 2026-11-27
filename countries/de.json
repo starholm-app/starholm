@@ -1,0 +1,78 @@
+{
+  "code": "DE",
+  "name": "Germany",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "Fire brigade and ambulance",
+      "short": "Fire, ambulance",
+      "number": "112",
+      "when": "Fire, or a medical emergency",
+      "wallet": true,
+      "sources": [
+        "s1",
+        "s2",
+        "s3"
+      ]
+    },
+    {
+      "label": "Police",
+      "short": "Police",
+      "number": "110",
+      "when": "Crime in progress, or danger from someone",
+      "wallet": true,
+      "sources": [
+        "s1",
+        "s3"
+      ]
+    },
+    {
+      "label": "Doctor on call, not an emergency",
+      "short": "Doctor on call",
+      "number": "116 117",
+      "when": "Ill and surgeries are shut. Not an emergency",
+      "wallet": true,
+      "sources": [
+        "s2",
+        "s3",
+        "s4"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Tipps für Spontanhelfende: Während des Einsatzes",
+      "publisher": "Federal Office of Civil Protection and Disaster Assistance (BBK)",
+      "url": "https://www.bbk.bund.de/DE/Themen/Krisenmanagement/Mensch-und-Gesellschaft/Spontanhelfende/Infos-Helfende/Waehrend-des-Einsatzes/waehrend-des-einsatzes.html",
+      "checked": "2026-11-18",
+      "note": "The page shows no update date. BBK's terms forbid copying its text, so it is credited, not quoted."
+    },
+    {
+      "id": "s2",
+      "title": "Numbers to call in the event of an emergency",
+      "publisher": "gesund.bund.de, federal health information portal",
+      "url": "https://gesund.bund.de/en/notfallnummern",
+      "updated": "2022-06-08",
+      "checked": "2026-11-18",
+      "note": "The page's own date is 8 June 2022. It shows 112 and 116 117, not 110."
+    },
+    {
+      "id": "s3",
+      "title": "Schnelle Hilfe im Notfall",
+      "publisher": "Germany for Ukraine, run by the Federal Office for Migration and Refugees (BAMF)",
+      "url": "https://www.germany4ukraine.de/DE/schnelle-hilfe-im-notfall/seite_node",
+      "checked": "2026-11-18",
+      "note": "The page shows no update date."
+    },
+    {
+      "id": "s4",
+      "title": "Reform der Notfallversorgung",
+      "publisher": "Bundesregierung",
+      "url": "https://www.bundesregierung.de/breg-de/aktuelles/reform-der-notfallversorgung-2413524",
+      "updated": "2026-10-15",
+      "checked": "2026-11-18",
+      "note": "The page names 116 117 as the doctors' on-call line and 112 as the emergency number."
+    }
+  ]
+}

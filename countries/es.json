@@ -1,0 +1,99 @@
+{
+  "code": "ES",
+  "name": "Spain",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "Emergency number for all of Spain",
+      "short": "Emergencies",
+      "number": "112",
+      "when": "Any emergency",
+      "wallet": true,
+      "sources": [
+        "s1"
+      ]
+    },
+    {
+      "label": "National Police",
+      "short": "National Police",
+      "number": "091",
+      "when": "Urgent police help",
+      "wallet": true,
+      "sources": [
+        "s2"
+      ]
+    },
+    {
+      "label": "Guardia Civil",
+      "short": "Guardia Civil",
+      "number": "062",
+      "when": "Urgent help from the Guardia Civil",
+      "wallet": true,
+      "sources": [
+        "s3"
+      ]
+    },
+    {
+      "label": "Poison information",
+      "short": "Poison information",
+      "number": "915 620 420",
+      "when": "Poisoning advice; call 112 if someone collapses",
+      "wallet": true,
+      "sources": [
+        "s4"
+      ]
+    },
+    {
+      "label": "Sea rescue, calling from land",
+      "short": "Sea rescue",
+      "number": "900 202 202",
+      "when": "Trouble at sea. Call from the coast",
+      "wallet": false,
+      "sources": [
+        "s5"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Services provided through national emergency numbers (112)",
+      "publisher": "Punto de Acceso General, Spanish government (administracion.gob.es)",
+      "url": "https://administracion.gob.es/en/tu-espacio-europeo/derechos-obligaciones/ciudadanos/asistencia-sanitaria/numeros-urgencia",
+      "updated": "2026-10-01",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s2",
+      "title": "Oficina Virtual de Denuncias",
+      "publisher": "Spanish National Police (denuncias.policia.es)",
+      "url": "https://denuncias.policia.es/OVD/",
+      "checked": "2026-11-18",
+      "note": "The page shows no update date."
+    },
+    {
+      "id": "s3",
+      "title": "Servicio de Atención al Turista Extranjero (SATE)",
+      "publisher": "Guardia Civil (guardiacivil.es)",
+      "url": "https://web.guardiacivil.es/es/colaboracion/planturismoseguro/ServicioAtencionTuristaExtranjero/",
+      "checked": "2026-11-18",
+      "note": "The page shows no update date."
+    },
+    {
+      "id": "s4",
+      "title": "¿Qué es el Servicio de Información Toxicológica (SIT)?",
+      "publisher": "Instituto Nacional de Toxicología y Ciencias Forenses, Ministry of Justice",
+      "url": "https://www.mjusticia.gob.es/es/institucional/organismos/instituto-nacional/servicios/servicio-informacion/servicio-informacion1",
+      "checked": "2026-11-18",
+      "note": "The page shows no update date. It gives a separate line for doctors."
+    },
+    {
+      "id": "s5",
+      "title": "Organización y medios",
+      "publisher": "Ministry of Transport and Sustainable Mobility (transportes.gob.es)",
+      "url": "https://www.transportes.gob.es/marina-mercante/nautica-de-recreo/salvamento-y-seguridad-maritima/organizacion-y-medios/salvamento-y-seguridad-maritima-medios-y-coordinacion",
+      "checked": "2026-11-18",
+      "note": "The page shows no update date."
+    }
+  ]
+}

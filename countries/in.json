@@ -1,0 +1,142 @@
+{
+  "code": "IN",
+  "name": "India",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "Police, fire, ambulance and other emergencies",
+      "short": "All emergencies",
+      "number": "112",
+      "when": "Any emergency: police, fire or ambulance",
+      "wallet": true,
+      "note": "The single national number. Older numbers are still listed beside it.",
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    },
+    {
+      "label": "Emergency ambulance",
+      "short": "Emergency ambulance",
+      "number": "108",
+      "when": "Accident or serious illness (most states)",
+      "wallet": true,
+      "note": "Incredible India labels 108 'disaster management'; Haryana and Telangana list it as the ambulance line.",
+      "sources": [
+        "s4",
+        "s5"
+      ]
+    },
+    {
+      "label": "Police",
+      "short": "Police",
+      "number": "100",
+      "when": "Police help",
+      "wallet": true,
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    },
+    {
+      "label": "Fire",
+      "short": "Fire",
+      "number": "101",
+      "when": "Fire brigade, for a fire",
+      "wallet": true,
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    },
+    {
+      "label": "National Ambulance Service, patient transport",
+      "short": "Patient transport",
+      "number": "102",
+      "when": "Patient transport. Emergency? Call 112 or 108",
+      "wallet": false,
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    },
+    {
+      "label": "Child helpline",
+      "short": "Child helpline",
+      "number": "1098",
+      "when": "A child needs help or is in danger",
+      "wallet": false,
+      "note": "Both pages call it a child helpline. Hours not shown.",
+      "sources": [
+        "s1",
+        "s3"
+      ]
+    },
+    {
+      "label": "Women helpline",
+      "short": "Women helpline",
+      "number": "181",
+      "when": "A woman needs help or is in danger",
+      "wallet": false,
+      "sources": [
+        "s1",
+        "s3"
+      ]
+    },
+    {
+      "label": "Tourist helpline",
+      "short": "Tourist helpline",
+      "number": "1363",
+      "when": "Visitor help. In an emergency, call 112",
+      "wallet": true,
+      "note": "India Portal also prints 1800-11-1363.",
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Helpline | Directory | National Portal of India",
+      "publisher": "National Portal of India (NIC, MeitY)",
+      "url": "https://www.india.gov.in/directory/helpline",
+      "updated": "2026-11-18",
+      "checked": "2026-11-18",
+      "note": "The date is the page footer's 'last reviewed and updated' date."
+    },
+    {
+      "id": "s2",
+      "title": "Emergency",
+      "publisher": "Incredible India, Ministry of Tourism",
+      "url": "https://www.incredibleindia.gov.in/en/emergency",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s3",
+      "title": "Home | Ministry of Women and Child Development",
+      "publisher": "Ministry of Women and Child Development",
+      "url": "https://wcd.gov.in/",
+      "updated": "2026-11-17",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s4",
+      "title": "Helpline | Haryana Government | India",
+      "publisher": "Government of Haryana",
+      "url": "https://www.haryana.gov.in/helpline/",
+      "updated": "2020-05-15",
+      "checked": "2026-11-18",
+      "note": "The page's own last-updated date is old. It prints 'Ambulance Help Line – 108'."
+    },
+    {
+      "id": "s5",
+      "title": "Telangana Emergency Contacts – Official Helplines",
+      "publisher": "Government of Telangana",
+      "url": "https://www.telangana.gov.in/contacts/emergency-contacts/",
+      "checked": "2026-11-18",
+      "note": "The page shows no update date. It prints 'Ambulance : 108'."
+    }
+  ]
+}

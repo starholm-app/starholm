@@ -1,0 +1,21 @@
+# Direct dependencies of the app and the library pipeline. requirements.lock pins these and everything they pull
+# in, with hashes, for Homebrew Python 3.13 on Apple silicon.
+#
+# Every package has a wheel except proxy-tools 0.1.0 (a 3 KB pure-Python source package from 2014 that pywebview 4+
+# requires). With wheels only, the resolver falls back to pywebview 3.4 (2020), so pywebview is held at 6.2.1, the
+# version the app was written against, and proxy-tools is built from its hashed sdist with the hashed build backend
+# in requirements-build.lock. The exact install commands are at the top of requirements.lock.
+#
+# Regenerate after editing this file (then put the INSTALL block back at the top of requirements.lock):
+#   uv pip compile --generate-hashes --python-version 3.13 --python-platform aarch64-apple-darwin \
+#     requirements.in -o requirements.lock
+#   uv pip compile --generate-hashes --only-binary :all: --python-version 3.13 \
+#     --python-platform aarch64-apple-darwin requirements-build.in -o requirements-build.lock
+libzim               # reads Kiwix ZIM files (build_library.py, fetch_risk.py)
+lxml                 # HTML to text (build_library.py)
+trafilatura          # fallback boilerplate removal for scraped pages (build_library.py)
+pypdf                # text from your own PDFs (library/myfiles.py)
+pywebview>=6.2.1     # the app window (app/server.py); on macOS it brings pyobjc, which server.py also uses
+truststore           # the system certificate store for HTTPS (app/server.py)
+cryptography         # Ed25519 check of the upgrade key, offline (upgrade/key.py); the standard library has no Ed25519
+zstandard            # unpacks the compressed (format 2) upgrade packs as they download (upgrade/packs.py); 3.13 has no zstd

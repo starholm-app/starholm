@@ -1,0 +1,183 @@
+{
+  "code": "DK",
+  "name": "Denmark",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "Alarm centre: police, fire and ambulance",
+      "short": "All emergencies",
+      "number": "112",
+      "when": "Any emergency, including at sea",
+      "wallet": true,
+      "note": "The operator passes you to police, ambulance, fire or rescue.",
+      "sources": [
+        "s1",
+        "s2",
+        "s4"
+      ]
+    },
+    {
+      "label": "Police, not an emergency",
+      "short": "Police, non-urgent",
+      "number": "114",
+      "when": "Police, not for emergencies",
+      "wallet": true,
+      "note": "Staffed 07:00 to 23:00, then the police control centre. From abroad, +45 114.",
+      "sources": [
+        "s3",
+        "s2"
+      ]
+    },
+    {
+      "label": "Poison information (Giftlinjen)",
+      "short": "Poison information",
+      "number": "82 12 12 12",
+      "when": "Poisoning advice, any hour",
+      "wallet": true,
+      "sources": [
+        "s5",
+        "s6"
+      ]
+    },
+    {
+      "label": "Out-of-hours doctor, Capital Region",
+      "short": "Doctor, Capital Region",
+      "number": "1813",
+      "when": "Doctor out of hours. Not for emergencies",
+      "wallet": false,
+      "note": "The page calls it the akuttelefon (urgent phone line) of Region Hovedstaden.",
+      "sources": [
+        "s7"
+      ]
+    },
+    {
+      "label": "Out-of-hours doctor, Region Sjælland",
+      "short": "Doctor, Sjælland",
+      "number": "1818",
+      "when": "Doctor out of hours. Not for emergencies",
+      "wallet": false,
+      "note": "Same number for the Skadetelefonen and the psychiatric emergency line.",
+      "sources": [
+        "s6"
+      ]
+    },
+    {
+      "label": "Out-of-hours doctor, Region Syddanmark",
+      "short": "Doctor, Syddanmark",
+      "number": "70 11 07 07",
+      "when": "Doctor out of hours. Not for emergencies",
+      "wallet": false,
+      "note": "Call first, do not just turn up.",
+      "sources": [
+        "s8"
+      ]
+    },
+    {
+      "label": "Out-of-hours doctor, Region Midtjylland",
+      "short": "Doctor, Midtjylland",
+      "number": "70 11 31 31",
+      "when": "Doctor out of hours. Not for emergencies",
+      "wallet": false,
+      "note": "Weekdays 16:00 to 08:00, all day at weekends and holidays.",
+      "sources": [
+        "s9"
+      ]
+    },
+    {
+      "label": "Out-of-hours doctor, Region Nordjylland",
+      "short": "Doctor, Nordjylland",
+      "number": "70 150 300",
+      "when": "Doctor out of hours. Not for emergencies",
+      "wallet": false,
+      "note": "Call before going in. Opening times differ by town.",
+      "sources": [
+        "s10"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Alarm 112",
+      "publisher": "Danish Police (politi.dk)",
+      "url": "https://politi.dk/om-politiet/kontakt-politiet/alarm-112",
+      "checked": "2026-11-18",
+      "note": "The page is in Danish and shows no date."
+    },
+    {
+      "id": "s2",
+      "title": "Kontakt politiet",
+      "publisher": "borger.dk, the Danish citizen portal",
+      "url": "https://www.borger.dk/politi-retsvaesen-forsvar/Politi/kontakt-politiet",
+      "checked": "2026-11-18",
+      "note": "The page is in Danish and shows no date."
+    },
+    {
+      "id": "s3",
+      "title": "Service 114",
+      "publisher": "Danish Police (politi.dk)",
+      "url": "https://politi.dk/om-politiet/kontakt-politiet/service-114",
+      "checked": "2026-11-18",
+      "note": "The page is in Danish and shows no date."
+    },
+    {
+      "id": "s4",
+      "title": "Joint Rescue and Coordination Center",
+      "publisher": "Danish Defence (forsvaret.dk)",
+      "url": "https://www.forsvaret.dk/da/organisation/soevaernet/nationalt-maritimt-operationscenter/joint-rescue-coordination-center/",
+      "updated": "2025-03-25",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s5",
+      "title": "Giftlinjen",
+      "publisher": "Region Nordjylland (rn.dk)",
+      "url": "https://rn.dk/da/Sundhed/Akut-sygdom/Giftlinjen",
+      "updated": "2025-01-22",
+      "checked": "2026-11-18",
+      "note": "Region Nordjylland's page says the line is open 24 hours, every day."
+    },
+    {
+      "id": "s6",
+      "title": "Akuthjælp",
+      "publisher": "Region Sjælland",
+      "url": "https://www.regionsjaelland.dk/sundhed/akuthjaelp",
+      "checked": "2026-11-18",
+      "note": "The page is in Danish and shows no date. It lists 82 12 12 12 as Giftlinjen."
+    },
+    {
+      "id": "s7",
+      "title": "Akutte sårskader",
+      "publisher": "Patienthåndbogen, sundhed.dk (the Danish health portal)",
+      "url": "https://www.sundhed.dk/borger/patienthaandbogen/akutte-sygdomme/foerstehjaelp/saar-og-bloedninger/saarskader/",
+      "updated": "2026-05-27",
+      "checked": "2026-11-18",
+      "note": "The page is in Danish. It says that in Region Hovedstaden you contact the akuttelefon 1813 for smaller injuries. It states no hours."
+    },
+    {
+      "id": "s8",
+      "title": "Lægevagten",
+      "publisher": "Region Syddanmark",
+      "url": "https://regionsyddanmark.dk/patienter-og-parorende/akuthjaelp/laegevagt-i-region-syddanmark/laegevagten",
+      "checked": "2026-11-18",
+      "note": "The page is in Danish and shows no date."
+    },
+    {
+      "id": "s9",
+      "title": "Lægevagten og Lægevagtens Natberedskab",
+      "publisher": "Region Midtjylland",
+      "url": "https://www.sundhed.rm.dk/akuthjalp/lagevagten/",
+      "checked": "2026-11-18",
+      "note": "The page is in Danish and shows no date."
+    },
+    {
+      "id": "s10",
+      "title": "Lægevagten",
+      "publisher": "Region Nordjylland (rn.dk)",
+      "url": "https://rn.dk/da/Sundhed/Akut-sygdom/Laegevagten",
+      "updated": "2026-02-23",
+      "checked": "2026-11-18",
+      "note": "The page is in Danish."
+    }
+  ]
+}

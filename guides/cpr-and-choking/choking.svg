@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="print" viewBox="0 0 600 496" role="img" aria-labelledby="t d">
+<title id="t">Choking: back blows and thrusts</title>
+<desc id="d">Adult or child who cannot cough, speak or breathe: up to 5 back blows between the shoulder blades, then up to 5 abdominal thrusts with a fist between the navel and the ribs, and repeat. Baby: up to 5 back blows face down along the arm with the head lower than the body, then up to 5 chest thrusts face up in the center of the chest below the nipple line; never abdominal thrusts. Not clear: call your local emergency number. If they stop responding, lower them to the floor and start CPR.</desc>
+<style>
+.bg{fill:#ffffff}.ink{fill:#1a1a1a}.mut{fill:#5e5e5e}.af{fill:#9a6524}.df{fill:#b83b30}.tint{fill:#f6ede2}.dtint{fill:#fbeeec}.ln{stroke:#2b2b2b;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.hair{stroke:#8f8f8f;fill:none;stroke-width:1}.rule{stroke:#d6d6d4;fill:none;stroke-width:1}.acc{stroke:#9a6524;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.dng{stroke:#b83b30;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.hatch{stroke:#b83b30;fill:none;stroke-width:1;opacity:.55}
+text{font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-size:15px}
+.h{font-size:18px;font-weight:700}.b{font-weight:700}.s{font-size:13px}.c{font-size:12px;font-weight:700;letter-spacing:.08em}.m{font-family:ui-monospace,Menlo,monospace;font-size:14px}.n{font-family:ui-monospace,Menlo,monospace;font-size:18px;font-weight:700}
+@media (prefers-color-scheme:dark){.bg{fill:#262626}.ink{fill:#ececec}.mut{fill:#a3a3a3}.af{fill:#d9a066}.df{fill:#ec8277}.tint{fill:#332a21}.dtint{fill:#2f2322}.ln{stroke:#cfcfcf}.hair{stroke:#6f6f6f}.rule{stroke:#3a3a3a}.acc{stroke:#d9a066}.dng{stroke:#ec8277}.hatch{stroke:#ec8277}}
+:target .bg{fill:#ffffff}:target .ink{fill:#1a1a1a}:target .mut{fill:#5e5e5e}:target .af{fill:#9a6524}:target .df{fill:#b83b30}:target .tint{fill:#f6ede2}:target .dtint{fill:#fbeeec}:target .ln{stroke:#2b2b2b}:target .hair{stroke:#8f8f8f}:target .rule{stroke:#d6d6d4}:target .acc{stroke:#9a6524}:target .dng{stroke:#b83b30}:target .hatch{stroke:#b83b30}
+</style>
+<rect class="bg" width="600" height="496" rx="10"/>
+<g transform="translate(16,16)">
+<rect class="rule" width="568" height="196" rx="8"/>
+<text class="ink h" x="16" y="32">Adult or child: cannot cough or speak</text>
+<path class="rule" d="M16 46 H552"/>
+<text class="af n" x="16" y="76">1</text>
+<text class="ink b" x="40" y="75">Up to 5 back blows</text>
+<text class="ink" x="40" y="95">Lean them forward. Heel of your hand, between the shoulder blades.</text>
+<text class="af n" x="16" y="128">2</text>
+<text class="ink b" x="40" y="127">Up to 5 abdominal thrusts</text>
+<text class="ink" x="40" y="147">Stand behind. Fist between navel and ribs, pull sharply in and up.</text>
+<text class="mut s" x="40" y="178">Repeat 5 and 5 until it clears.</text>
+</g>
+<g transform="translate(16,224)">
+<rect class="rule" width="568" height="196" rx="8"/>
+<text class="ink h" x="16" y="32">Baby: cannot cough or cry</text>
+<path class="rule" d="M16 46 H552"/>
+<text class="af n" x="16" y="76">1</text>
+<text class="ink b" x="40" y="75">Up to 5 back blows</text>
+<text class="ink" x="40" y="95">Face down along your arm, head lower than the body.</text>
+<text class="af n" x="16" y="128">2</text>
+<text class="ink b" x="40" y="127">Up to 5 chest thrusts</text>
+<text class="ink" x="40" y="147">Face up. Center of the chest, just below the nipple line, push sharply.</text>
+<text class="df b" x="40" y="178">Never abdominal thrusts on a baby.</text>
+</g>
+<path class="dng" style="stroke-width:3" d="M18 436 V480"/>
+<text class="ink b" x="32" y="454">Not clear? Call your local emergency number.</text>
+<text class="ink b" x="32" y="474">Stops responding? Lower to the floor, start CPR.</text>
+</svg>

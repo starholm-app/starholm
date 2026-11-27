@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" data-t="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="token" content="{{TOKEN}}">
+<title>Starholm printout</title>
+<link rel="stylesheet" href="/static/app.css">
+<link rel="stylesheet" href="/static/maps.css">
+<script src="/static/render.js" defer></script>
+<script src="/static/api.js" defer></script>
+<script src="/static/country.js" defer></script>
+<script src="/static/pack.js" defer></script>
+<script src="/static/family-plan.js" defer></script>
+<script src="/static/maps.js" defer></script>
+<script src="/static/print.js" defer></script>
+</head>
+<body>
+<!-- One guide, the emergency pack, the family plan or a library document, laid out for printing (POST /api/guides/booklet,
+     /api/guides/print, /api/print/…; print.js says which from the address). The server's offscreen web view loads this
+     page, waits for <html data-print-ready="1">, and prints it with app.css's print rules. It runs none of app.js. -->
+<div class="app print-page">
+  <div class="reading">
+    <div class="reading-scroll">
+      <article class="reading-col" id="reading-col" data-md-root></article>
+    </div>
+  </div>
+</div>
+</body>
+</html>

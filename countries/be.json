@@ -1,0 +1,222 @@
+{
+  "code": "BE",
+  "name": "Belgium",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "Ambulance and fire",
+      "short": "Ambulance, fire",
+      "number": "112",
+      "when": "Fire, or an ambulance",
+      "wallet": true,
+      "note": "Free to call anywhere in Europe.",
+      "sources": [
+        "s1"
+      ]
+    },
+    {
+      "label": "Urgent police",
+      "short": "Urgent police",
+      "number": "101",
+      "when": "Urgent police help",
+      "wallet": true,
+      "note": "Free, 24 hours a day.",
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    },
+    {
+      "label": "Doctor on duty",
+      "short": "Doctor on duty",
+      "number": "1733",
+      "when": "Ill, and your own doctor is shut",
+      "wallet": true,
+      "note": "For medical problems that cannot wait for your own doctor's surgery hours.",
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    },
+    {
+      "label": "Poison centre",
+      "short": "Poison centre",
+      "number": "070 245 245",
+      "when": "Poisoning, any hour",
+      "wallet": true,
+      "note": "Free, 24 hours a day.",
+      "sources": [
+        "s2",
+        "s3"
+      ]
+    },
+    {
+      "label": "Non-urgent fire help in a storm",
+      "short": "Storm help",
+      "number": "1722",
+      "when": "Storm or flood damage that isn't urgent",
+      "wallet": true,
+      "note": "Active only during a storm. The website 1722.be is always open.",
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    }
+  ],
+  "extra": {
+    "call_notes": [
+      {
+        "text": "Don't call 112 for ordinary storm damage. Use the website 1722.be instead.",
+        "sources": [
+          "s1"
+        ]
+      }
+    ],
+    "alerts": [
+      {
+        "text": "BE-Alert: a mayor, a provincial governor or the Interior Minister can send you a text, a voice call or an e-mail. Registering is free, and so are the messages.",
+        "sources": [
+          "s4"
+        ]
+      },
+      {
+        "text": "If your phone is connected to a mast in the risk zone you get a text without registering. Registering also reaches you when you are away from home, and you can add up to five addresses, such as a workplace or a relative's home.",
+        "sources": [
+          "s5"
+        ]
+      },
+      {
+        "text": "A municipality that is not yet on BE-Alert can still reach you through the governor of its province. If the phone network is jammed, the authorities use other channels.",
+        "sources": [
+          "s5"
+        ]
+      }
+    ],
+    "first_steps": [
+      {
+        "text": "Register at be-alert.be before you need it.",
+        "sources": [
+          "s4",
+          "s5"
+        ]
+      }
+    ],
+    "authorities": [
+      {
+        "name": "FPS Home Affairs, 112.be",
+        "role": "Runs the 112 emergency number and lists the other emergency numbers.",
+        "url": "https://www.112.be",
+        "sources": [
+          "s1",
+          "s2"
+        ]
+      },
+      {
+        "name": "National Crisis Centre",
+        "role": "Publishes the risks in Belgium, what the authorities do and what you can do.",
+        "url": "https://crisiscenter.be",
+        "sources": [
+          "s6"
+        ]
+      },
+      {
+        "name": "BE-Alert",
+        "role": "The national alert system. Mayors, governors and the Interior Minister send alerts through it.",
+        "url": "https://www.be-alert.be",
+        "sources": [
+          "s4"
+        ]
+      },
+      {
+        "name": "Belgian Poison Centre",
+        "role": "Advice on poisoning, around the clock.",
+        "url": "https://www.antigifcentrum.be",
+        "sources": [
+          "s2",
+          "s3"
+        ]
+      }
+    ],
+    "hazards": [
+      {
+        "text": "Floods along the rivers and on reclaimed coastal land, which concrete dikes protect from the sea.",
+        "sources": [
+          "s7"
+        ]
+      },
+      {
+        "text": "The National Crisis Centre lists storms, floods, forest fires and heatwaves as natural risks.",
+        "sources": [
+          "s6"
+        ]
+      },
+      {
+        "text": "It also lists an incident at a nuclear plant, a traffic accident and a marine accident as technological risks.",
+        "sources": [
+          "s6"
+        ]
+      }
+    ],
+    "climate": {
+      "text": "Temperate: mild winters, cool summers, and often rainy, humid and cloudy.",
+      "sources": [
+        "s7"
+      ]
+    }
+  },
+  "notices": [
+    "Content from crisiscenter.be and be-alert.be: © NCCN, Brussels, Belgium."
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Er staat altijd iemand paraat om jou te helpen in nood | 112 (home page)",
+      "publisher": "FPS Home Affairs, 112.be",
+      "url": "https://www.112.be/en",
+      "checked": "2026-11-18",
+      "note": "The page opens in Dutch. The numbers are read from its own lines."
+    },
+    {
+      "id": "s2",
+      "title": "Andere noodnummers | 112",
+      "publisher": "FPS Home Affairs, 112.be",
+      "url": "https://112.be/nl/andere-noodnummers",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s3",
+      "title": "Centre Antipoisons / Antigifcentrum",
+      "publisher": "Belgian Poison Centre",
+      "url": "https://www.centreantipoisons.be/",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s4",
+      "title": "How does BE-Alert work?",
+      "publisher": "BE-Alert (National Crisis Centre)",
+      "url": "https://www.be-alert.be/en/how-does-be-alert-work",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s5",
+      "title": "FAQ | BE-Alert",
+      "publisher": "BE-Alert (National Crisis Centre)",
+      "url": "https://www.be-alert.be/en/faq",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s6",
+      "title": "Risks in Belgium",
+      "publisher": "National Crisis Centre",
+      "url": "https://crisiscenter.be/en/risks-belgium",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s7",
+      "title": "Belgium, 2025 edition",
+      "publisher": "CIA World Factbook, final edition (23 January 2026), via worldfactbookarchive.org",
+      "url": "https://worldfactbookarchive.org/archive/2025/BE",
+      "checked": "2026-11-18"
+    }
+  ]
+}

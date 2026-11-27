@@ -1,0 +1,132 @@
+{
+  "code": "ZA",
+  "name": "South Africa",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "Police emergency",
+      "short": "Police emergency",
+      "number": "10111",
+      "when": "Crime in progress, or you need police now",
+      "wallet": true,
+      "note": "Free from a landline. Normal cell rates from a mobile.",
+      "sources": [
+        "s1"
+      ]
+    },
+    {
+      "label": "Ambulance or fire",
+      "short": "Ambulance, fire",
+      "number": "10177",
+      "when": "Ambulance, fire, or a medical emergency",
+      "wallet": true,
+      "sources": [
+        "s3",
+        "s4"
+      ]
+    },
+    {
+      "label": "Emergency from a mobile",
+      "short": "From a mobile",
+      "number": "112",
+      "when": "Any emergency, from a mobile phone",
+      "wallet": true,
+      "sources": [
+        "s3",
+        "s4"
+      ]
+    },
+    {
+      "label": "Gender-Based Violence Command Centre",
+      "short": "Gender violence help",
+      "number": "0800 428 428",
+      "when": "Free help if you or someone you know is abused",
+      "wallet": true,
+      "sources": [
+        "s5",
+        "s6"
+      ]
+    },
+    {
+      "label": "Poison information",
+      "short": "Poison information",
+      "number": "0861 555 777",
+      "when": "Poison advice, 8:30am to 1:30am. Collapsed? Call 10177",
+      "wallet": true,
+      "sources": [
+        "s7"
+      ]
+    },
+    {
+      "label": "Poison information, Free State",
+      "short": "Poison, Free State",
+      "number": "082 491 0160",
+      "when": "Poison advice, any hour. Collapsed? Call 10177",
+      "wallet": false,
+      "sources": [
+        "s7"
+      ]
+    },
+    {
+      "label": "Crime Stop",
+      "short": "Crime Stop",
+      "number": "08600 10111",
+      "when": "Anonymous tip-off about a crime. Not for emergencies",
+      "wallet": false,
+      "sources": [
+        "s2"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "10111 Centre",
+      "publisher": "South African Police Service",
+      "url": "https://www.saps.gov.za/services/cc_10111.php",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s2",
+      "title": "Crime Stop",
+      "publisher": "South African Police Service",
+      "url": "https://www.saps.gov.za/crimestop/",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s3",
+      "title": "Safety and Travel Tips",
+      "publisher": "Department of Tourism",
+      "url": "https://www.tourism.gov.za/Pages/Safety--Travel-Tips-Info.aspx",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s4",
+      "title": "Know who you can call in an emergency",
+      "publisher": "Western Cape Government",
+      "url": "https://www.westerncape.gov.za/know-who-you-can-call-emergency",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s5",
+      "title": "Where can I find an organisation that offers assistance to victims of violence?",
+      "publisher": "South African Government (gov.za)",
+      "url": "https://www.gov.za/faq/justice-and-crime-prevention/where-can-i-find-organisation-offers-assistance-victims-violence",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s6",
+      "title": "Gender-based Violence and Femicide",
+      "publisher": "South African Government (gov.za)",
+      "url": "https://www.gov.za/GBV",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s7",
+      "title": "EH - Contacts",
+      "publisher": "National Department of Health",
+      "url": "https://www.health.gov.za/eh-contacts/",
+      "checked": "2026-11-18"
+    }
+  ]
+}

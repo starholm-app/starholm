@@ -1,0 +1,370 @@
+[
+ {
+  "slug": "nuclear-incident",
+  "title": "Nuclear incident: power plant accident or nuclear explosion",
+  "summary": "Get inside, stay inside, stay tuned: what happens at which distance, where to shelter, iodine tablets, cleaning off fallout.",
+  "group": "Disasters and war",
+  "order": 1,
+  "related": [
+   "finding-a-good-shelter",
+   "preparing-a-home-shelter",
+   "iodine-tablets-by-age",
+   "war-and-air-raid-alerts"
+  ],
+  "minutes": 5,
+  "cover": {
+   "palette": "night",
+   "figure": "blast-zones.svg"
+  },
+  "upgrade": true
+ },
+ {
+  "slug": "finding-a-good-shelter",
+  "title": "How to find a good shelter",
+  "summary": "What makes a shelter good, how places compare, where to go in a tower, a house or outdoors, and how to learn your local warning signals.",
+  "group": "Disasters and war",
+  "order": 2,
+  "related": [
+   "preparing-a-home-shelter",
+   "nuclear-incident",
+   "war-and-air-raid-alerts",
+   "chemical-spill-or-toxic-smoke"
+  ],
+  "minutes": 5,
+  "cover": {
+   "palette": "clay",
+   "figure": "shelter-quality.svg"
+  },
+  "upgrade": true
+ },
+ {
+  "slug": "preparing-a-home-shelter",
+  "title": "Preparing a shelter at home",
+  "summary": "Choosing and setting up a room, air vents, glass, sealing a room against bad air, and what to stock.",
+  "group": "Disasters and war",
+  "order": 3,
+  "related": [
+   "finding-a-good-shelter",
+   "prepare-ahead",
+   "nuclear-incident",
+   "chemical-spill-or-toxic-smoke"
+  ],
+  "minutes": 5,
+  "cover": {
+   "palette": "steel",
+   "figure": "shelter-room.svg"
+  },
+  "upgrade": true
+ },
+ {
+  "slug": "iodine-tablets-by-age",
+  "title": "Iodine tablets by age",
+  "summary": "The dose for each age, when to take them, how often, who must not, and who should avoid a second dose.",
+  "group": "Disasters and war",
+  "order": 4,
+  "related": [
+   "nuclear-incident",
+   "finding-a-good-shelter",
+   "preparing-a-home-shelter",
+   "prepare-ahead"
+  ],
+  "minutes": 4,
+  "cover": {
+   "palette": "dawn",
+   "figure": "dose-by-age.svg"
+  },
+  "upgrade": true
+ },
+ {
+  "slug": "prepare-ahead",
+  "title": "Prepare ahead",
+  "summary": "The emergency kit: a go-kit for 3 days and a stay-at-home kit for 2 weeks, water, food, medicines, cash, documents, power, a family plan and warnings.",
+  "group": "Prepare ahead",
+  "order": 1,
+  "related": [
+   "preparing-a-home-shelter",
+   "no-running-water",
+   "no-electricity",
+   "leaving-home-in-a-hurry"
+  ],
+  "minutes": 5,
+  "cover": {
+   "palette": "dune",
+   "figure": "two-kits.svg"
+  },
+  "upgrade": true
+ },
+ {
+  "slug": "no-running-water",
+  "title": "No running water",
+  "summary": "What to do when the taps stop or the water looks wrong, how much to drink, where to find water at home, how to make water safe, and what to store.",
+  "group": "Without utilities",
+  "order": 1,
+  "related": [
+   "no-electricity",
+   "prepare-ahead",
+   "flooding-and-storms",
+   "disease-outbreak-at-home"
+  ],
+  "minutes": 6,
+  "cover": {
+   "palette": "gulf",
+   "figure": "treat-water.svg"
+  },
+  "upgrade": true
+ },
+ {
+  "slug": "no-electricity",
+  "title": "No electricity",
+  "summary": "What to do first, heat without air conditioning, heat stroke, food and medicines, keeping this laptop running, and generator safety.",
+  "group": "Without utilities",
+  "order": 2,
+  "related": [
+   "bleeding-burns-and-heat-stroke",
+   "no-running-water",
+   "prepare-ahead",
+   "no-internet-or-phone-network"
+  ],
+  "minutes": 6,
+  "cover": {
+   "palette": "ember",
+   "figure": "heat-illness.svg"
+  },
+  "upgrade": true
+ },
+ {
+  "slug": "war-and-air-raid-alerts",
+  "title": "War and air-raid alerts",
+  "summary": "When the warning siren sounds, explosions, being trapped, suspicious objects, rationing and blackouts.",
+  "group": "Disasters and war",
+  "order": 5,
+  "related": [
+   "finding-a-good-shelter",
+   "preparing-a-home-shelter",
+   "bleeding-burns-and-heat-stroke",
+   "leaving-home-in-a-hurry"
+  ],
+  "minutes": 5,
+  "cover": {
+   "palette": "ember",
+   "figure": "warning-actions.svg"
+  },
+  "upgrade": true
+ },
+ {
+  "slug": "chemical-spill-or-toxic-smoke",
+  "title": "Chemical spill, toxic smoke or gas",
+  "summary": "Signs of a chemical release, what to do indoors, outdoors or in a car, sealing a room, and cleaning off chemicals.",
+  "group": "Disasters and war",
+  "order": 6,
+  "related": [
+   "preparing-a-home-shelter",
+   "leaving-home-in-a-hurry",
+   "fire-at-home-or-in-your-building"
+  ],
+  "minutes": 5,
+  "cover": {
+   "palette": "palm",
+   "figure": "seal-room.svg"
+  },
+  "upgrade": true
+ },
+ {
+  "slug": "disease-outbreak-at-home",
+  "title": "Disease outbreak at home",
+  "summary": "Stopping the spread, getting ready to stay home, caring for a sick person, and danger signs.",
+  "group": "Disasters and war",
+  "order": 7,
+  "related": [
+   "prepare-ahead",
+   "no-running-water"
+  ],
+  "minutes": 4,
+  "cover": {
+   "palette": "gulf",
+   "figure": "stop-spread.svg"
+  },
+  "upgrade": true
+ },
+ {
+  "slug": "flooding-and-storms",
+  "title": "Flooding and storms",
+  "summary": "Flood warnings, never driving through water, being trapped, lightning, basements, and what to do after the flood.",
+  "group": "Without utilities",
+  "order": 3,
+  "related": [
+   "no-running-water",
+   "no-electricity",
+   "leaving-home-in-a-hurry"
+  ],
+  "minutes": 5,
+  "cover": {
+   "palette": "steel",
+   "figure": "water-depth.svg"
+  },
+  "upgrade": true
+ },
+ {
+  "slug": "no-internet-or-phone-network",
+  "title": "No internet or phone network",
+  "summary": "Getting news by radio, reaching family when calls fail, saving the phone battery, and a family plan.",
+  "group": "Without utilities",
+  "order": 4,
+  "related": [
+   "no-electricity",
+   "leaving-home-in-a-hurry",
+   "prepare-ahead"
+  ],
+  "minutes": 4,
+  "cover": {
+   "palette": "dawn",
+   "figure": "text-dont-call.svg"
+  },
+  "upgrade": true
+ },
+ {
+  "slug": "leaving-home-in-a-hurry",
+  "title": "Leaving home in a hurry",
+  "summary": "The go-bag, what to do before you walk out, the journey, reception centers, and pets.",
+  "group": "Prepare ahead",
+  "order": 2,
+  "related": [
+   "prepare-ahead",
+   "no-internet-or-phone-network",
+   "flooding-and-storms",
+   "fire-at-home-or-in-your-building"
+  ],
+  "minutes": 4,
+  "cover": {
+   "palette": "clay",
+   "figure": "go-bag.svg"
+  }
+ },
+ {
+  "slug": "fire-at-home-or-in-your-building",
+  "title": "Fire at home or in your building",
+  "summary": "What to do when you find a fire, getting out through smoke, being trapped, extinguishers, and an escape plan.",
+  "group": "First aid",
+  "order": 2,
+  "related": [
+   "bleeding-burns-and-heat-stroke",
+   "cpr-and-choking",
+   "leaving-home-in-a-hurry"
+  ],
+  "minutes": 5,
+  "cover": {
+   "palette": "steel",
+   "figure": "crawl-low.svg"
+  },
+  "upgrade": true
+ },
+ {
+  "slug": "cpr-and-choking",
+  "title": "CPR and choking",
+  "summary": "How to start CPR on an adult, child or baby, use a defibrillator, and help someone who is choking.",
+  "group": "First aid",
+  "order": 1,
+  "related": [
+   "bleeding-burns-and-heat-stroke",
+   "fire-at-home-or-in-your-building"
+  ],
+  "minutes": 5,
+  "cover": {
+   "palette": "ember",
+   "figure": "cpr-adult.svg"
+  },
+  "situations": {
+   "cpr-for-an-adult": [
+    "not breathing",
+    "stopped breathing",
+    "no breathing",
+    "no pulse",
+    "unresponsive",
+    "not responding",
+    "does not respond",
+    "unconscious",
+    "cardiac arrest",
+    "heart stopped"
+   ],
+   "cpr-for-a-child-or-a-baby": [
+    "not breathing",
+    "stopped breathing",
+    "no breathing",
+    "no pulse",
+    "unresponsive",
+    "not responding",
+    "does not respond",
+    "unconscious",
+    "cardiac arrest",
+    "heart stopped"
+   ],
+   "choking-adult-or-child": [
+    "choking",
+    "choked",
+    "something stuck in their throat",
+    "food stuck in their throat"
+   ],
+   "choking-baby": [
+    "choking",
+    "choked",
+    "something stuck in their throat",
+    "food stuck in their throat"
+   ]
+  }
+ },
+ {
+  "slug": "bleeding-burns-and-heat-stroke",
+  "title": "Bleeding, burns and heat stroke",
+  "summary": "Stop severe bleeding, cool a burn, and recognize and cool heat stroke, with when to call for help.",
+  "group": "First aid",
+  "order": 3,
+  "related": [
+   "cpr-and-choking",
+   "fire-at-home-or-in-your-building",
+   "no-electricity"
+  ],
+  "minutes": 5,
+  "cover": {
+   "palette": "palm",
+   "figure": "bleeding.svg"
+  }
+ },
+ {
+  "slug": "power-lines-and-carbon-monoxide",
+  "title": "Fallen power lines and carbon monoxide",
+  "summary": "What to do when a power line falls on your car or near home, and how to spot, escape and prevent carbon monoxide poisoning.",
+  "group": "First aid",
+  "order": 4,
+  "related": [
+   "no-electricity",
+   "fire-at-home-or-in-your-building",
+   "cpr-and-choking",
+   "staying-warm-without-power"
+  ],
+  "minutes": 4,
+  "cover": {
+   "palette": "clay",
+   "figure": "car-power-line.svg"
+  },
+  "upgrade": true
+ },
+ {
+  "slug": "staying-warm-without-power",
+  "title": "Staying warm without power",
+  "summary": "What never to use for heat indoors, keeping heat in, using heaters and fires safely, who is most at risk, and hypothermia first aid.",
+  "group": "Without utilities",
+  "order": 5,
+  "related": [
+   "power-lines-and-carbon-monoxide",
+   "no-electricity",
+   "prepare-ahead",
+   "cpr-and-choking"
+  ],
+  "minutes": 5,
+  "cover": {
+   "palette": "night",
+   "figure": "hypothermia-first-aid.svg"
+  },
+  "upgrade": true
+ }
+]

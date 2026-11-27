@@ -1,0 +1,142 @@
+{
+  "code": "AT",
+  "name": "Austria",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "European emergency number",
+      "short": "European emergency",
+      "number": "112",
+      "when": "Any emergency",
+      "wallet": true,
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    },
+    {
+      "label": "Police",
+      "short": "Police",
+      "number": "133",
+      "when": "Police, in an emergency",
+      "wallet": true,
+      "sources": [
+        "s1",
+        "s2",
+        "s3"
+      ]
+    },
+    {
+      "label": "Fire service",
+      "short": "Fire service",
+      "number": "122",
+      "when": "Fire",
+      "wallet": true,
+      "sources": [
+        "s1",
+        "s2",
+        "s3"
+      ]
+    },
+    {
+      "label": "Ambulance",
+      "short": "Ambulance",
+      "number": "144",
+      "when": "Medical emergency",
+      "wallet": true,
+      "sources": [
+        "s1",
+        "s2",
+        "s3"
+      ]
+    },
+    {
+      "label": "Mountain rescue",
+      "short": "Mountain rescue",
+      "number": "140",
+      "when": "Accident or trouble in the mountains",
+      "wallet": true,
+      "sources": [
+        "s1",
+        "s2",
+        "s3"
+      ]
+    },
+    {
+      "label": "Health advice line, 24 hours",
+      "short": "Health advice",
+      "number": "1450",
+      "when": "Nurse advice, not for emergencies",
+      "wallet": false,
+      "note": "Free apart from the phone company's call rate. From abroad, +43 1 1450.",
+      "sources": [
+        "s4"
+      ]
+    },
+    {
+      "label": "Poison information centre",
+      "short": "Poison information",
+      "number": "01 406 43 43",
+      "when": "Poisoning advice, any hour",
+      "wallet": false,
+      "sources": [
+        "s5",
+        "s2"
+      ]
+    },
+    {
+      "label": "Doctor on call",
+      "short": "Doctor on call",
+      "number": "141",
+      "when": "Doctor on call, not for emergencies",
+      "wallet": false,
+      "sources": [
+        "s1",
+        "s2",
+        "s3"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Notrufnummern (Emergency numbers)",
+      "publisher": "oesterreich.gv.at, the Austrian government portal",
+      "url": "https://www.oesterreich.gv.at/de/themen/notfaelle_unfaelle_und_kriminalitaet/notrufnummern",
+      "updated": "2026-08-18",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s2",
+      "title": "Notrufnummern",
+      "publisher": "gesundheit.gv.at, Gesundheitsportal",
+      "url": "https://www.gesundheit.gv.at/service/notruf/notrufnummern.html",
+      "updated": "2024-10-16",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s3",
+      "title": "Notruf- und Notfallnummern in Österreich",
+      "publisher": "Federal Ministry of the Interior (bmi.gv.at)",
+      "url": "https://www.bmi.gv.at/notrufnummern/start.html",
+      "updated": "2025-03-27",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s4",
+      "title": "1450 Die Rund-um-die-Uhr-Gesundheitsberatung",
+      "publisher": "1450.at, the national health advice line",
+      "url": "https://www.1450.at",
+      "checked": "2026-11-18",
+      "note": "The page shows no date."
+    },
+    {
+      "id": "s5",
+      "title": "Vergiftung: Notruf & Beratung",
+      "publisher": "gesundheit.gv.at, Gesundheitsportal",
+      "url": "https://www.gesundheit.gv.at/service/notruf/vergiftungsinformationszentrale.html",
+      "updated": "2026-02-23",
+      "checked": "2026-11-18"
+    }
+  ]
+}

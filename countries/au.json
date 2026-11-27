@@ -1,0 +1,182 @@
+{
+  "code": "AU",
+  "name": "Australia",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "Police, fire and ambulance (Triple Zero)",
+      "short": "Police, fire, ambulance",
+      "number": "000",
+      "when": "Police, fire or ambulance when life is at risk",
+      "wallet": true,
+      "note": "Free. Works from landline, mobile and satellite phone.",
+      "sources": [
+        "s1"
+      ]
+    },
+    {
+      "label": "Same services, from a mobile",
+      "short": "Same, from a mobile",
+      "number": "112",
+      "when": "Mobile phones only. Same as 000",
+      "wallet": true,
+      "note": "No extra priority over 000.",
+      "sources": [
+        "s2",
+        "s5"
+      ]
+    },
+    {
+      "label": "Emergency text line for deaf callers (TTY)",
+      "short": "TTY emergency",
+      "number": "106",
+      "when": "TTY only, for deaf or speech difficulty. Not SMS",
+      "wallet": false,
+      "sources": [
+        "s2"
+      ]
+    },
+    {
+      "label": "Police, not an emergency",
+      "short": "Police, non-urgent",
+      "number": "131 444",
+      "when": "Police matters that aren't urgent. Not for emergencies",
+      "wallet": true,
+      "sources": [
+        "s1",
+        "s3",
+        "s4"
+      ]
+    },
+    {
+      "label": "Poisons Information Centre",
+      "short": "Poison information",
+      "number": "13 11 26",
+      "when": "Poison advice, any hour. Collapsed? Call 000",
+      "wallet": true,
+      "sources": [
+        "s5",
+        "s6"
+      ]
+    },
+    {
+      "label": "healthdirect nurse line",
+      "short": "Nurse advice line",
+      "number": "1800 022 222",
+      "when": "Nurse advice, any hour. Not for emergencies",
+      "wallet": false,
+      "sources": [
+        "s7"
+      ]
+    },
+    {
+      "label": "State Emergency Service (SES), flood and storm",
+      "short": "SES, flood and storm",
+      "number": "132 500",
+      "when": "Flood or storm help that isn't life-threatening",
+      "wallet": true,
+      "sources": [
+        "s1",
+        "s8",
+        "s9"
+      ]
+    },
+    {
+      "label": "Search and rescue, sea (AMSA)",
+      "short": "Rescue, sea (AMSA)",
+      "number": "1800 641 792",
+      "when": "Boat in trouble or missing. Life at risk? Call 000",
+      "wallet": false,
+      "sources": [
+        "s10"
+      ]
+    },
+    {
+      "label": "Search and rescue, air and land (AMSA)",
+      "short": "Rescue, air (AMSA)",
+      "number": "1800 815 257",
+      "when": "Aircraft missing or in trouble. Life at risk? Call 000",
+      "wallet": false,
+      "sources": [
+        "s10"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Triple Zero",
+      "publisher": "Department of Infrastructure, Transport, Regional Development, Communications, Sport and the Arts",
+      "url": "https://www.infrastructure.gov.au/media-communications/phone/triple-zero",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s2",
+      "title": "Using other emergency numbers",
+      "publisher": "Department of Infrastructure, Transport, Regional Development, Communications, Sport and the Arts",
+      "url": "https://www.infrastructure.gov.au/media-communications/phone/triple-zero/using-other-emergency-numbers",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s3",
+      "title": "Contact Victoria Police",
+      "publisher": "Victoria Police",
+      "url": "https://www.police.vic.gov.au/contact-us",
+      "updated": "2026-06-10",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s4",
+      "title": "Contact WA Police",
+      "publisher": "Government of Western Australia",
+      "url": "https://www.wa.gov.au/organisation/western-australia-police-force/contact-wa-police",
+      "updated": "2026-07-31",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s5",
+      "title": "Poisoning",
+      "publisher": "healthdirect Australia (government-funded)",
+      "url": "https://www.healthdirect.gov.au/poisoning",
+      "checked": "2026-11-18",
+      "note": "The page shows 'Last reviewed: November 2023'. It also says to try 112 if 000 doesn't connect on a mobile."
+    },
+    {
+      "id": "s6",
+      "title": "Poisons Information Centre",
+      "publisher": "Department of Health, Disability and Ageing",
+      "url": "https://www.health.gov.au/contacts/poisons-information-centre",
+      "updated": "2023-11-08",
+      "checked": "2026-11-18",
+      "note": "Lists the NSW centre as 131126, the same digits as 13 11 26."
+    },
+    {
+      "id": "s7",
+      "title": "Trusted Health Advice",
+      "publisher": "healthdirect Australia (government-funded)",
+      "url": "https://www.healthdirect.gov.au/",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s8",
+      "title": "Homepage",
+      "publisher": "NSW State Emergency Service",
+      "url": "https://www.ses.nsw.gov.au/",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s9",
+      "title": "Home",
+      "publisher": "Victoria State Emergency Service",
+      "url": "https://www.ses.vic.gov.au/",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s10",
+      "title": "Search and rescue",
+      "publisher": "Australian Maritime Safety Authority",
+      "url": "https://www.amsa.gov.au/safety-navigation/search-and-rescue",
+      "checked": "2026-11-18"
+    }
+  ]
+}

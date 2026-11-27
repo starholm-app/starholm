@@ -1,0 +1,87 @@
+{
+  "code": "PT",
+  "name": "Portugal",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "Emergency number: police, fire and ambulance",
+      "short": "All emergencies",
+      "number": "112",
+      "when": "Any emergency",
+      "wallet": true,
+      "note": "Portugal has no separate police, fire or ambulance numbers. Free, 24 hours.",
+      "sources": [
+        "s1",
+        "s2"
+      ]
+    },
+    {
+      "label": "SNS 24 health line",
+      "short": "Health advice line",
+      "number": "808 24 24 24",
+      "when": "Health advice by phone, not for emergencies",
+      "wallet": true,
+      "note": "Nurse advice around the clock. Cost of a fixed-line call.",
+      "sources": [
+        "s1",
+        "s3"
+      ]
+    },
+    {
+      "label": "Poison information centre (CIAV)",
+      "short": "Poison information",
+      "number": "800 250 250",
+      "when": "Poisoning advice",
+      "wallet": true,
+      "note": "Opening hours are not stated on the pages opened. Call 112 if the person is very unwell.",
+      "sources": [
+        "s4",
+        "s5"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Contactos de emergência em Portugal",
+      "publisher": "gov.pt, the Portuguese government portal",
+      "url": "https://www.gov.pt/guias/contactos-de-emergencia-em-portugal",
+      "updated": "2026-04-29",
+      "checked": "2026-11-18",
+      "note": "The page is in Portuguese."
+    },
+    {
+      "id": "s2",
+      "title": "112 - the EU's emergency phone number",
+      "publisher": "European Commission",
+      "url": "https://digital-strategy.ec.europa.eu/en/policies/112",
+      "updated": "2026-11-05",
+      "checked": "2026-11-18",
+      "note": "Lists Portugal among the countries that use 112 as their only national emergency number."
+    },
+    {
+      "id": "s3",
+      "title": "SNS 24",
+      "publisher": "SNS 24, the national health service line",
+      "url": "https://www.sns24.gov.pt/",
+      "checked": "2026-11-18",
+      "note": "The page is in Portuguese and shows no date."
+    },
+    {
+      "id": "s4",
+      "title": "Intoxicações",
+      "publisher": "SNS 24, the national health service line",
+      "url": "https://www.sns24.gov.pt/pt/tema/intoxicacoes-e-envenenamentos/intoxicacoes/",
+      "checked": "2026-11-18",
+      "note": "The page is in Portuguese and shows no date."
+    },
+    {
+      "id": "s5",
+      "title": "Como agir em caso de intoxicação",
+      "publisher": "SNS 24, the national health service line",
+      "url": "https://www.sns24.gov.pt/pt/tema/intoxicacoes-e-envenenamentos/intoxicacoes/como-agir-em-caso-de-intoxicacao/",
+      "checked": "2026-11-18",
+      "note": "The page writes 800 250 250, but its dial link points to another number. The Intoxicações page writes and links 800250250, so that is the number used."
+    }
+  ]
+}

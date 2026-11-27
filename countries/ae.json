@@ -1,0 +1,223 @@
+{
+  "code": "AE",
+  "name": "United Arab Emirates",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "Police and emergencies",
+      "short": "Police",
+      "number": "999",
+      "when": "Crime, or any emergency",
+      "wallet": true,
+      "sources": [
+        "s1"
+      ]
+    },
+    {
+      "label": "Ambulance, direct line",
+      "short": "Ambulance",
+      "number": "998",
+      "when": "Medical emergency",
+      "wallet": true,
+      "sources": [
+        "s1"
+      ]
+    },
+    {
+      "label": "Fire and civil defence, direct line",
+      "short": "Fire, civil defence",
+      "number": "997",
+      "when": "Fire",
+      "wallet": true,
+      "sources": [
+        "s1"
+      ]
+    },
+    {
+      "label": "Coastguard",
+      "short": "Coastguard",
+      "number": "996",
+      "when": "Trouble at sea",
+      "wallet": true,
+      "sources": [
+        "s1"
+      ]
+    },
+    {
+      "label": "Find and Rescue",
+      "short": "Find and Rescue",
+      "number": "995",
+      "when": "Search and rescue, someone missing",
+      "wallet": true,
+      "sources": [
+        "s1"
+      ]
+    },
+    {
+      "label": "Power or water failure, Dubai and Sharjah",
+      "short": "Power, water: Dubai",
+      "number": "991",
+      "when": "No power or water",
+      "wallet": false,
+      "sources": [
+        "s1"
+      ]
+    },
+    {
+      "label": "Power or water failure, Abu Dhabi",
+      "short": "Power, water: Abu Dhabi",
+      "number": "800 2332",
+      "when": "No power or water",
+      "wallet": false,
+      "sources": [
+        "s1"
+      ]
+    },
+    {
+      "label": "Power or water failure, the other emirates",
+      "short": "Power, water: other",
+      "number": "800 3392",
+      "when": "No power or water",
+      "wallet": false,
+      "sources": [
+        "s1"
+      ]
+    }
+  ],
+  "extra": {
+    "call_notes": [
+      {
+        "text": "999 works from anywhere in the country. The national emergency authority's 2026 guide also names it for civil defence and ambulance, so use it if you are unsure which line to call.",
+        "sources": [
+          "s1",
+          "s2"
+        ]
+      },
+      {
+        "text": "In Abu Dhabi the AD999 app has an SOS button for fire, ambulance and the emergency helpline. In Dubai the DCAS SOS app calls an ambulance and works out where the patient is.",
+        "sources": [
+          "s1"
+        ]
+      }
+    ],
+    "alerts": [
+      {
+        "text": "Alerts reach every phone connected to the network in the risk area, by cell broadcast. Nobody needs your phone number. The phone sounds and vibrates, and the message shows even on silent.",
+        "sources": [
+          "s2"
+        ]
+      },
+      {
+        "text": "Messages come mainly in Arabic and English, and say the hazard, the place and what to do. Other languages such as Urdu, Chinese, Filipino or Hindi may be added where many speakers live.",
+        "sources": [
+          "s2"
+        ]
+      },
+      {
+        "text": "Loudspeaker warnings go out alongside the phone alert, so people inside buildings and in the open hear it at the same time.",
+        "sources": [
+          "s2"
+        ]
+      },
+      {
+        "text": "For news during an emergency, the guide points you to the National Center of Meteorology, the Ministry of Interior, NCEMA, official local media and government social media accounts.",
+        "sources": [
+          "s2"
+        ]
+      }
+    ],
+    "first_steps": [
+      {
+        "text": "Read the alert in full and do what it says at once. Stay away from danger zones until new instructions come.",
+        "sources": [
+          "s2"
+        ]
+      },
+      {
+        "text": "In a fire, don't use the lift. Stay out of the building until the police or civil defence say it is safe.",
+        "sources": [
+          "s1"
+        ]
+      }
+    ],
+    "authorities": [
+      {
+        "name": "NCEMA (National Emergency, Crisis and Disaster Management Authority)",
+        "role": "Supervises the national early warning system and publishes the national emergency guide.",
+        "url": "https://www.ncema.gov.ae",
+        "sources": [
+          "s2"
+        ]
+      },
+      {
+        "name": "Ministry of Interior",
+        "role": "Named by NCEMA as a trusted source of information in emergencies.",
+        "url": null,
+        "sources": [
+          "s2"
+        ]
+      },
+      {
+        "name": "National Center of Meteorology",
+        "role": "Named by NCEMA as a trusted source of information in emergencies.",
+        "url": null,
+        "sources": [
+          "s2"
+        ]
+      },
+      {
+        "name": "UAE Government portal",
+        "role": "Official list of emergency numbers and what to do in each kind of emergency.",
+        "url": "https://u.ae",
+        "sources": [
+          "s1"
+        ]
+      }
+    ],
+    "hazards": [
+      {
+        "text": "Sand and dust storms are frequent.",
+        "sources": [
+          "s3"
+        ]
+      },
+      {
+        "text": "The NCEMA guide has chapters on hurricanes, sandstorms, flash floods and wadis, fog, earthquakes and tsunamis.",
+        "sources": [
+          "s2"
+        ]
+      }
+    ],
+    "climate": {
+      "text": "Desert, cooler in the eastern mountains.",
+      "sources": [
+        "s3"
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Handling emergencies",
+      "publisher": "The Official Portal of the UAE Government (u.ae)",
+      "url": "https://u.ae/en/information-and-services/justice-safety-and-the-law/Safety/handling-emergencies",
+      "updated": "2026-10-01",
+      "checked": "2026-11-18"
+    },
+    {
+      "id": "s2",
+      "title": "Your Guide For Emergencies, second edition",
+      "publisher": "National Emergency, Crisis and Disaster Management Authority (NCEMA)",
+      "url": "https://www.ncema.gov.ae/dassets/download/4951dd8c/Your%20guide%20for%20emergency.EN.pdf.aspx",
+      "checked": "2026-11-18",
+      "note": "The phone alert section is on printed page 53. NCEMA forbids copying its text, so the card restates facts in its own words."
+    },
+    {
+      "id": "s3",
+      "title": "United Arab Emirates, 2025 edition",
+      "publisher": "CIA World Factbook, final edition (23 January 2026), via worldfactbookarchive.org",
+      "url": "https://worldfactbookarchive.org/archive/2025/AE",
+      "checked": "2026-11-18"
+    }
+  ]
+}

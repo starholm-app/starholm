@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en" data-size="3" data-sw="260" data-pw="460">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="token" content="{{TOKEN}}">
+<title>Starholm</title>
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/static/app.css">
+<link rel="stylesheet" href="/static/maplibre-gl.css">
+<link rel="stylesheet" href="/static/maps.css">
+<script src="/static/render.js" defer></script>
+<script src="/static/flow.js" defer></script>
+<script src="/static/guided-tree.js" defer></script>
+<script src="/static/models.js" defer></script>
+<script src="/static/country.js" defer></script>
+<script src="/static/api.js" defer></script>
+<script src="/static/family-plan.js" defer></script>
+<script src="/static/maplibre-gl-csp.js" defer></script>
+<script src="/static/maps.js" defer></script>
+<script src="/static/free-library.js" defer></script>
+<script src="/static/upgrade.js" defer></script>
+<script src="/static/updates.js" defer></script>
+<script src="/static/app.js" defer></script>
+</head>
+<body>
+
+<div class="app side-open" id="app">
+  <aside class="sidebar" id="sidebar" aria-label="Chats">
+    <div class="side-top">
+      <span class="brand">
+        <svg class="mark" id="mark" viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M2 30C5 25 10 22 16 22C22 22 27 25 30 30Z"/><path fill="currentColor" d="M21.5 2 23.62 8.38 30 10.5 23.62 12.62 21.5 19 19.38 12.62 13 10.5 19.38 8.38Z"/></svg>
+        <svg class="wordmark" viewBox="0 0 3708 687.5" role="img" aria-label="Starholm"><path fill="currentColor" d="M 170.92 687.51 C 142.92 687.51 113.32 683.91 82.02 676.71 C 50.82 669.61 25.02 660.11 4.92 648.41 L 0.02 515.61 L 47.82 511.71 L 77.12 603.51 C 92.82 613.31 109.82 620.81 128.42 626.01 C 147.02 631.21 165.72 633.81 184.62 633.81 C 216.52 633.81 241.42 626.61 259.32 612.31 C 277.22 598.01 286.12 578.11 286.12 552.71 C 286.12 529.91 279.32 511.21 265.62 496.61 C 251.92 481.91 234.42 469.21 212.92 458.51 C 191.42 447.71 168.42 437.21 144.02 426.71 C 119.62 416.31 96.72 404.11 75.22 390.11 C 53.72 376.11 36.12 358.91 22.42 338.41 C 8.82 317.91 1.92 292.01 1.92 260.71 C 1.92 227.51 11.02 198.61 29.32 173.81 C 47.52 149.11 73.12 129.91 105.92 116.21 C 138.82 102.51 176.72 95.71 219.72 95.71 C 236.02 95.71 252.32 96.51 268.52 98.11 C 284.82 99.81 300.32 102.41 314.92 105.91 C 329.62 109.51 342.42 113.91 353.52 119.11 L 362.32 248.01 L 314.42 251.91 L 286.12 165.01 C 265.32 152.71 239.62 146.51 209.02 146.51 C 177.72 146.51 152.62 154.11 133.82 169.41 C 114.92 184.71 105.42 205.11 105.42 230.51 C 105.42 253.91 112.32 273.11 126.02 288.11 C 139.62 303.01 157.42 316.21 179.22 327.61 C 201.02 339.01 224.12 349.91 248.52 360.31 C 272.92 370.81 296.02 382.81 317.92 396.51 C 339.72 410.11 357.62 426.91 371.62 446.81 C 385.62 466.61 392.62 491.51 392.62 521.51 C 392.62 553.41 383.12 581.91 364.22 606.91 C 345.42 632.01 319.32 651.71 286.12 666.01 C 252.92 680.31 214.52 687.51 170.92 687.51 Z M 170.92 687.51  M 770.52 611.31 C 758.82 634.81 741.52 653.11 718.72 666.51 C 696.02 679.81 671.52 686.51 645.52 686.51 C 604.52 686.51 570.62 674.31 543.92 649.91 C 517.22 625.51 503.92 588.21 503.92 538.11 L 506.82 309.61 L 438.52 309.61 L 438.52 286.11 L 576.22 166.01 L 599.62 166.01 L 597.62 286.11 L 596.72 524.41 C 596.72 555.71 603.72 578.81 617.72 593.71 C 631.72 608.71 651.72 616.21 677.72 616.21 C 691.42 616.21 704.62 613.41 717.32 607.91 C 730.02 602.41 741.22 595.01 751.02 585.91 Z M 555.72 309.61 L 555.72 256.81 L 742.22 256.81 L 742.22 309.61 Z M 555.72 309.61  M 947.32 686.51 C 919.92 686.51 895.82 680.81 875.02 669.41 C 854.22 658.01 838.22 643.91 827.12 626.91 C 816.12 610.01 810.52 593.11 810.52 576.21 C 810.52 554.01 817.72 535.51 832.02 520.51 C 846.42 505.51 869.52 493.21 901.42 483.41 L 1051.82 434.61 L 1051.82 389.61 C 1051.82 374.01 1047.02 359.91 1037.62 347.21 C 1028.22 334.51 1015.62 324.21 1000.02 316.41 C 984.42 308.61 967.12 304.71 948.22 304.71 C 933.32 304.71 923.22 307.81 918.02 314.01 C 912.82 320.11 909.52 332.31 908.22 350.61 L 905.32 397.51 C 879.22 403.31 857.32 402.51 839.42 395.01 C 821.42 387.51 812.52 375.01 812.52 357.41 C 812.52 346.31 817.92 334.91 828.62 323.21 C 839.42 311.51 853.02 300.41 869.62 290.01 C 886.22 279.61 904.02 270.71 922.82 263.21 C 941.72 255.71 959.62 250.61 976.62 248.01 C 1028.02 248.01 1068.82 260.91 1099.12 286.61 C 1129.42 312.31 1144.92 346.31 1145.52 388.71 L 1143.62 543.91 C 1143.62 557.61 1144.02 570.11 1145.02 581.51 C 1146.02 592.91 1147.52 601.61 1149.42 607.41 L 1212.92 619.11 L 1212.92 653.31 L 1160.22 673.81 C 1150.42 677.71 1141.32 680.81 1132.82 683.11 C 1124.32 685.41 1116.92 686.51 1110.32 686.51 C 1088.92 686.51 1074.22 674.81 1066.42 651.41 L 1053.72 610.31 L 1070.32 612.31 C 1049.52 636.41 1029.02 654.81 1008.82 667.51 C 988.62 680.21 968.12 686.51 947.32 686.51 Z M 981.42 619.11 C 994.52 619.11 1006.82 616.21 1018.62 610.31 C 1030.32 604.51 1041.32 595.71 1051.82 584.01 L 1051.82 483.41 L 956.12 506.81 C 940.42 510.71 929.22 516.81 922.42 524.91 C 915.52 533.01 912.12 543.61 912.12 556.61 C 912.12 572.91 918.92 587.41 932.62 600.11 C 946.32 612.81 962.62 619.11 981.42 619.11 Z M 981.42 619.11  M 1255.92 678.71 L 1252.92 640.61 L 1313.52 625.01 C 1314.12 622.41 1314.82 616.91 1315.42 608.41 C 1316.12 599.91 1316.72 588.51 1317.42 574.21 C 1318.02 559.91 1318.42 543.01 1318.42 523.41 L 1319.32 448.21 C 1319.32 426.71 1318.52 406.61 1316.92 387.71 C 1315.32 368.81 1313.12 352.51 1310.52 338.91 L 1248.02 325.21 L 1248.02 289.11 L 1391.62 250.01 L 1409.22 264.61 L 1405.32 344.71 L 1408.22 345.71 C 1427.12 308.61 1446.42 283.51 1466.32 270.51 C 1486.22 257.51 1505.52 251.01 1524.42 251.01 C 1540.02 251.01 1553.42 255.01 1564.42 263.21 C 1575.52 271.31 1581.12 283.81 1581.12 300.81 C 1581.12 317.71 1575.22 330.71 1563.52 339.81 C 1551.82 348.91 1537.12 353.51 1519.52 353.51 C 1506.52 353.51 1494.52 350.91 1483.42 345.71 C 1472.32 340.51 1461.32 332.71 1450.22 322.31 L 1469.72 327.11 C 1458.72 334.91 1447.92 345.41 1437.52 358.41 C 1427.12 371.41 1417.62 387.41 1409.22 406.21 L 1410.22 492.21 C 1410.82 511.11 1411.52 529.51 1412.12 547.41 C 1412.82 565.31 1413.42 581.01 1414.12 594.71 C 1414.72 608.41 1415.42 618.51 1416.02 625.01 L 1501.02 638.71 L 1498.02 678.71 Z M 1255.92 678.71  M 1616.22 678.71 L 1613.32 640.61 L 1673.82 625.01 C 1675.12 618.51 1676.12 607.41 1676.82 591.81 C 1677.42 576.21 1678.12 556.01 1678.72 531.21 C 1679.42 506.51 1679.72 478.51 1679.72 447.31 L 1679.72 325.21 C 1679.72 303.01 1679.52 279.81 1679.22 255.41 C 1678.92 230.91 1678.52 207.31 1678.22 184.61 C 1677.92 161.81 1677.42 141.61 1676.82 124.01 C 1676.12 106.41 1675.52 94.11 1674.82 86.91 L 1602.52 77.11 L 1600.62 42.01 L 1752.92 0.01 L 1774.42 14.61 C 1773.82 34.81 1773.12 54.81 1772.52 74.71 C 1771.82 94.61 1771.32 115.91 1771.02 138.71 C 1770.72 161.41 1770.22 187.51 1769.52 216.81 C 1768.92 246.11 1768.62 280.31 1768.62 319.31 L 1771.52 320.31 C 1793.02 295.61 1815.12 277.31 1837.92 265.61 C 1860.72 253.91 1885.12 248.01 1911.12 248.01 C 1936.52 248.01 1960.02 254.51 1981.42 267.61 C 2002.92 280.61 2020.32 299.81 2033.72 325.21 C 2047.02 350.61 2053.72 382.51 2053.72 420.91 L 2053.72 524.41 C 2053.72 547.21 2054.22 568.01 2055.22 586.91 C 2056.12 605.81 2057.32 618.51 2058.62 625.01 L 2119.12 640.61 L 2117.22 678.71 L 1905.32 678.71 L 1902.32 640.61 L 1959.02 625.01 C 1959.62 619.81 1960.32 612.81 1960.92 604.01 C 1961.62 595.21 1962.12 584.61 1962.42 572.31 C 1962.72 559.91 1962.92 545.61 1962.92 529.31 L 1962.92 431.61 C 1962.92 404.91 1958.52 383.31 1949.72 366.71 C 1940.92 350.11 1929.52 337.91 1915.52 330.11 C 1901.52 322.31 1886.42 318.31 1870.12 318.31 C 1850.62 318.31 1832.02 323.11 1814.42 332.51 C 1796.92 341.91 1781.92 355.11 1769.52 372.11 L 1769.52 517.61 C 1769.52 546.21 1770.02 570.01 1771.02 588.91 C 1772.02 607.71 1773.42 619.81 1775.42 625.01 L 1835.02 640.61 L 1832.02 678.71 Z M 1616.22 678.71  M 2392.62 686.51 C 2349.02 686.51 2311.02 677.41 2278.82 659.21 C 2246.62 640.91 2221.42 615.41 2203.12 582.51 C 2184.92 549.61 2175.82 512.01 2175.82 469.71 C 2175.82 424.11 2185.92 384.91 2206.12 352.01 C 2226.22 319.21 2253.12 293.61 2286.62 275.41 C 2320.22 257.11 2356.82 248.01 2396.52 248.01 C 2437.52 248.01 2473.62 257.11 2504.92 275.41 C 2536.12 293.61 2560.22 318.81 2577.22 351.11 C 2594.12 383.31 2602.52 420.91 2602.52 463.91 C 2602.52 505.51 2593.32 543.11 2574.72 576.61 C 2556.22 610.21 2530.92 636.91 2499.02 656.71 C 2467.12 676.61 2431.62 686.51 2392.62 686.51 Z M 2402.32 635.71 C 2422.52 635.71 2439.92 629.51 2454.62 617.21 C 2469.22 604.81 2480.62 587.21 2488.82 564.41 C 2496.92 541.71 2501.02 515.31 2501.02 485.31 C 2501.02 429.41 2490.42 383.91 2469.22 349.11 C 2448.12 314.31 2419.62 296.91 2383.82 296.91 C 2352.52 296.91 2327.32 310.91 2308.12 338.91 C 2288.92 366.91 2279.32 404.01 2279.32 450.21 C 2279.32 486.01 2284.52 517.91 2294.92 545.91 C 2305.32 573.91 2320.02 595.91 2338.92 611.81 C 2357.82 627.81 2378.92 635.71 2402.32 635.71 Z M 2402.32 635.71  M 2665.02 678.71 L 2662.12 639.61 L 2725.62 625.01 C 2726.92 619.11 2727.92 608.21 2728.52 592.31 C 2729.22 576.31 2729.82 556.01 2730.52 531.21 C 2731.12 506.51 2731.42 478.51 2731.42 447.31 L 2731.42 324.21 C 2731.42 300.81 2731.32 276.51 2731.02 251.51 C 2730.62 226.41 2730.32 202.81 2730.02 180.71 C 2729.72 158.51 2729.22 139.11 2728.52 122.51 C 2727.92 105.91 2727.22 94.11 2726.62 86.91 L 2654.32 77.11 L 2652.32 42.01 L 2806.62 0.01 L 2828.12 14.61 C 2827.52 42.01 2826.82 69.21 2826.22 96.21 C 2825.52 123.21 2825.02 153.11 2824.72 186.01 C 2824.42 218.91 2824.22 258.81 2824.22 305.71 L 2823.22 458.01 C 2823.22 499.01 2823.72 535.31 2824.72 566.91 C 2825.72 598.51 2826.82 617.81 2828.12 625.01 L 2891.62 639.61 L 2889.72 678.71 Z M 2665.02 678.71  M 2939.52 678.71 L 2936.52 640.61 L 2997.12 625.01 C 2997.72 621.71 2998.42 616.21 2999.02 608.41 C 2999.72 600.61 3000.32 589.71 3001.02 575.71 C 3001.62 561.71 3002.02 544.31 3002.02 523.41 L 3002.92 448.21 C 3002.92 434.61 3002.62 421.11 3002.02 407.71 C 3001.32 394.41 3000.32 381.71 2999.02 369.61 C 2997.72 357.61 2996.12 347.31 2994.22 338.91 L 2931.72 325.21 L 2931.72 289.11 L 3076.22 250.01 L 3095.72 266.61 L 3090.82 320.31 L 3093.82 321.31 C 3113.92 295.21 3135.12 276.51 3157.22 265.11 C 3179.42 253.71 3202.22 248.01 3225.62 248.01 C 3249.02 248.01 3271.72 254.41 3293.52 267.11 C 3315.32 279.81 3333.02 298.81 3346.72 324.21 C 3360.42 349.61 3367.22 382.11 3367.22 421.91 L 3369.22 524.41 C 3369.22 547.21 3369.52 568.01 3370.12 586.91 C 3370.82 605.81 3372.12 618.51 3374.02 625.01 L 3431.72 640.61 L 3428.72 678.71 L 3224.62 678.71 L 3221.72 640.61 L 3274.42 625.01 C 3275.12 619.81 3275.72 612.81 3276.42 604.01 C 3277.02 595.21 3277.52 584.61 3277.82 572.31 C 3278.22 559.91 3278.32 545.61 3278.32 529.31 L 3277.42 426.71 C 3277.42 400.71 3273.32 379.71 3265.12 363.81 C 3257.02 347.81 3246.32 336.31 3232.92 329.11 C 3219.62 321.91 3205.12 318.31 3189.52 318.31 C 3171.22 318.31 3153.72 322.71 3136.72 331.51 C 3119.82 340.31 3105.22 353.81 3092.82 372.11 L 3092.82 517.61 C 3092.82 544.91 3093.32 568.21 3094.32 587.41 C 3095.22 606.61 3096.72 619.11 3098.62 625.01 L 3155.32 640.61 L 3152.42 678.71 Z M 3497.12 678.71 L 3494.22 640.61 L 3547.92 625.01 C 3549.22 619.81 3550.02 612.81 3550.32 604.01 C 3550.62 595.21 3551.12 584.61 3551.82 572.31 C 3552.42 559.91 3552.72 545.61 3552.72 529.31 L 3551.82 430.71 C 3551.82 403.31 3547.42 381.51 3538.62 365.21 C 3529.82 348.91 3518.42 337.11 3504.42 329.61 C 3490.42 322.11 3475.92 318.31 3461.02 318.31 C 3440.82 318.31 3421.92 323.11 3404.32 332.51 C 3386.72 341.91 3371.42 356.81 3358.42 376.91 L 3336.92 339.81 C 3359.72 309.21 3384.02 286.31 3409.72 271.01 C 3435.42 255.71 3462.92 248.01 3492.22 248.01 C 3520.82 248.01 3546.62 254.91 3569.32 268.51 C 3592.12 282.21 3609.92 301.61 3622.62 326.61 C 3635.32 351.71 3641.62 381.81 3641.62 417.01 L 3642.62 524.41 C 3642.62 547.21 3643.12 568.01 3644.12 586.91 C 3645.02 605.81 3646.22 618.51 3647.52 625.01 L 3708.02 640.61 L 3706.12 678.71 Z M 3497.12 678.71 "/></svg>
+      </span>
+      <button class="icon-btn" type="button" id="hide-sidebar" aria-label="Hide sidebar" title="Hide sidebar" data-icon="sidebar"></button>
+    </div>
+    <button class="side-btn new" type="button" id="new-chat"><span data-icon="plus"></span><span>New chat</span><span class="kbd">⌘N</span></button>
+    <button class="side-btn" type="button" id="open-library"><span data-icon="book"></span><span>Library</span></button>
+    <button class="side-btn" type="button" id="open-guides"><span data-icon="map"></span><span>Guides</span></button>
+    <button class="side-btn" type="button" id="open-plan"><span data-icon="note"></span><span>Family plan</span></button>
+    <div class="side-h">Recent</div>
+    <nav class="recents" id="chat-list" aria-label="Saved chats"></nav>
+    <div class="side-foot">
+      <button class="side-btn" type="button" id="open-settings"><span data-icon="gear"></span><span>Settings</span></button>
+      <button class="side-status" type="button" id="side-status" title="Status"><span class="dot off" id="status-dot"></span><span id="status-text">Connecting…</span></button>
+    </div>
+  </aside>
+  <button class="side-scrim" type="button" id="side-scrim" aria-label="Close sidebar" tabindex="-1"></button>
+
+  <main class="main" id="main">
+    <div class="resizer left" id="resize-side" role="separator" aria-orientation="vertical" title="Drag to resize"></div>
+    <header class="topbar">
+      <span class="when-closed">
+        <button class="icon-btn" type="button" id="show-sidebar" aria-label="Show sidebar" title="Show sidebar" data-icon="sidebar"></button>
+        <button class="icon-btn" type="button" id="new-chat-top" aria-label="New chat" title="New chat" data-icon="plus"></button>
+      </span>
+      <h1 class="title" id="chat-title"></h1>
+      <div class="sos-wrap" id="sos-wrap">
+        <button class="sos-btn" type="button" id="sos-btn" aria-expanded="false" aria-controls="sos-pop" title="Emergency numbers"><span data-icon="phone" data-icon-size="sm"></span><span class="sos-label">Emergency</span></button>
+        <div class="sos-pop" id="sos-pop" role="dialog" aria-label="Emergency numbers" hidden>
+          <div class="sos-pop-h" id="sos-country"></div>
+          <div id="sos-numbers"></div>
+          <button class="sos-change" type="button" id="sos-change">Change country</button>
+        </div>
+      </div>
+      <button class="icon-btn" type="button" id="sources-btn" aria-label="Sources" title="Sources" aria-pressed="false" data-icon="panel" hidden></button>
+    </header>
+
+    <div class="banner top-banner" id="banner" hidden>
+      <span id="banner-text"></span>
+      <button class="btn" type="button" id="banner-action" hidden></button>
+    </div>
+
+    <div class="scroll" id="scroll">
+      <div class="column" id="view-chat">
+        <section class="start" id="start">
+          <h2 class="start-h">What do you need to know?</h2>
+          <div id="start-composer"></div>
+          <p class="offline-note" id="start-offline" hidden><span id="start-offline-text">The model isn't running. You can still browse the library.</span> <button class="link" type="button" id="start-offline-link" hidden>Set up a model</button></p>
+          <div class="suggest" id="suggest"></div>
+        </section>
+        <div class="messages" id="messages" aria-live="polite"></div>
+      </div>
+      <div class="lib-wrap" id="view-library" hidden></div>
+      <div class="lib-wrap" id="view-guides" hidden></div>
+      <div class="lib-wrap" id="view-plan" hidden></div>
+      <div class="map-wrap" id="view-map" hidden></div>
+    </div>
+
+    <div class="composer-wrap" id="composer-wrap">
+      <button class="jump-latest" type="button" id="jump-latest" hidden><span data-icon="down" data-icon-size="sm"></span>Jump to latest</button>
+      <div class="edit-bar" id="edit-bar" hidden><span>Editing your question. Sending it replaces that question and the answers after it.</span><button class="link" type="button" id="edit-cancel">Cancel</button></div>
+      <form class="composer" id="composer" autocomplete="off">
+        <label class="visually-hidden" for="input">Your question</label>
+        <textarea class="field" id="input" rows="1" maxlength="20000" placeholder="Ask a question"></textarea>
+        <button class="send" type="submit" id="send" aria-label="Send" title="Send" data-icon="send" disabled></button>
+      </form>
+      <div class="under" id="under">Answers can be wrong. Check the sources.</div>
+    </div>
+  </main>
+
+  <aside class="panel" id="panel" aria-label="Sources" hidden>
+    <div class="resizer right" id="resize-panel" role="separator" aria-orientation="vertical" title="Drag to resize"></div>
+    <div class="panel-head" id="panel-head"></div>
+    <div class="panel-body" id="panel-body"></div>
+    <div class="panel-foot" id="panel-foot"></div>
+  </aside>
+  <button class="panel-scrim" type="button" id="panel-scrim" aria-label="Close panel" tabindex="-1" hidden></button>
+
+  <div class="reading" id="reading" role="dialog" aria-label="Reading" hidden>
+    <div class="reading-bar">
+      <button class="btn" type="button" id="reading-back"><span data-icon="back" data-icon-size="sm"></span>Back</button>
+      <span class="reading-src" id="reading-src"></span>
+      <button class="btn" type="button" id="reading-another" hidden><span data-icon="shuffle" data-icon-size="sm"></span>Another article</button>
+      <button class="btn" type="button" id="reading-booklet" hidden title="A fold-up booklet: A5 pages, two to each A4 sheet"><span data-icon="doc" data-icon-size="sm"></span>Booklet</button>
+      <button class="btn" type="button" id="reading-print" hidden><span data-icon="print" data-icon-size="sm"></span>Print</button>
+      <button class="btn" type="button" id="reading-ask"><span data-icon="chat" data-icon-size="sm"></span>Ask about this</button>
+    </div>
+    <div class="reading-scroll" id="reading-scroll">
+      <article class="reading-col" id="reading-col" data-md-root></article>
+    </div>
+  </div>
+</div>
+
+<div class="menu" id="chat-menu" role="menu" hidden>
+  <button type="button" role="menuitem" id="menu-rename">Rename</button>
+  <button type="button" role="menuitem" id="menu-delete">Delete</button>
+</div>
+
+<div class="toast" id="toast" role="alert" hidden></div>
+
+<dialog class="dialog up-dialog" id="lock-dialog" aria-labelledby="lock-title">
+  <div id="lock-body"></div>
+</dialog>
+<dialog class="dialog" id="confirm-dialog" aria-labelledby="confirm-title">
+  <form method="dialog">
+    <h3 id="confirm-title"></h3>
+    <div id="confirm-text"></div>
+    <div class="dlg-actions">
+      <button class="btn" type="submit" value="cancel">Cancel</button>
+      <button class="btn primary" type="submit" value="ok" id="confirm-ok"></button>
+    </div>
+  </form>
+</dialog>
+
+<!-- The ready notice: a small card at the bottom of the side panel, above Settings, not modal (app.js showUpdateCard, updates.js notice) -->
+<aside class="upd-card" id="update-card" role="dialog" aria-modal="false" aria-labelledby="update-title" hidden>
+  <div id="update-body"></div>
+</aside>
+<div class="visually-hidden" id="update-live" aria-live="polite"></div>
+
+<dialog class="modal" id="settings" aria-labelledby="settings-title">
+  <div class="modal-head">
+    <h2 id="settings-title">Settings</h2>
+    <button class="icon-btn" type="button" id="close-settings" aria-label="Close settings" title="Close" data-icon="close"></button>
+  </div>
+  <div class="modal-main">
+    <nav class="modal-nav" role="tablist" aria-label="Settings pages" aria-orientation="vertical" id="settings-tabs">
+      <button class="side-btn" type="button" role="tab" id="tab-emergency" data-pane="emergency" aria-controls="pane-emergency"><span data-icon="phone"></span><span>Emergency numbers</span></button>
+      <button class="side-btn" type="button" role="tab" id="tab-status" data-pane="status" aria-controls="pane-status"><span data-icon="pulse"></span><span>Status</span></button>
+      <button class="side-btn" type="button" role="tab" id="tab-model" data-pane="model" aria-controls="pane-model"><span data-icon="box"></span><span>Model</span></button>
+      <button class="side-btn" type="button" role="tab" id="tab-appearance" data-pane="appearance" aria-controls="pane-appearance"><span data-icon="contrast"></span><span>Appearance</span></button>
+      <button class="side-btn" type="button" role="tab" id="tab-answers" data-pane="answers" aria-controls="pane-answers"><span data-icon="doc"></span><span>Answers</span></button>
+      <button class="side-btn" type="button" role="tab" id="tab-memory" data-pane="memory" aria-controls="pane-memory"><span data-icon="note"></span><span>Memory</span></button>
+      <button class="side-btn" type="button" role="tab" id="tab-instructions" data-pane="instructions" aria-controls="pane-instructions"><span data-icon="sliders"></span><span>Instructions</span></button>
+      <button class="side-btn" type="button" role="tab" id="tab-files" data-pane="files" aria-controls="pane-files"><span data-icon="folder"></span><span>Your files</span></button>
+      <button class="side-btn" type="button" role="tab" id="tab-upgrade" data-pane="upgrade" aria-controls="pane-upgrade"><span data-icon="key"></span><span>Upgrade</span></button>
+    </nav>
+    <div class="modal-body" id="modal-body">
+
+      <section class="pane" role="tabpanel" id="pane-emergency" aria-labelledby="tab-emergency">
+        <h3>Emergency numbers</h3>
+        <p class="lead">Your country's card: each number confirmed on an official page, and when to call it.</p>
+        <div class="set-row">
+          <div class="set-label"><label for="country-select">Country</label><span class="hint" id="country-hint"></span></div>
+          <div class="set-control"><select class="select" id="country-select"></select></div>
+        </div>
+        <div class="country-card" id="country-card"></div>
+        <div class="set-row">
+          <div class="set-label"><span>Print the numbers</span><span class="hint">An A5 page and a wallet card to cut out.</span></div>
+          <div class="set-control"><button class="btn" type="button" id="country-print"><span data-icon="print" data-icon-size="sm"></span>Print</button></div>
+        </div>
+      </section>
+
+      <section class="pane" role="tabpanel" id="pane-status" aria-labelledby="tab-status" hidden>
+        <h3>Status</h3>
+        <div class="banner" id="status-banner" hidden><span id="status-banner-text"></span><button class="btn" type="button" id="status-banner-action"></button></div>
+        <div class="set-row">
+          <div class="set-label"><label for="model-select">Model</label><span class="hint" id="model-hint"></span></div>
+          <div class="set-control"><select class="select" id="model-select"></select></div>
+        </div>
+        <p class="msg" id="model-msg"></p>
+        <div class="set-row">
+          <div class="set-label"><span>Library</span></div>
+          <div class="set-control"><span class="val" id="lib-facts"></span></div>
+        </div>
+        <div class="set-row" id="row-built" hidden>
+          <div class="set-label"><span>Built</span></div>
+          <div class="set-control"><span class="val" id="lib-built"></span></div>
+        </div>
+        <div class="set-row">
+          <div class="set-label"><span>Library folder</span><span class="hint fpath" id="lib-folder"></span></div>
+          <div class="set-control"><span class="btn-row">
+            <button class="btn" type="button" id="library-pick">Choose…</button>
+            <button class="btn" type="button" id="library-show">Show the folder</button>
+          </span></div>
+        </div>
+        <div class="form-row" id="library-type" hidden>
+          <label class="visually-hidden" for="library-folder">Library folder</label>
+          <input class="input" type="text" id="library-folder" spellcheck="false" autocapitalize="off" placeholder="Full path of a library folder">
+          <button class="btn" type="button" id="library-save">Save</button>
+        </div>
+        <div class="form-row end" id="library-default-row" hidden>
+          <button class="link" type="button" id="library-default">Use the default library folder</button>
+        </div>
+        <p class="msg" id="library-msg"></p>
+        <div id="refresh-section" hidden>
+        <div class="set-row" id="row-last" hidden>
+          <div class="set-label"><span>Last refresh</span><span class="hint" id="last-hint"></span></div>
+          <div class="set-control"><span class="val" id="last-val"></span></div>
+        </div>
+        <div class="set-row" id="row-next" hidden>
+          <div class="set-label"><span>Next refresh</span><span class="hint">The computer must be on.</span></div>
+          <div class="set-control"><span class="val" id="next-val"></span></div>
+        </div>
+        <div class="set-row">
+          <div class="set-label"><span>Refresh now</span><span class="hint" id="refresh-hint">Runs the weekly update now.</span></div>
+          <div class="set-control"><button class="btn" type="button" id="refresh-now"><span data-icon="retry" data-icon-size="sm"></span><span class="swap" id="refresh-swap" data-alt="Refreshing"><span id="refresh-label">Refresh now</span></span></button></div>
+        </div>
+        <p class="msg" id="refresh-msg"></p>
+        </div>
+        <div id="updates-section"></div>
+        <div class="set-row">
+          <div class="set-label"><span>Quit Starholm</span><span class="hint">Stops the app.</span></div>
+          <div class="set-control"><button class="btn" type="button" id="quit-app">Quit</button></div>
+        </div>
+        <p class="msg" id="quit-msg"></p>
+      </section>
+
+      <section class="pane" role="tabpanel" id="pane-model" aria-labelledby="tab-model" hidden>
+        <h3>Model</h3>
+        <p class="lead" id="model-lead">The AI runs on this computer, so it needs memory. Pick the row that matches this computer's memory.</p>
+        <div class="set-row">
+          <div class="set-label"><span>Ollama</span><span class="hint">The free program that runs the AI on this computer. Starholm uses it to download and run models.</span></div>
+          <div class="set-control"><span class="val" id="ollama-val"><span class="dot off" id="ollama-dot"></span><span id="ollama-text">…</span></span><button class="btn" type="button" id="ollama-action" hidden></button></div>
+        </div>
+        <div id="ai-setup"></div>
+        <div class="model-table-wrap" id="model-table"></div>
+        <p class="hint">A download runs once and then works with no internet. Remove a model to free its space.</p>
+        <p class="msg" id="models-msg"></p>
+        <div class="set-row">
+          <div class="set-label"><span id="docs-only-label">Library only</span><span class="hint">Use Starholm with no AI. Search, the reader, the guides and the guided questions all work. A question shows the documents the library finds, with no written answer. With a model installed, press Summarise under a question when you want one.</span></div>
+          <div class="set-control"><button class="toggle" type="button" role="switch" id="docs-only" aria-checked="false" aria-labelledby="docs-only-label"><span class="switch"></span></button></div>
+        </div>
+      </section>
+
+      <section class="pane" role="tabpanel" id="pane-appearance" aria-labelledby="tab-appearance" hidden>
+        <h3>Appearance</h3>
+        <div class="set-row">
+          <div class="set-label"><span id="theme-label">Theme</span></div>
+          <div class="set-control">
+            <span class="seg" role="radiogroup" aria-labelledby="theme-label">
+              <button type="button" role="radio" data-theme-choice="system" aria-label="System" title="System" data-icon="monitor" data-icon-size="sm"></button>
+              <button type="button" role="radio" data-theme-choice="light" aria-label="Light" title="Light" data-icon="sun" data-icon-size="sm"></button>
+              <button type="button" role="radio" data-theme-choice="dark" aria-label="Dark" title="Dark" data-icon="moon" data-icon-size="sm"></button>
+            </span>
+          </div>
+        </div>
+        <div class="set-row">
+          <div class="set-label"><label for="text-size">Text size</label></div>
+          <div class="set-control"><span class="slider-wrap"><span class="a-sm" aria-hidden="true">A</span><input class="slider" type="range" id="text-size" min="1" max="7" step="1" value="3"><span class="a-lg" aria-hidden="true">A</span></span></div>
+        </div>
+        <p class="sample">Press hard on the wound with a clean cloth for 10 minutes without lifting it.</p>
+      </section>
+
+      <section class="pane" role="tabpanel" id="pane-answers" aria-labelledby="tab-answers" hidden>
+        <h3>Answers</h3>
+        <p class="lead">The documents a question finds open in the side panel while the AI writes its answer.</p>
+        <h4 class="sub-h">For testing</h4>
+        <div class="set-row">
+          <div class="set-label"><label for="answer-mode" id="answer-mode-label">How answers use the library</label><span class="hint">The two quoted ways mark each statement with the passage it comes from, and grey out any statement no passage backs.</span></div>
+          <div class="set-control"><select class="select" id="answer-mode">
+            <option value="standard">Standard: the AI looks things up</option>
+            <option value="tools-quoted">Quoted: the AI looks things up</option>
+            <option value="fetch-quoted">Quoted: the app finds the passages</option>
+          </select></div>
+        </div>
+        <div class="set-row">
+          <div class="set-label"><span id="thinking-label">Let the AI think before it answers</span><span class="hint" id="thinking-hint">For the model in use.</span></div>
+          <div class="set-control"><button class="toggle" type="button" role="switch" id="thinking" aria-checked="true" aria-labelledby="thinking-label"><span class="switch"></span></button></div>
+        </div>
+        <p class="msg" id="answers-msg"></p>
+      </section>
+
+      <section class="pane" role="tabpanel" id="pane-memory" aria-labelledby="tab-memory" hidden>
+        <h3>Memory</h3>
+        <p class="lead">Notes the AI keeps about you and reads before every answer, one per line. They stay on this computer.</p>
+        <label class="visually-hidden" for="memory-text">Memory notes</label>
+        <textarea class="textbox" id="memory-text" rows="9" spellcheck="true"></textarea>
+        <div class="form-row"><span class="hint" id="memory-count"></span><button class="btn primary" type="button" id="memory-save">Save</button></div>
+        <p class="msg" id="memory-msg"></p>
+        <div class="set-row">
+          <div class="set-label"><span id="memory-ai-label">Let the AI add and change notes</span><span class="hint">It may update its notes after an answer. Every change can be undone.</span></div>
+          <div class="set-control"><button class="toggle" type="button" role="switch" id="memory-ai" aria-checked="false" aria-labelledby="memory-ai-label"><span class="switch"></span></button></div>
+        </div>
+      </section>
+
+      <section class="pane" role="tabpanel" id="pane-instructions" aria-labelledby="tab-instructions" hidden>
+        <h3>Instructions</h3>
+        <p class="lead">Extra instructions the AI follows in every chat. Leave it empty to use only the built-in ones.</p>
+        <label class="visually-hidden" for="prompt-text">Your instructions</label>
+        <textarea class="textbox" id="prompt-text" rows="7" spellcheck="true" placeholder="For example: give quantities in litres."></textarea>
+        <div class="form-row"><button class="btn" type="button" id="prompt-reset">Reset</button><button class="btn primary" type="button" id="prompt-save">Save</button></div>
+        <p class="msg" id="prompt-msg"></p>
+        <details class="plain-details">
+          <summary>See the built-in instructions</summary>
+          <pre class="builtin" id="prompt-default"></pre>
+        </details>
+      </section>
+
+      <section class="pane" role="tabpanel" id="pane-files" aria-labelledby="tab-files" hidden>
+        <h3>Your files</h3>
+        <p class="lead">Add your own PDFs, Word files, EPUBs, web pages and text files. The AI searches them along with the library.</p>
+        <div class="dropzone" id="dropzone">
+          <span data-icon="upload"></span>
+          <span>Drop files here, or</span>
+          <button class="btn" type="button" id="files-add">Choose files…</button>
+          <input class="visually-hidden" type="file" id="file-input" multiple tabindex="-1" aria-hidden="true" accept=".pdf,.docx,.odt,.epub,.html,.htm,.txt,.md,.markdown,.csv">
+        </div>
+        <p class="hint" id="files-status"></p>
+        <div class="notes" id="files-notes"></div>
+        <div class="banner" id="files-ask" hidden>
+          <span id="files-ask-text"></span>
+          <span class="btn-row">
+            <button class="btn" type="button" id="files-ask-replace">Replace it</button>
+            <button class="btn" type="button" id="files-ask-keep">Keep both</button>
+            <button class="btn" type="button" id="files-ask-skip">Skip</button>
+          </span>
+        </div>
+        <div class="file-list" id="files-list"></div>
+        <h4 class="sub-h">Folder</h4>
+        <div class="set-row">
+          <div class="set-label"><span class="fpath" id="files-folder-text"></span><span class="hint">Files you put in this folder, or change there, are picked up on their own.</span></div>
+          <div class="set-control"><span class="btn-row">
+            <button class="btn" type="button" id="files-pick">Choose…</button>
+            <button class="btn" type="button" id="files-show">Show the folder</button>
+          </span></div>
+        </div>
+        <div class="form-row" id="files-type" hidden>
+          <label class="visually-hidden" for="files-folder">Folder for your files</label>
+          <input class="input" type="text" id="files-folder" spellcheck="false" autocapitalize="off" placeholder="Full path of a folder">
+          <button class="btn" type="button" id="files-folder-save">Save</button>
+        </div>
+        <p class="msg" id="files-folder-msg"></p>
+      </section>
+      <section class="pane" role="tabpanel" id="pane-upgrade" aria-labelledby="tab-upgrade" hidden>
+        <h3>Upgrade</h3>
+        <p class="hint">Opening…</p>
+      </section>
+    </div>
+  </div>
+</dialog>
+
+</body>
+</html>

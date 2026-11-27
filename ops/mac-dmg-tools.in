@@ -1,0 +1,5 @@
+# Build-only tool for ops/make-dmg.sh: dmgbuild lays out the .dmg window (icon places, background, hidden toolbar) by
+# writing the .DS_Store itself, with no Finder automation. Nothing here ships in the app.
+# Regenerate: uv pip compile --generate-hashes --only-binary :all: --python-version 3.13 \
+#   --python-platform aarch64-apple-darwin ops/mac-dmg-tools.in -o ops/mac-dmg-tools.lock
+dmgbuild

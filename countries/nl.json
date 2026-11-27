@@ -1,0 +1,65 @@
+{
+  "code": "NL",
+  "name": "Netherlands",
+  "checked": "2026-11-18",
+  "call": [
+    {
+      "label": "Police, ambulance and fire",
+      "short": "Police, ambul., fire",
+      "number": "112",
+      "when": "Danger to life, or a crime happening now",
+      "wallet": true,
+      "sources": [
+        "s1"
+      ]
+    },
+    {
+      "label": "Police, not an emergency",
+      "short": "Police, non-emergency",
+      "number": "0900 8844",
+      "when": "No danger now. Not for emergencies",
+      "wallet": true,
+      "sources": [
+        "s1"
+      ]
+    },
+    {
+      "label": "Coastguard, from a Dutch phone",
+      "short": "Coastguard",
+      "number": "0900 0111",
+      "when": "Trouble at sea or on the coast",
+      "wallet": true,
+      "sources": [
+        "s2"
+      ]
+    },
+    {
+      "label": "Coastguard, from a foreign phone",
+      "short": "Coastguard, abroad",
+      "number": "+31 88 958 4040",
+      "when": "Trouble at sea, from a foreign phone",
+      "wallet": true,
+      "sources": [
+        "s2"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Wanneer kan ik alarmnummer 112 bellen?",
+      "publisher": "Rijksoverheid (Dutch central government)",
+      "url": "https://www.rijksoverheid.nl/onderwerpen/alarmnummer-112/vraag-en-antwoord/wanneer-112-bellen",
+      "checked": "2026-11-18",
+      "note": "The page shows no update date."
+    },
+    {
+      "id": "s2",
+      "title": "Contact",
+      "publisher": "Netherlands Coastguard (kustwacht.nl)",
+      "url": "https://kustwacht.nl/contact/",
+      "checked": "2026-11-18",
+      "note": "The page shows no update date."
+    }
+  ]
+}

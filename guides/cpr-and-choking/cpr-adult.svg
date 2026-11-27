@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="print" viewBox="0 0 600 584" role="img" aria-labelledby="t d">
+<title id="t">CPR for an adult in four steps</title>
+<desc id="d">1. Check: shake the shoulders and ask loudly; look, listen and feel for normal breathing for up to 10 seconds. 2. Call your local emergency number and put the phone on speaker. 3. Push in the center of the chest, 5 to 6 cm deep, 100 to 120 times a minute. 4. If trained and willing, 2 breaths after 30 pushes.</desc>
+<style>
+.bg{fill:#ffffff}.ink{fill:#1a1a1a}.mut{fill:#5e5e5e}.af{fill:#9a6524}.df{fill:#b83b30}.tint{fill:#f6ede2}.dtint{fill:#fbeeec}.ln{stroke:#2b2b2b;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.hair{stroke:#8f8f8f;fill:none;stroke-width:1}.rule{stroke:#d6d6d4;fill:none;stroke-width:1}.acc{stroke:#9a6524;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.dng{stroke:#b83b30;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.hatch{stroke:#b83b30;fill:none;stroke-width:1;opacity:.55}
+text{font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-size:15px}
+.h{font-size:18px;font-weight:700}.b{font-weight:700}.s{font-size:13px}.c{font-size:12px;font-weight:700;letter-spacing:.08em}.m{font-family:ui-monospace,Menlo,monospace;font-size:14px}.n{font-family:ui-monospace,Menlo,monospace;font-size:18px;font-weight:700}
+@media (prefers-color-scheme:dark){.bg{fill:#262626}.ink{fill:#ececec}.mut{fill:#a3a3a3}.af{fill:#d9a066}.df{fill:#ec8277}.tint{fill:#332a21}.dtint{fill:#2f2322}.ln{stroke:#cfcfcf}.hair{stroke:#6f6f6f}.rule{stroke:#3a3a3a}.acc{stroke:#d9a066}.dng{stroke:#ec8277}.hatch{stroke:#ec8277}}
+:target .bg{fill:#ffffff}:target .ink{fill:#1a1a1a}:target .mut{fill:#5e5e5e}:target .af{fill:#9a6524}:target .df{fill:#b83b30}:target .tint{fill:#f6ede2}:target .dtint{fill:#fbeeec}:target .ln{stroke:#2b2b2b}:target .hair{stroke:#8f8f8f}:target .rule{stroke:#d6d6d4}:target .acc{stroke:#9a6524}:target .dng{stroke:#b83b30}:target .hatch{stroke:#b83b30}
+</style>
+<rect class="bg" width="600" height="584" rx="10"/>
+<!-- 1. Check -->
+<g transform="translate(16,16)">
+<rect class="rule" width="276" height="270" rx="8"/>
+<text class="ink h" x="16" y="32"><tspan class="af">1.</tspan> Check</text>
+<path class="rule" d="M16 46 H260"/>
+<circle class="ln" cx="58" cy="108" r="11"/>
+<rect class="ln" x="74" y="98" width="140" height="20" rx="10"/>
+<path class="hair" d="M30 128 H240"/>
+<path class="acc" d="M44 84 q14 -12 28 0 M36 74 q22 -20 44 0"/>
+<text class="ink" x="16" y="160">Shake, ask loudly:</text>
+<text class="ink" x="16" y="180">“Are you alright?”</text>
+<text class="ink" x="16" y="210">Look, listen, feel for normal</text>
+<text class="ink" x="16" y="230">breathing, up to 10 seconds</text>
+<text class="mut s" x="16" y="256">Gasping is not normal</text>
+</g>
+<!-- 2. Call -->
+<g transform="translate(308,16)">
+<rect class="rule" width="276" height="270" rx="8"/>
+<text class="ink h" x="16" y="32"><tspan class="af">2.</tspan> Call</text>
+<path class="rule" d="M16 46 H260"/>
+<rect class="ln" x="114" y="56" width="48" height="72" rx="8"/>
+<path class="ln" d="M130 64 H146"/>
+<text class="df n" style="font-size:15px" x="138" y="100" text-anchor="middle">Call</text>
+<path class="acc" d="M172 82 q8 10 0 20 M182 76 q14 16 0 32"/>
+<text class="ink" x="16" y="158">Call your local emergency</text>
+<text class="ink" x="16" y="178">number, or tell someone to.</text>
+<text class="ink" x="16" y="206">Phone on speaker.</text>
+<text class="ink" x="16" y="232">Fetch a defibrillator</text>
+<text class="mut s" x="16" y="256">Call-taker guides you</text>
+</g>
+<!-- 3. Push -->
+<g transform="translate(16,298)">
+<rect class="rule" width="276" height="270" rx="8"/>
+<text class="ink h" x="16" y="32"><tspan class="af">3.</tspan> Push</text>
+<path class="rule" d="M16 46 H260"/>
+<path class="ln" d="M20 104 H200 M20 128 H200"/>
+<path class="hair" stroke-dasharray="3 3" d="M100 114 H160"/>
+<rect class="tint" x="110" y="90" width="40" height="12" rx="5"/><rect class="acc" x="110" y="90" width="40" height="12" rx="5"/>
+<path class="acc" d="M130 56 v26 m-6 -8 l6 8 l6 -8"/>
+<path class="hair" d="M214 104 H234 M214 114 H234 M224 104 V114"/>
+<text class="ink m" x="190" y="76">5 to 6 cm</text>
+<path class="hair" d="M224 82 V100"/>
+<text class="ink" x="16" y="160">Center of the chest,</text>
+<text class="ink" x="16" y="180">arms straight</text>
+<text class="ink" x="16" y="210">5 to 6 cm deep</text>
+<text class="ink" x="16" y="230">100 to 120 a minute</text>
+<text class="mut s" x="16" y="256">Let the chest rise fully</text>
+</g>
+<!-- 4. Breathe -->
+<g transform="translate(308,298)">
+<rect class="rule" width="276" height="270" rx="8"/>
+<text class="ink h" x="16" y="32"><tspan class="af">4.</tspan> Breathe</text>
+<path class="rule" d="M16 46 H260"/>
+<path class="ln" d="M96 124 V104 q0 -14 10 -22 q12 -10 30 -8 q14 2 20 12 l8 12 l-8 4 v8 q0 6 -8 8 h-10 v10"/>
+<path class="hair" d="M88 128 H196"/>
+<path class="acc" d="M176 92 h22 m-6 -5 l6 5 l-6 5 M176 106 h22 m-6 -5 l6 5 l-6 5"/>
+<text class="ink" x="16" y="160">If trained, willing:</text>
+<text class="ink" x="16" y="180">2 breaths after every 30 pushes</text>
+<text class="ink" x="16" y="210">Not willing? Keep pushing</text>
+<text class="mut s" x="16" y="256">1 second per breath</text>
+</g>
+</svg>
