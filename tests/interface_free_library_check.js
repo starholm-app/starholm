@@ -74,7 +74,7 @@ ok("first visit: no library, nothing running, picker closed: the two cards and t
   assert.ok(free.includes("A lot of the 33 GB is noise"));
   const up = cards[1].textContent;
   assert.ok(up.includes("Included in the upgrade"), "the ready-made card shows its upgrade state");
-  assert.ok(up.includes("About 16 GB to download"));
+  assert.ok(up.includes("About 5.8 GB to download") && up.includes("16.1 GB on this computer once unpacked") && !up.includes("hours"), up);
   assert.strictEqual(byClass(v.body, "fl-picker").length, 0, "the picker is closed");
   const raw = byClass(v.body, "fl-raw")[0].textContent;
   const clean = byClass(v.body, "fl-clean")[0].textContent;
@@ -212,6 +212,29 @@ ok("the module itself holds no price and makes no network call", () => {
   const src = fs.readFileSync(path.resolve(process.argv[2]), "utf8");
   assert.ok(!PRICE.test(src.replace(/^\s*\/\/.*$/gm, "")), "a price in free-library.js");
   assert.ok(!/fetch\(|XMLHttpRequest|innerHTML|outerHTML|insertAdjacentHTML/.test(src));
+});
+
+// ---------- the AI too (ctx.ai from models.js aiPlan and aiLine) ----------
+ok("the AI too: with the AI to set up, the free card says its download sets it up as well; ready, nothing changes", () => {
+  const plain = FL.view(base, { picking: false, selected: null }, ctx);
+  const same = FL.view(base, { picking: false, selected: null }, { ...ctx, ai: { plan: "", line: null } });
+  assert.strictEqual(text(same), text(plain), "the AI ready, or Library only: the card as before");
+  const v = FL.view(base, { picking: false, selected: null }, { ...ctx, ai: { plan: "the AI engine (231 MB) and the model Gemma 4, 12B (7.2 GB)", line: null } });
+  const free = all(v.body).find((e) => e.getAttribute("data-card") === "free");
+  assert.ok(free.textContent.includes("It also sets up the AI for this computer: the AI engine (231 MB) and the model Gemma 4, 12B (7.2 GB)."), free.textContent);
+  assert.ok(!/ollama/i.test(text(v)));
+});
+ok("the AI too: while the library builds, the AI's line links to Settings › Model; ready says so with no link", () => {
+  const v = FL.view({ ...base, job }, null, { ...ctx, ai: { plan: "", line: { kind: "running", text: "Downloading the AI engine… 40% of 405 MB" } } });
+  const line = all(v.body).find((e) => e.getAttribute("data-role") === "ai");
+  assert.ok(line.textContent.startsWith("Downloading the AI engine… 40% of 405 MB"), line.textContent);
+  calls.length = 0;
+  byAction(v.body, "open-model")[0].fire("click");
+  assert.deepStrictEqual(calls, [["openModel"]]);
+  const ready = FL.view({ ...base, job }, null, { ...ctx, ai: { plan: "", line: { kind: "ready", text: "The AI is ready." } } });
+  assert.ok(ready.body.textContent.includes("The AI is ready.") && byAction(ready.body, "open-model").length === 0);
+  const none = FL.view({ ...base, job }, null, { ...ctx, ai: { plan: "", line: null } });
+  assert.strictEqual(all(none.body).filter((e) => e.getAttribute("data-role") === "ai").length, 0);
 });
 
 console.log(`${n} free library interface checks passed`);

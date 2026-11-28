@@ -107,14 +107,19 @@ if (-not (Test-Path -LiteralPath (Join-Path $Pbs 'python\python.exe'))) {
 $BuildPy = Join-Path $Pbs 'python\python.exe'  # runs the build's own Python steps; the app gets a fresh copy
 
 # ---------- 2. Poppler (pdftotext.exe, pdfinfo.exe), static, with FreeType and zlib ----------
-$PopplerOut = Join-Path $Cache "poppler-$POPPLER_VER-ft$FREETYPE_VER-z$ZLIB_VER-win64"
+# "-p2": built outside the checkout and with a neutral install prefix (below). A change to how it is built gets a new
+# suffix, so a cached build made the old way is never reused.
+$PopplerOut = Join-Path $Cache "poppler-$POPPLER_VER-ft$FREETYPE_VER-z$ZLIB_VER-p2-win64"
 if (-not (Test-Path -LiteralPath (Join-Path $PopplerOut 'bin\pdftotext.exe')) -or
     -not (Test-Path -LiteralPath (Join-Path $PopplerOut 'bin\pdfinfo.exe'))) {
   Say "Poppler $POPPLER_VER with FreeType $FREETYPE_VER and zlib $ZLIB_VER (compiled once, kept in dist\.cache)"
   $popplerArchive = Fetch $POPPLER_URL $POPPLER_SHA256 "poppler-$POPPLER_VER.tar.xz"
   $freetypeArchive = Fetch $FREETYPE_URL $FREETYPE_SHA256 "freetype-$FREETYPE_VER.tar.xz"
   $zlibArchive = Fetch $ZLIB_URL $ZLIB_SHA256 "zlib-$ZLIB_VER.tar.xz"
-  $Work = Join-Path $Cache 'poppler-build'
+  # Compiled outside the checkout, in a folder whose name says nothing about who builds or where: compilers keep the
+  # paths of source files in the programs they make, and the checkout's path names the repository (and, on someone's
+  # own computer, their account).
+  $Work = Join-Path "$env:SystemDrive\" 'starholm-build\poppler'
   foreach ($d in $Work, $PopplerOut) { if (Test-Path -LiteralPath $d) { Remove-Item -Recurse -Force -LiteralPath $d } }
   New-Item -ItemType Directory -Force -Path $Work | Out-Null
   # Python's tarfile unpacks .tar.xz on every Windows 10 (its own tar.exe may not read xz).
@@ -151,9 +156,14 @@ if (-not (Test-Path -LiteralPath (Join-Path $PopplerOut 'bin\pdftotext.exe')) -o
     '-DFT_DISABLE_HARFBUZZ=ON' '-DFT_DISABLE_BROTLI=ON'
   Run cmake --build (Join-Path $Work 'ft') -j $Jobs
   Run cmake --install (Join-Path $Work 'ft')
-  # Poppler with only what text extraction needs, as on the Mac, with Windows' own font lookup.
+  # Poppler with only what text extraction needs, as on the Mac, with Windows' own font lookup. Poppler keeps
+  # <install prefix>\share\poppler in its programs as where its optional data would be. It is never installed, so
+  # its prefix (given after @Common's, which it replaces) is a folder that doesn't exist and that only an
+  # administrator could create.
+  $NoPrefix = ($env:SystemRoot -replace '\\', '/') + '/starholm-none'
   Run cmake -S (Join-Path $Work "poppler-$POPPLER_VER") -B (Join-Path $Work 'pp') @Common @ZlibArgs `
     "-DCMAKE_PREFIX_PATH=$Prefix" '-DFONT_CONFIGURATION=win32' `
+    "-DCMAKE_INSTALL_PREFIX=$NoPrefix" `
     '-DENABLE_UTILS=ON' '-DENABLE_CPP=OFF' '-DENABLE_GLIB=OFF' '-DENABLE_GOBJECT_INTROSPECTION=OFF' '-DENABLE_QT5=OFF' `
     '-DENABLE_QT6=OFF' '-DENABLE_BOOST=OFF' '-DENABLE_BROTLI=OFF' '-DENABLE_LIBOPENJPEG=OFF' '-DENABLE_LIBJPEG=OFF' `
     '-DENABLE_LCMS=OFF' '-DENABLE_LIBCURL=OFF' '-DENABLE_LIBTIFF=OFF' '-DENABLE_NSS3=OFF' `
@@ -172,6 +182,8 @@ if (-not (Test-Path -LiteralPath (Join-Path $PopplerOut 'bin\pdftotext.exe')) -o
   Copy-Item (Join-Path $Work "freetype-$FREETYPE_VER\docs\FTL.TXT") (Join-Path $PopplerOut 'licenses\freetype-FTL.TXT')
   Copy-Item (Join-Path $Work "zlib-$ZLIB_VER\LICENSE") (Join-Path $PopplerOut 'licenses\zlib-LICENSE')
   Remove-Item -Recurse -Force -LiteralPath $Work
+  $WorkParent = Split-Path -Parent $Work
+  if (-not (Get-ChildItem -LiteralPath $WorkParent -Force)) { Remove-Item -Force -LiteralPath $WorkParent }
 }
 
 # ---------- 3. The app folder ----------
@@ -235,7 +247,9 @@ Get-ChildItem -Path $App -Recurse -File -Filter '*.pyc' | Remove-Item -Force
 # Bytecode, compiled now so the app never writes into its install folder: unchecked-hash .pyc files are used as they
 # are, never rechecked against the source and never rewritten. A few third-party files don't compile (templates,
 # Python 2 examples); those stay as source only.
-& $Py -I -m compileall -q -f -j $Jobs --invalidation-mode unchecked-hash $Std $Code | Out-Null
+# Each .pyc records its source file's path, for error messages. -s and -p make that "Starholm\..." instead of this
+# build's folder, which names the repository and, on someone's own computer, their account.
+& $Py -I -m compileall -q -f -j $Jobs --invalidation-mode unchecked-hash -s $App -p $Name $Std $Code | Out-Null
 
 # Poppler.
 New-Item -ItemType Directory -Force -Path (Join-Path $App 'poppler') | Out-Null

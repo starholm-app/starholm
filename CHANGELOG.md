@@ -3,6 +3,23 @@
 What changed in each version of Starholm, newest first. The first paragraph under a version is what the app's update
 notice shows (`packbuilder/app_manifest.py` reads it), so keep it to one or two short sentences.
 
+## 1.0.7
+
+The button that downloads the library now sets up the AI too. If the AI can't start, Starholm says so and a question
+shows the library's documents.
+
+- The button that downloads the library also sets up the AI and downloads the model recommended for this computer.
+  The page shows the AI's progress on its own line.
+- If the AI can't start, Starholm says so and a question shows the library's documents. It used to say "still
+  starting" and refuse the question.
+- Starholm now says "the AI" and "the AI engine" where it said "Ollama".
+- The log now records each step of the setup and the downloads, and why the app stopped, so a problem can be traced.
+- The Library page no longer says there is nothing to read right after a library download, the download sizes agree
+  everywhere (about 5.8 GB to download, 16.1 GB once unpacked), and the time-left estimate is steadier.
+- On Windows, Starholm runs its own copy of the AI engine in the background, inside its own data folder. Nothing
+  else is installed, no other window opens, no account is asked for, and the engine stops when you quit Starholm.
+  Windows also reads how much memory the computer has now, so it can recommend a model.
+
 ## 1.0.6
 
 The Starholm icon is now one colour, and on a Mac the window opens on the screen where you closed it.

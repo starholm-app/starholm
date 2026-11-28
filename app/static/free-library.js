@@ -9,6 +9,8 @@
 //
 // The functions here only build elements from the server's /api/free-library answer; app.js fetches it, keeps the
 // picker's choices and calls the server when a button is pressed (ctx.on). Nothing starts a download by itself.
+// ctx.ai (optional): {plan, line} from models.js aiPlan() and aiLine(). With a plan, the card says its download also
+// sets up the AI; while the AI's setup runs, the build shows its line with a link to Settings › Model.
 // Everything is built with DOM calls (render.js's h(), passed in as ctx.h); no markup is ever made from data. No
 // price appears anywhere. tests/interface_free_library_check.js renders each state with a stand-in DOM.
 (function (root) {
@@ -64,6 +66,7 @@
         h("li", null, `About ${aboutGb(total)} to download, much of it noise`),
         h("li", null, "Several hours to build"),
         h("li", null, "About 1.5 million documents")),
+      ctx.ai && ctx.ai.plan ? h("p", { class: "hint", "data-role": "ai" }, `It also sets up the AI for this computer: ${str(ctx.ai.plan)}.`) : null,
       h("div", { class: "fl-card-btns" },
         h("button", { class: "btn", type: "button", "data-action": "download-all", onclick: () => on.download(chosen(model, null)) },
           icon("down", "sm"), "Download the free library"),
@@ -71,8 +74,11 @@
           onclick: () => on.customise() }, "Customise")));
   }
 
-  function upgradeCard(ctx) {
+  function upgradeCard(model, ctx) {
     const { h, icon, on } = ctx;
+    // The same figures as the Upgrade page: what downloads (compressed) and what it takes once unpacked.
+    const rm = (model && model.ready_made) || {};
+    const down = num(rm.download) || 5.8e9, disk = num(rm.disk) || 16.1e9;
     return h("article", { class: "fl-card fl-card-up", "data-card": "upgrade" },
       h("span", { class: "fl-eyebrow" }, "Upgrade"),
       h("h2", { class: "fl-card-h" }, "Get the ready-made library"),
@@ -80,8 +86,8 @@
         "it takes about half the space. Pages read like the guides, search finds less clutter, and the key also unlocks " +
         "every guide, offline maps and the family plan."),
       h("ul", { class: "fl-facts" },
-        h("li", null, "About 16 GB to download"),
-        h("li", null, "Ready in about 3 hours on a fast connection"),
+        h("li", null, `About ${size(down)} to download`),
+        h("li", null, `${size(disk)} on this computer once unpacked`),
         h("li", null, "About 1.1 million documents")),
       h("p", { class: "fl-lockline" }, icon("lock", "sm"), "Included in the upgrade"),
       h("div", { class: "fl-card-btns" },
@@ -150,7 +156,7 @@
     const { h } = ctx;
     const picking = !!(ui && ui.picking);
     return h("div", { class: "fl-wrap", "data-state": picking ? "customise" : "first" },
-      h("div", { class: "fl-choice" }, freeCard(model, ui, ctx), upgradeCard(ctx)),
+      h("div", { class: "fl-choice" }, freeCard(model, ui, ctx), upgradeCard(model, ctx)),
       picking ? picker(model, ui, ctx) : null,
       compare(ctx));
   }
@@ -203,9 +209,21 @@
           step(buildState, buildState === "active" ? spin() : waitMark(), "Building the search index"),
           step(buildState === "failed" ? "failed" : "", waitMark(), "Checking the library",
             phase === "build-failed" ? h("ul", { class: "fl-failed" }, (job.problems || []).slice(0, 5).map((p) => h("li", null, str(p)))) : null)),
-        h("p", { class: "hint" }, "Keep the computer on and plugged in. You can close this page or quit Starholm; the build picks up where it stopped.")),
+        h("p", { class: "hint" }, "Keep the computer on and plugged in. You can close this page or quit Starholm; the build picks up where it stopped."),
+        aiNote(ctx)),
       h("p", { class: "fl-slim" }, icon("key", "sm"), h("span", null, "Want to skip the wait? The ready-made library is one download."),
         h("button", { class: "btn primary", type: "button", "data-action": "upgrade", onclick: () => on.buyUpgrade() }, "Get the upgrade")));
+  }
+
+  // The AI's line under the build, when its setup runs, failed or just finished: its words and, unless it is ready, a
+  // link to Settings › Model, where its progress and Try again are.
+  function aiNote(ctx) {
+    const { h, on } = ctx;
+    const line = ctx.ai && ctx.ai.line;
+    if (!line || line.kind === "offer") return null;
+    return h("p", { class: "hint", "data-role": "ai", "data-kind": str(line.kind) }, str(line.text),
+      line.kind === "ready" ? null : [" ", h("button", { class: "link", type: "button", "data-action": "open-model",
+        onclick: () => on.openModel() }, "Settings › Model")]);
   }
 
   // ---------- once the free library is in use ----------

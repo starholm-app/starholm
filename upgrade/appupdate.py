@@ -75,7 +75,7 @@ from library.downloader import DownloadError, Stopped
 from library.safe_fetch import FetchError
 
 # ---- the version of this code, and the one place the app checks for a newer one ----
-APP_VERSION = "1.0.6"  # ops/build-mac-app.sh and ops/build-windows-app.ps1 read it (the latter passes it to Inno Setup)
+APP_VERSION = "1.0.7"  # ops/build-mac-app.sh and ops/build-windows-app.ps1 read it (the latter passes it to Inno Setup)
 UPDATE_HOST = "download.starholm.app"
 UPDATE_BASE = f"https://{UPDATE_HOST}"
 # ----

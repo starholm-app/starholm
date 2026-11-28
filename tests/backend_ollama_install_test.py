@@ -1,8 +1,8 @@
 """"Set up the AI" (app/ollama_install.py and its wiring in app/server.py): the release asset picked per platform, the
 SHA-256 check passing and failing (the file deleted and the setup stopped), the skip when Ollama is already
 installed, the plain message for each failing step, the Homebrew-only upgrade message, the ~/Applications search
-path, the Windows path (built, not verified), and the whole Mac flow end to end through the app's own API: from "not
-found" to the hand-off to Ollama's /api/pull.
+path, and the whole Mac flow end to end through the app's own API: from "not found" to the hand-off to Ollama's
+/api/pull. The Windows engine has its own file, tests/backend_windows_engine_test.py.
 
 Nothing is downloaded and no Ollama runs: GitHub is a local server reached through library/downloader.py's CONNECT
 (every connection is recorded), the "Ollama-darwin.zip" is a small zip made here holding a fake Ollama.app, it is
@@ -141,7 +141,8 @@ def find_error(platform="darwin"):
 
 # ======================= the latest release's asset per platform =======================
 check("a Mac gets Ollama-darwin.zip", oi.asset_name("darwin") == "Ollama-darwin.zip")
-check("Windows gets OllamaSetup.exe", oi.asset_name("win32") == "OllamaSetup.exe" and oi.asset_name("windows") == "OllamaSetup.exe")
+check("Windows gets the engine-only zip for its processor, never OllamaSetup.exe",
+      oi.asset_name("win32", "arm64") == "ollama-windows-arm64.zip" and oi.asset_name("windows", "amd64") == "ollama-windows-amd64.zip")
 check("Linux and others get nothing (manual route)", oi.asset_name("linux") is None and oi.asset_name("freebsd14") is None)
 check("the latest stable release from Ollama's own GitHub only, no version pinned",
       oi.RELEASE_API == "https://api.github.com/repos/ollama/ollama/releases/latest"
@@ -152,8 +153,8 @@ pub = oi.published_asset("darwin")
 check("latest release: the Mac asset picked by name, with its address, the size and GitHub's digest", pub == {
     "name": "Ollama-darwin.zip", "tag": TAG, "url": f"{oi.DOWNLOAD_PREFIX}{TAG}/Ollama-darwin.zip",
     "size": len(ZIP_BYTES), "sha256": ZIP_SHA}, pub)
-win = oi.published_asset("win32")
-check("latest release: the Windows asset picked by name", win["name"] == "OllamaSetup.exe" and win["size"] == len(SETUP_EXE))
+check("latest release: a Windows zip the release doesn't have is 'not found', never another file",
+      find_error("win32") is not None and find_error("win32").step == "find")
 GH["digest"] = None
 err = find_error()
 check("no digest from GitHub: refused before any download", err and err.step == "find" and err.key == "no_digest"
@@ -348,28 +349,6 @@ check("Cancel stops the setup", slow_rig.setup.cancel() and slow_rig.setup.view(
 slow_rig.setup.thread.join(5)
 check("after Cancel nothing is installed or pulled", not slow_rig.runs and not slow_rig.pulled
       and slow_rig.setup.view()["state"] == "cancelled")
-
-# ---- Windows: built behind the same steps, not verified ----
-win_env = {"LOCALAPPDATA": os.path.join(TMP, "localappdata")}
-win_runs = []
-
-
-def fake_installer(args, **kw):
-    win_runs.append(args)
-    os.makedirs(oi.windows_dir(win_env), exist_ok=True)
-    open(os.path.join(oi.windows_dir(win_env), "ollama.exe"), "w").close()
-    return subprocess.CompletedProcess(args, 0)
-
-
-rig = Rig(platform="win32", env=win_env, run=fake_installer)
-v = rig.go()
-check("Windows (not verified): OllamaSetup.exe runs silently for this user, then the model is pulled",
-      v["state"] == "done" and win_runs and win_runs[0][1:] == ["/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART", "/SP-"]
-      and win_runs[0][0].endswith("OllamaSetup.exe") and rig.pulled == ["gemma4:12b-it-qat"], v)
-check("Windows is marked not verified", oi.WINDOWS_NOT_VERIFIED is True
-      and oi.offer([], 16, "win32")["not_verified"] is True and oi.offer([], 16, "darwin")["not_verified"] is False)
-check("Windows: the per-user folder is on the search list",
-      oi.candidates("win32", env=win_env) == (os.path.join(TMP, "localappdata", "Programs", "Ollama", "ollama.exe"),))
 
 # ======================= the upgrade message =======================
 brew_real = os.path.join(TMP, "opt", "Cellar", "ollama", "0.40.16", "bin", "ollama")

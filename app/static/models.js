@@ -1,15 +1,18 @@
 // Settings › Model and library-only mode, as plain logic for app.js (and tests/interface_models_check.js, run with node):
 // - rowView: what one row of the recommended-model table shows (in use, installed, downloading with progress and
-//   Cancel, too large for this computer, not installed with "Download with Ollama"), from GET /api/models. An
+//   Cancel, too large for this computer, not installed with "Download"), from GET /api/models. An
 //   installed row the registry has a newer version of also says "Update available" with an Update button.
-// - ollamaView: the Ollama row (running, stopped with Start, starting, or missing with Check again).
+// - ollamaView: the AI engine's row (running, stopped with Start the AI, starting, or not set up with Check again).
 // - buildTable: the table itself, made with the h() it is given (render.js h in the page, a stand-in in the check).
 // - helpLink: the "Help choosing a model" link under the table, to the website's model page (opened in the browser).
 // - libraryOnly / noModel / welcomeNote: library-only mode, on purpose (the Library only switch) or because no model
-//   can answer (no Ollama, Ollama not running, or the chosen model not downloaded), from /api/status's library_only.
-// - setupView / buildSetup: "Set up the AI" when Ollama isn't found. Before anything downloads it says what will happen,
-//   with the sizes; then the step it is on with progress and Cancel; when a step fails, what failed, the manual route
-//   (ollama.com/download) and Try again. From /api/models's setup and setup_offer (app/ollama_install.py).
+//   can answer (no engine, the engine not running, or the chosen model not downloaded), from /api/status's library_only.
+// - setupView / buildSetup: "Set up the AI" when the AI engine isn't found. Before anything downloads it says what will
+//   happen, with the sizes; then the step it is on with progress and Cancel; when a step fails, what failed, Try again
+//   and the manual route (ollama.com/download). From /api/models's setup and setup_offer (app/ollama_install.py).
+// - aiDecision / aiNeeded / aiPlan / aiLine: the Upgrade page's and the free library's "and the AI too": whether their
+//   download button also starts "Set up the AI", what it downloads, and the AI's own progress line there.
+// The person never needs to know the engine's name: only setupLead's credit sentence and the manual route name it.
 // - removeConfirm: the confirmation before an installed row's Remove (the model, the space it frees, what answers next).
 // - pollDelay: how soon to ask again while a model downloads or the setup runs.
 // Nothing here touches the page or the network.
@@ -26,10 +29,16 @@
   const HELP_LABEL = "Help choosing a model";
   const GUIDE_URL = "https://ollama.com/download";
   const SETUP_LABEL = "Set up the AI";
-  const NO_ACCOUNT_LINE = "You don't need an account, and everything stays on this computer.";
-  const MANUAL_LINE = "You can also install Ollama yourself from ollama.com/download, then press Check again.";
-  const STEP_TEXT = { find: "Finding Ollama's download…", check: "Checking the download…", install: "Installing Ollama…",
-    start: "Starting Ollama…", model: "Starting the model download…" };
+  const NO_ACCOUNT_LINE = "No account is needed, and everything stays on this computer.";
+  const CREDIT_LINE = "The engine is Ollama, a free open-source program.";
+  // The manual route under a failed setup, around its link: "You can also install Ollama yourself from
+  // ollama.com/download, then press Try again."
+  const MANUAL_PARTS = ["You can also install Ollama yourself from ", "ollama.com/download", ", then press Try again."];
+  const MANUAL_LINE = MANUAL_PARTS.join("");
+  const UNAVAILABLE_PARTS = ["You can install Ollama yourself from ", "ollama.com/download", ", then open this page again."];
+  const STEP_TEXT = { find: "Finding the AI engine…", download: "Downloading the AI engine…", check: "Checking the download…",
+    install: "Installing the AI engine…", start: "Starting the AI…", model: "Starting the model download…" };
+  const READY_LINE = "The AI is ready.";
 
   function gb(n) {
     const v = Number(n);
@@ -63,22 +72,21 @@
   }
 
   function ollamaView(state) {
-    if (state === "running") return { dot: "", text: "Installed and running", action: null };
+    if (state === "running") return { dot: "", text: "Running", action: null };
     if (state === "starting") return { dot: "warn", text: "Starting…", action: null };
-    if (state === "stopped") return { dot: "off", text: "Installed, not running", action: "start", label: "Start Ollama" };
-    return { dot: "off", text: "Not found.", action: "check", label: "Check again" };
+    if (state === "stopped") return { dot: "off", text: "Not running", action: "start", label: "Start the AI" };
+    return { dot: "off", text: "Not set up yet.", action: "check", label: "Check again" };
   }
 
-  // What the setup says before anything downloads: what it downloads, from where, how big, and that no account is
-  // needed. offer: /api/models's setup_offer.
+  // What the setup says before anything downloads: what it downloads, how big, that no account is needed, and the one
+  // sentence that names the engine. offer: /api/models's setup_offer.
   function setupLead(offer) {
     const o = offer || {};
     const engine = size(o.engine_bytes);
-    const model = o.model && Number(o.model_gb) > 0
-      ? `Then it downloads the model, ${str(o.model_name) || str(o.model)} (${gb(o.model_gb)}).`
-      : "Then you pick a model in the table below.";
-    return [`One click downloads the latest stable release of Ollama, the free open-source program that runs the AI on this computer, from Ollama's official GitHub page${engine ? ` (${engine})` : ""}.`,
-      model, NO_ACCOUNT_LINE];
+    const first = o.model && Number(o.model_gb) > 0
+      ? `One click downloads the AI engine${engine ? ` (${engine})` : ""} and the model recommended for this computer, ${str(o.model_name) || str(o.model)} (${gb(o.model_gb)}).`
+      : `One click downloads the AI engine${engine ? ` (${engine})` : ""}. Then you pick a model in the table below.`;
+    return [first, NO_ACCOUNT_LINE, CREDIT_LINE];
   }
 
   // The setup panel: null when it isn't needed (Ollama found and no setup running or failed). Otherwise
@@ -90,19 +98,22 @@
     if (job.state === "running") {
       const total = Number(job.total) > 0 ? Number(job.total) : 0;
       const done = total ? Math.min(Math.max(Number(job.completed) || 0, 0), total) : 0;
+      const pct = total ? Math.floor((done / total) * 100) : 0;
       let text = STEP_TEXT[job.step] || STEP_TEXT.find;
-      if (job.step === "download") text = total ? `Downloading Ollama… ${Math.floor((done / total) * 100)}% of ${size(total)}` : "Downloading Ollama…";
-      return { kind: "running", text, progress: job.step === "download" ? (total ? done / total : 0) : null,
+      if (job.step === "download" && total) text = `${STEP_TEXT.download} ${pct}% of ${size(total)}`;
+      if (job.step === "install" && total) text = `${STEP_TEXT.install} ${pct}%`;  // Windows: the unpacking, in bytes
+      const measured = job.step === "download" || (job.step === "install" && total > 0);
+      return { kind: "running", text, progress: measured ? (total ? done / total : 0) : null,
         action: "cancel", label: "Cancel" };
     }
     if (job.state === "error") {
-      return { kind: "error", message: str(job.message) || "The setup stopped.", note: MANUAL_LINE, action: "retry",
-        label: "Try again" };
+      return { kind: "error", message: str(job.message) || "The setup stopped.", note: MANUAL_LINE, manual: MANUAL_PARTS,
+        action: "retry", label: "Try again" };
     }
     if (d.ollama !== "missing") return null;
     if (!d.setup_offer || !d.setup_offer.available) {
-      return { kind: "error", message: "Automatic setup isn't available on this computer yet.", note: MANUAL_LINE,
-        action: null, label: "" };
+      return { kind: "error", message: "Automatic setup isn't available on this computer yet.",
+        note: UNAVAILABLE_PARTS.join(""), manual: UNAVAILABLE_PARTS, action: null, label: "" };
     }
     return { kind: "offer", lead: setupLead(d.setup_offer), note: job.state === "cancelled" ? "Cancelled." : "",
       action: "setup", label: SETUP_LABEL };
@@ -139,15 +150,16 @@
     if (v.kind === "running") {
       return h("div", { class: "ai-setup", "data-kind": "running", "aria-live": "polite" },
         h("p", { class: "ai-setup-step" }, v.text),
-        v.progress != null ? h("progress", { class: "mt-progress", value: String(v.progress), "aria-label": "Downloading Ollama" }) : null,
+        v.progress != null ? h("progress", { class: "mt-progress", value: String(v.progress), "aria-label": v.text }) : null,
         button);
     }
+    // The error: what failed and Try again, then the manual route as one quieter line with its link.
+    const [before, link, after] = v.manual;
     return h("div", { class: "ai-setup", "data-kind": "error", "aria-live": "assertive" },
       h("p", { class: "ai-setup-error" }, v.message),
-      h("p", { class: "hint" }, v.note),
       button,
-      h("button", { class: "btn", type: "button", "data-action": "setup-guide", "data-url": GUIDE_URL,
-        onclick: () => open(GUIDE_URL) }, "Open ollama.com/download"));
+      h("p", { class: "hint" }, before, h("button", { class: "link", type: "button", "data-action": "setup-guide",
+        "data-url": GUIDE_URL, onclick: () => open(GUIDE_URL) }, link), after));
   }
 
   // One row: { state, status (words shown instead of a button, or ""), action ("pull", "cancel", "use" or null),
@@ -179,10 +191,10 @@
     } else if (r.state === "too_large") view.status = "Too large for this computer";
     else if (r.state === "not_available") view.detail = NOT_AVAILABLE_LINE;  // a placeholder row: no download
     else {
-      Object.assign(view, { action: "pull", label: "Download with Ollama", primary: !!r.recommended,
+      Object.assign(view, { action: "pull", label: "Download", primary: !!r.recommended,
         disabled: ollama !== "running" || busy });
       if (dl && (dl.state === "error" || dl.state === "cancelled")) view.detail = str(dl.message);
-      else if (ollama !== "running") view.detail = "Needs Ollama running.";
+      else if (ollama !== "running") view.detail = "Needs the AI engine running.";
     }
     return view;
   }
@@ -231,10 +243,82 @@
       : "The AI runs on this computer, so it needs memory. Pick the row that matches this computer's memory.";
   }
 
+  // ---------- "and the AI too": the Upgrade page's Download now and the free library's download ----------
+  // status: GET /api/status (or null); data: GET /api/models (or null when it wasn't asked).
+  const READY_STATES = ["in_use", "installed"];
+  const rowsOf = (d) => (d && Array.isArray(d.rows) ? d.rows : []);
+  const libraryOnlyOn = (s, d) => !!((s && (s.ollama_checked === false || s.library_only === "setting")) || (d && d.library_only === true));
+  // A chat model is installed: the AI can answer.
+  function aiReady(s, d) {
+    if (s && (s.model_installed === true || (Array.isArray(s.models) && s.models.length > 0))) return true;
+    return rowsOf(d).some((r) => READY_STATES.includes(r.state));
+  }
+  // Whether a download button also starts "Set up the AI": "start" (do it now), "wait" (the engine is starting, so
+  // whether a model is installed isn't known yet: decide once it answers) or "none": the Library only switch is on, a
+  // model is installed or downloading, the setup is already running, or there is no automatic setup or no model that
+  // fits this computer.
+  function aiDecision(s, d) {
+    if (libraryOnlyOn(s, d) || aiReady(s, d) || !d) return "none";
+    if (rowsOf(d).some((r) => r.state === "downloading")) return "none";
+    if (d.setup && d.setup.state === "running") return "none";
+    const o = d.setup_offer;
+    if (!o || !o.available || !o.model) return "none";
+    return d.ollama === "starting" ? "wait" : "start";
+  }
+  const aiNeeded = (s, d) => aiDecision(s, d) === "start";
+
+  // What setting up the AI downloads, for a sentence: "the AI engine (231 MB) and the model Gemma 4, 12B (7.2 GB)",
+  // or only the model when the engine is already on this computer. "" when nothing would download.
+  function aiPlan(d) {
+    const o = (d && d.setup_offer) || {};
+    if (!o.model) return "";
+    const name = str(o.model_name) || str(o.model);
+    const model = `the model ${name}${Number(o.model_gb) > 0 ? ` (${gb(o.model_gb)})` : ""}`;
+    if (d.ollama !== "missing") return model;
+    const engine = size(o.engine_bytes);
+    return `the AI engine${engine ? ` (${engine})` : ""} and ${model}`;
+  }
+
+  // The AI's own line on the Upgrade page, under the packs' progress: null (nothing to say) or
+  // { kind: "running" | "downloading" | "ready" | "error" | "offer", text, progress (0 to 1, or null), action
+  // ("setup" or null), label }. page: the Upgrade page's state (upgrade.js state()). started: this session pressed a
+  // button that set the AI up, so its progress and "The AI is ready." show even outside the done state.
+  function aiLine(s, d, page, started = false) {
+    if (libraryOnlyOn(s, d)) return null;
+    const job = (d && d.setup) || {};
+    if (job.state === "running") {
+      const v = setupView(d);
+      return { kind: "running", text: v.text, progress: v.progress, action: null, label: "" };
+    }
+    const dl = rowsOf(d).find((r) => r.state === "downloading");
+    if (dl) {
+      const p = dl.download || {};
+      const total = Number(p.total) > 0 ? Number(p.total) : 0;
+      const done = total ? Math.min(Math.max(Number(p.completed) || 0, 0), total) : 0;
+      return { kind: "downloading", progress: total ? done / total : 0, action: null, label: "",
+        text: total ? `Downloading the model… ${Math.floor((done / total) * 100)}% of ${gb(total / 1e9)}` : "Starting the model download…" };
+    }
+    if (aiReady(s, d)) return page === "done" || started ? { kind: "ready", text: READY_LINE, progress: null, action: null, label: "" } : null;
+    const decision = aiDecision(s, d);
+    if (decision === "wait") return started ? { kind: "running", text: STEP_TEXT.start, progress: null, action: null, label: "" } : null;
+    if (decision !== "start") return null;
+    // The setup stopped or was cancelled, or the model download it started failed: what happened, and Try again.
+    const failed = rowsOf(d).find((r) => r.download && r.download.state === "error");
+    if (job.state === "error" || job.state === "cancelled" || failed) {
+      const text = job.state === "error" ? str(job.message) || "The AI setup stopped."
+        : job.state === "cancelled" ? "The AI setup was cancelled." : str(failed.download.message) || "The model download stopped.";
+      return { kind: "error", text, progress: null, action: "setup", label: "Try again" };
+    }
+    if (page === "saved") return null;  // the Download now banner already says the AI comes with it
+    return { kind: "offer", text: `The AI isn't set up yet. Setting it up downloads ${aiPlan(d)}.`, progress: null,
+      action: "setup", label: SETUP_LABEL };
+  }
+
   const pollDelay = (data) => (data && ((Array.isArray(data.rows) && data.rows.some((r) => r.state === "downloading"))
     || (data.setup && data.setup.state === "running")) ? 1000 : data && data.ollama === "starting" ? 3000
     : data && data.ollama === "missing" && data.setup_offer && data.setup_offer.available && !data.setup_offer.engine_bytes
       ? 3000 : null);  // the offer's size is still being read from GitHub
 
-  root.SLModels = { rowView, ollamaView, buildTable, lead, libraryOnly, noModel, welcomeNote, pollDelay, NO_MODEL_LINE, NOT_AVAILABLE_LINE, UPDATE_LINE, BADGE, HELP_URL, HELP_LABEL, helpLink, gb, size, setupLead, setupView, buildSetup, removeConfirm, GUIDE_URL, SETUP_LABEL, NO_ACCOUNT_LINE, MANUAL_LINE, STEP_TEXT };
+  root.SLModels = { rowView, ollamaView, buildTable, lead, libraryOnly, noModel, welcomeNote, pollDelay, NO_MODEL_LINE, NOT_AVAILABLE_LINE, UPDATE_LINE, BADGE, HELP_URL, HELP_LABEL, helpLink, gb, size, setupLead, setupView, buildSetup, removeConfirm, GUIDE_URL, SETUP_LABEL, NO_ACCOUNT_LINE, CREDIT_LINE, MANUAL_LINE, STEP_TEXT, READY_LINE,
+    aiReady, aiDecision, aiNeeded, aiPlan, aiLine };
 })(typeof window !== "undefined" ? window : globalThis);

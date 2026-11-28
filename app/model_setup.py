@@ -15,6 +15,7 @@ import hashlib
 import http.client
 import json
 import os
+import sys
 import re
 import threading
 import time
@@ -59,8 +60,35 @@ def load_rows(path=None):
     return sorted(rows, key=lambda r: r["memory_gb"])
 
 
+def windows_memory_bytes():
+    """Windows: the installed memory in bytes, or None. The firmware's figure comes first
+    (GetPhysicallyInstalledSystemMemory: a 16 GB PC says 16 GB); what Windows can use is the fallback
+    (GlobalMemoryStatusEx: a little less, since some memory is reserved for hardware)."""
+    try:
+        import ctypes
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        kilobytes = ctypes.c_ulonglong(0)
+        if kernel32.GetPhysicallyInstalledSystemMemory(ctypes.byref(kilobytes)) and kilobytes.value:
+            return kilobytes.value * 1024
+
+        class MemoryStatus(ctypes.Structure):
+            _fields_ = [("dwLength", ctypes.c_ulong), ("dwMemoryLoad", ctypes.c_ulong)] + [
+                (name, ctypes.c_ulonglong) for name in ("ullTotalPhys", "ullAvailPhys", "ullTotalPageFile",
+                                                        "ullAvailPageFile", "ullTotalVirtual", "ullAvailVirtual",
+                                                        "ullAvailExtendedVirtual")]
+        status = MemoryStatus()
+        status.dwLength = ctypes.sizeof(status)
+        if kernel32.GlobalMemoryStatusEx(ctypes.byref(status)) and status.ullTotalPhys:
+            return status.ullTotalPhys
+    except (OSError, AttributeError, ValueError):
+        pass
+    return None
+
+
 def machine_memory_bytes():
     """This computer's installed memory in bytes, or None when the system won't say."""
+    if sys.platform == "win32":  # no os.sysconf there: without this, no model was ever recommended on Windows
+        return windows_memory_bytes()
     try:
         return os.sysconf("SC_PAGE_SIZE") * os.sysconf("SC_PHYS_PAGES")
     except (ValueError, OSError, AttributeError):
@@ -91,6 +119,14 @@ class Pulls:
         self._lock = threading.Lock()
         self.jobs = {}
         self.on_done = None  # called with the model name after a download finishes
+        self.log = None  # called with one line of text when a download starts and when it ends (the app's log)
+
+    def _say(self, text):
+        if self.log:
+            try:
+                self.log(text)
+            except Exception:  # noqa: BLE001 - a log that can't be written must not stop a download
+                pass
 
     def busy(self):
         with self._lock:
@@ -108,6 +144,7 @@ class Pulls:
             job = {"state": "downloading", "completed": 0, "total": 0, "message": "Starting…", "layers": {},
                    "cancel": threading.Event(), "resp": None}
             self.jobs[model] = job
+        self._say(f"The download of the model {model} started.")
         threading.Thread(target=self._run, args=(model, job), daemon=True).start()
         return True
 
@@ -147,6 +184,8 @@ class Pulls:
         finally:
             with self._lock:
                 job["resp"] = None
+            self._say(f"The download of the model {model} ended: {job['state']}"
+                      + (f" ({job['message']})" if job["state"] == "error" and job.get("message") else "") + ".")
             if job["state"] == "done" and self.on_done:
                 try:
                     self.on_done(model)
@@ -162,7 +201,7 @@ class Pulls:
             return
         with self._lock:
             if event.get("error"):
-                job["state"], job["message"] = "error", f"Ollama couldn't download it: {str(event['error'])[:200]}"
+                job["state"], job["message"] = "error", f"The model couldn't be downloaded: {str(event['error'])[:200]}"
                 return
             status = str(event.get("status") or "")
             digest, total, done = event.get("digest"), event.get("total"), event.get("completed")
@@ -196,9 +235,9 @@ def _close(resp):
 def pull_error(exc):
     text = str(getattr(exc, "reason", exc))
     if "refused" in text.lower():
-        return "Ollama isn't running, so the download couldn't start. Start Ollama, then try again."
+        return "The AI isn't running, so the download couldn't start. Start it in Settings › Model, then try again."
     if "timed out" in text.lower():
-        return "Ollama stopped sending progress, so the download was given up on. Try again."
+        return "The download stopped sending progress, so it was given up on. Try again."
     return f"The download failed: {text[:200]}"
 
 

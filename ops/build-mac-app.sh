@@ -85,7 +85,8 @@ fi
 BUILD_PY="$PBS/python/bin/python$PY_VER"  # runs the build's own Python steps; the bundle gets a fresh copy
 
 # ---------- 2. Poppler (pdftotext, pdfinfo) for macOS 14, static ----------
-POPPLER_OUT="$CACHE/poppler-$POPPLER_VER-ft$FREETYPE_VER-macos$MIN_MACOS"
+# "-b2": Poppler built before this kept the build folder in its binaries (its data folder), so that cache is not reused.
+POPPLER_OUT="$CACHE/poppler-$POPPLER_VER-ft$FREETYPE_VER-macos$MIN_MACOS-b2"
 if [ ! -x "$POPPLER_OUT/bin/pdftotext" ] || [ ! -x "$POPPLER_OUT/bin/pdfinfo" ]; then
   say "Poppler $POPPLER_VER with FreeType $FREETYPE_VER (compiled once, kept in dist/.cache)"
   fetch "$POPPLER_URL" "$POPPLER_SHA256" "poppler-$POPPLER_VER.tar.xz"
@@ -113,8 +114,12 @@ if [ ! -x "$POPPLER_OUT/bin/pdftotext" ] || [ ! -x "$POPPLER_OUT/bin/pdfinfo" ];
   nice -n 10 "${CMAKE_ENV[@]}" cmake --build "$WORK/ft" -j "$JOBS"
   "${CMAKE_ENV[@]}" cmake --install "$WORK/ft" >/dev/null
   # Poppler with only what text extraction needs: no image decoders, colour management, signatures, network or
-  # wrappers, and the generic font setup instead of fontconfig.
+  # wrappers, and the generic font setup instead of fontconfig. Poppler compiles its install prefix into the
+  # binaries as the folder it looks in for extra data files (share/poppler). It is never installed (the two programs
+  # are copied out of the build folder below), so the prefix is a folder that exists on no Mac instead of one on
+  # this build Mac: no path or account name of the builder ends up in the app.
   nice -n 10 "${CMAKE_ENV[@]}" cmake -S "$WORK/poppler-$POPPLER_VER" -B "$WORK/pp" "${COMMON[@]}" \
+    -DCMAKE_INSTALL_PREFIX=/var/empty/starholm \
     -DCMAKE_PREFIX_PATH="$WORK/prefix" -DFONT_CONFIGURATION=generic \
     -DENABLE_UTILS=ON -DENABLE_CPP=OFF -DENABLE_GLIB=OFF -DENABLE_GOBJECT_INTROSPECTION=OFF -DENABLE_QT5=OFF \
     -DENABLE_QT6=OFF -DENABLE_BOOST=OFF -DENABLE_BROTLI=OFF -DENABLE_LIBOPENJPEG=OFF -DENABLE_LIBJPEG=OFF \
@@ -182,7 +187,11 @@ find "$RES" \( -name '*.pyc' -o -name '.DS_Store' \) -delete
 # Bytecode, compiled now so the app never writes into its bundle: unchecked-hash .pyc files are used as they are,
 # never rechecked against the source and never rewritten, by the app and by the child processes it starts with -I.
 # A few third-party files are templates or Python 2 examples that don't compile; those stay as source only.
+# -s and -p: each .pyc names its source file by its place in the bundle ("Starholm.app/Contents/Resources/..."),
+# not by the staging folder on this build Mac, which would put the builder's home folder in every one of them.
+# Python sets the real path again when it loads a module, so error traces are the same.
 "${CLEAN_ENV[@]}" "$PY" -I -m compileall -q -f -j "$JOBS" --invalidation-mode unchecked-hash \
+  -s "$RES" -p "$NAME.app/Contents/Resources" \
   "$RES/python/lib/python$PY_VER" "$RES/starholm" >/dev/null || true
 
 # Poppler.
@@ -253,7 +262,8 @@ while IFS= read -r f; do
   fi
 done < "$MACHO_LIST"
 [ "$problems" = 0 ] || fail "some Mach-O files can't ship (above)."
-if grep -rlI -e "$HOME" -e "$ROOT" "$NEW" | head -5 | grep . ; then
+# Every file, binaries and .pyc files included (grep -I skipped them, and they are where such a path hides).
+if LC_ALL=C grep -rlF -e "$HOME" -e "$ROOT" -e "/Users/$(id -un)" "$NEW" | head -5 | grep . ; then
   fail "the files above hold a path from this build Mac."
 fi
 

@@ -1,8 +1,9 @@
 // Checks for Settings › Model and library-only mode in the interface, run by tests/interface_models_test.py with node:
 // app/static/models.js draws each state of the recommended-model table (in use, installed, downloading with progress
-// and Cancel, too large for this computer, not installed with "Download with Ollama", the recommended row marked),
-// the Ollama row (running, stopped, starting, missing), and the no-model state (the start screen's note and the line
-// under a question). node has no document, so a small stand-in h() records what buildTable makes.
+// and Cancel, too large for this computer, not installed with "Download", the recommended row marked), the AI engine's
+// row (running, stopped, starting, not set up), the no-model state (the start screen's note and the line under a
+// question), "Set up the AI", and the "and the AI too" rule and line the Upgrade page and the free library use. node
+// has no document, so a small stand-in h() records what buildTable makes.
 // Run alone: node tests/interface_models_check.js app/static/models.js
 "use strict";
 const assert = require("assert");
@@ -44,15 +45,15 @@ const table = (states, extra = {}) => ({
 });
 
 // ---------- each row state ----------
-ok("not installed: a Download with Ollama button, primary on the recommended row", () => {
+ok("not installed: a Download button, primary on the recommended row", () => {
   const v = M.rowView({ ...ROWS[1], state: "not_installed", recommended: true }, "running");
-  assert.deepStrictEqual([v.action, v.label, v.primary, v.disabled], ["pull", "Download with Ollama", true, false]);
+  assert.deepStrictEqual([v.action, v.label, v.primary, v.disabled], ["pull", "Download", true, false]);
   assert.strictEqual(M.rowView({ ...ROWS[0], state: "not_installed" }, "running").primary, false);
 });
-ok("not installed with Ollama not running: the button is off and says why", () => {
+ok("not installed with the engine not running: the button is off and says why", () => {
   const v = M.rowView({ ...ROWS[1], state: "not_installed" }, "stopped");
   assert.strictEqual(v.disabled, true);
-  assert.strictEqual(v.detail, "Needs Ollama running.");
+  assert.strictEqual(v.detail, "Needs the AI engine running.");
 });
 ok("downloading: progress, the percentage of the size, and Cancel", () => {
   const v = M.rowView({ ...ROWS[1], state: "downloading", download: { state: "downloading", completed: 2e9, total: 8e9, message: "Downloading…" } }, "running");
@@ -97,7 +98,7 @@ ok("the table: one row per data row, memory, model, size, and the recommended ro
   assert.deepStrictEqual(rows.map((r) => r.props.class || ""), ["", "mt-rec", ""]);
   assert.ok(text(rows[1]).includes("Recommended for your computer") && !text(rows[0]).includes("Recommended"));
   assert.deepStrictEqual(rows.map((r) => r.props["data-state"]), ["in_use", "not_installed", "too_large"]);
-  assert.deepStrictEqual(rows.map((r) => text(r.kids[3])), ["In useRemove", "Download with Ollama", "Too large for this computer"]);
+  assert.deepStrictEqual(rows.map((r) => text(r.kids[3])), ["In useRemove", "Download", "Too large for this computer"]);
 });
 ok("the table while downloading: a progress bar and a Cancel that calls back with the row", () => {
   const calls = [];
@@ -139,14 +140,14 @@ ok("the table asks again every second while a model downloads, and not otherwise
   assert.strictEqual(M.pollDelay(table([{ state: "in_use" }, { state: "not_installed" }, { state: "too_large" }])), null);
 });
 
-// ---------- Ollama ----------
-ok("Ollama: running, starting, stopped with Start, missing with Check again", () => {
-  assert.deepStrictEqual([M.ollamaView("running").text, M.ollamaView("running").action], ["Installed and running", null]);
+// ---------- the AI engine's row ----------
+ok("the engine: running, starting, not running with Start the AI, not set up with Check again", () => {
+  assert.deepStrictEqual([M.ollamaView("running").text, M.ollamaView("running").action], ["Running", null]);
   assert.strictEqual(M.ollamaView("starting").text, "Starting…");
-  assert.deepStrictEqual([M.ollamaView("stopped").action, M.ollamaView("stopped").label], ["start", "Start Ollama"]);
+  assert.deepStrictEqual([M.ollamaView("stopped").text, M.ollamaView("stopped").action, M.ollamaView("stopped").label],
+    ["Not running", "start", "Start the AI"]);
   const missing = M.ollamaView("missing");
-  assert.deepStrictEqual([missing.action, missing.label], ["check", "Check again"]);
-  assert.ok(missing.text.startsWith("Not found."));
+  assert.deepStrictEqual([missing.text, missing.action, missing.label], ["Not set up yet.", "check", "Check again"]);
 });
 
 // ---------- the no-model state ----------
@@ -202,14 +203,13 @@ const OFFER = { available: true, engine_bytes: 230778782, model: "gemma4:12b-it-
 const missing = (setup, extra = {}) => ({ ...table([{}, {}, {}]), ollama: "missing", setup: { state: "idle", ...setup },
   setup_offer: OFFER, ...extra });
 
-ok("Set up the AI: before anything downloads, it says what, from where, both sizes, and that no account is needed", () => {
+ok("Set up the AI: before anything downloads, it says what, both sizes, that no account is needed, and one credit", () => {
   const calls = [];
   const panel = M.buildSetup(missing({}), h, (a) => calls.push(a), () => {});
   const words = text(panel);
   assert.strictEqual(words.split("Set up the AI")[0],
-    "One click downloads the latest stable release of Ollama, the free open-source program that runs the AI on this "
-    + "computer, from Ollama's official GitHub page (231 MB). Then it downloads the model, Gemma 4, 12B (7.2 GB). You don't need an account, and "
-    + "everything stays on this computer.");
+    "One click downloads the AI engine (231 MB) and the model recommended for this computer, Gemma 4, 12B (7.2 GB). "
+    + "No account is needed, and everything stays on this computer. The engine is Ollama, a free open-source program.");
   const buttons = all(panel, (e) => e.tag === "button");
   assert.deepStrictEqual(buttons.map(text), ["Set up the AI"]);
   assert.strictEqual(all(panel, (e) => e.tag === "progress").length, 0);
@@ -218,41 +218,47 @@ ok("Set up the AI: before anything downloads, it says what, from where, both siz
   assert.deepStrictEqual(calls, ["setup"]);
 });
 ok("Set up the AI: Windows' engine size reads in GB, and with no model that fits it says to pick one", () => {
-  assert.ok(M.setupLead({ ...OFFER, engine_bytes: 1857946272 })[0].endsWith("GitHub page (1.9 GB)."));
-  assert.ok(M.setupLead({ ...OFFER, engine_bytes: null })[0].endsWith("Ollama's official GitHub page."),
+  assert.ok(M.setupLead({ ...OFFER, engine_bytes: 1857946272 })[0].startsWith("One click downloads the AI engine (1.9 GB) and"));
+  assert.ok(M.setupLead({ ...OFFER, engine_bytes: null })[0].startsWith("One click downloads the AI engine and the model"),
     "before GitHub's API answers: no size, no made-up number");
   assert.strictEqual(M.pollDelay(missing({}, { setup_offer: { ...OFFER, engine_bytes: null } })), 3000,
     "asks again until the size is known");
-  assert.strictEqual(M.setupLead({ engine_bytes: 230778782, model: null })[1], "Then you pick a model in the table below.");
+  assert.strictEqual(M.setupLead({ engine_bytes: 230778782, model: null })[0],
+    "One click downloads the AI engine (231 MB). Then you pick a model in the table below.");
 });
 ok("Set up the AI: running shows the step, the download's progress and size, and Cancel", () => {
   const calls = [];
   const dl = M.buildSetup(missing({ state: "running", step: "download", completed: 115389391, total: 230778782 }), h,
     (a) => calls.push(a), () => {});
-  assert.ok(text(dl).startsWith("Downloading Ollama… 50% of 231 MB"), text(dl));
+  assert.ok(text(dl).startsWith("Downloading the AI engine… 50% of 231 MB"), text(dl));
   assert.strictEqual(all(dl, (e) => e.tag === "progress")[0].props.value, "0.5");
   const cancel = all(dl, (e) => e.tag === "button");
   assert.deepStrictEqual(cancel.map(text), ["Cancel"]);
   cancel[0].props.onclick();
   assert.deepStrictEqual(calls, ["cancel"]);
-  for (const [step, words] of [["check", "Checking the download…"], ["install", "Installing Ollama…"],
-    ["start", "Starting Ollama…"], ["model", "Starting the model download…"]]) {
+  for (const [step, words] of [["find", "Finding the AI engine…"], ["check", "Checking the download…"],
+    ["install", "Installing the AI engine…"], ["start", "Starting the AI…"], ["model", "Starting the model download…"]]) {
     const v = M.setupView(missing({ state: "running", step }));
     assert.deepStrictEqual([v.text, v.progress, v.action], [words, null, "cancel"]);
   }
+  const unpack = M.setupView(missing({ state: "running", step: "install", completed: 3e8, total: 1.2e9 }));
+  assert.deepStrictEqual([unpack.text, unpack.progress], ["Installing the AI engine… 25%", 0.25], "Windows: the unpacking's progress");
   assert.strictEqual(M.pollDelay(missing({ state: "running", step: "install" })), 1000);
 });
-ok("Set up the AI: a failed step says what failed, links to ollama.com/download and offers Try again", () => {
+ok("Set up the AI: a failed step says what failed, offers Try again, then one line linking to ollama.com/download", () => {
   const calls = [];
   const opened = [];
   const panel = M.buildSetup(missing({ state: "error", failed: "check",
-    message: "The downloaded file didn't match the one Ollama published, so it was deleted and nothing was installed." }),
+    message: "The downloaded file didn't match the published one, so it was deleted and nothing was installed." }),
   h, (a) => calls.push(a), (url) => opened.push(url));
   const words = text(panel);
-  assert.ok(words.startsWith("The downloaded file didn't match the one Ollama published"), words);
-  assert.ok(words.includes(M.MANUAL_LINE));
+  assert.ok(words.startsWith("The downloaded file didn't match the published one"), words);
+  assert.strictEqual(M.MANUAL_LINE, "You can also install Ollama yourself from ollama.com/download, then press Try again.");
+  assert.ok(words.endsWith(M.MANUAL_LINE), words);
+  assert.ok(!words.includes("Check again"), "the error panel's only button is Try again");
   const buttons = all(panel, (e) => e.tag === "button");
-  assert.deepStrictEqual(buttons.map(text), ["Try again", "Open ollama.com/download"]);
+  assert.deepStrictEqual(buttons.map(text), ["Try again", "ollama.com/download"]);
+  assert.deepStrictEqual(buttons.map((b) => b.props.class), ["btn primary", "link"]);
   buttons.forEach((b) => b.props.onclick());
   assert.deepStrictEqual([calls, opened], [["retry"], ["https://ollama.com/download"]]);
 });
@@ -260,8 +266,104 @@ ok("Set up the AI: shown only while Ollama is missing or the setup runs or faile
   assert.strictEqual(M.setupView({ ...missing({}), ollama: "running" }), null);
   assert.strictEqual(M.setupView({ ...missing({ state: "done" }), ollama: "running" }), null);
   assert.strictEqual(M.setupView(missing({ state: "cancelled" })).note, "Cancelled.");
-  assert.strictEqual(M.setupView(missing({}, { setup_offer: { available: false, engine_bytes: null } })).action, null,
-    "no automatic setup for this computer: only the manual route");
+  const none = M.setupView(missing({}, { setup_offer: { available: false, engine_bytes: null } }));
+  assert.strictEqual(none.action, null, "no automatic setup for this computer: only the manual route");
+  assert.ok(!none.note.includes("Try again") && !none.note.includes("Check again"), none.note);
+});
+
+// ---------- "and the AI too": the Upgrade page's Download now and the free library's download ----------
+const NONE = { ...table([{}, {}, {}]), ollama: "missing", setup: { state: "idle" }, setup_offer: OFFER };
+const noModelStatus = { ollama: false, ollama_checked: true, models: [], model_installed: false, library_only: "no_ollama" };
+ok("the AI rule: no engine, no model, a setup this computer can run: the download sets up the AI too", () => {
+  assert.strictEqual(M.aiDecision(noModelStatus, NONE), "start");
+  assert.strictEqual(M.aiNeeded(noModelStatus, NONE), true);
+  assert.strictEqual(M.aiNeeded(noModelStatus, { ...NONE, ollama: "stopped" }), true, "an engine that isn't running: started, then the model");
+  assert.strictEqual(M.aiNeeded(noModelStatus, { ...NONE, setup: { state: "error", message: "x" } }), true, "a failed setup: tried again");
+  assert.strictEqual(M.aiNeeded(noModelStatus, { ...NONE, setup: { state: "cancelled" } }), true);
+});
+ok("the AI rule: Library only on: never", () => {
+  assert.strictEqual(M.aiNeeded({ ...noModelStatus, ollama_checked: false, library_only: "setting" }, NONE), false);
+  assert.strictEqual(M.aiNeeded(noModelStatus, { ...NONE, library_only: true }), false);
+  assert.strictEqual(M.aiLine({ ollama_checked: false, library_only: "setting" }, NONE, "done"), null, "and no line about it");
+});
+ok("the AI rule: a model installed: never", () => {
+  assert.strictEqual(M.aiNeeded({ ...noModelStatus, ollama: true, models: ["medium:12b"], model_installed: true, library_only: null }, null), false);
+  assert.strictEqual(M.aiNeeded({ ...noModelStatus, ollama: true, models: ["other:7b"], library_only: "not_installed" }, NONE), false,
+    "any chat model counts, even one not in the table");
+  assert.strictEqual(M.aiNeeded(noModelStatus, { ...NONE, ollama: "running", rows: NONE.rows.map((r, i) => (i ? r : { ...r, state: "installed" })) }), false);
+  assert.strictEqual(M.aiNeeded(noModelStatus, { ...NONE, ollama: "running", rows: NONE.rows.map((r, i) => (i === 1 ? { ...r, state: "downloading" } : r)) }), false,
+    "a model already downloading");
+});
+ok("the AI rule: the setup already running: no second start", () => {
+  assert.strictEqual(M.aiDecision(noModelStatus, { ...NONE, setup: { state: "running", step: "download" } }), "none");
+});
+ok("the AI rule: no automatic setup here, or no model that fits this computer: never", () => {
+  assert.strictEqual(M.aiNeeded(noModelStatus, { ...NONE, setup_offer: { ...OFFER, available: false } }), false);
+  assert.strictEqual(M.aiNeeded(noModelStatus, { ...NONE, setup_offer: { ...OFFER, model: null } }), false);
+  assert.strictEqual(M.aiNeeded(noModelStatus, { ...NONE, setup_offer: null }), false);
+  assert.strictEqual(M.aiNeeded(noModelStatus, null), false, "/api/models not asked: nothing starts");
+});
+ok("the AI rule: the engine still starting: wait until it answers", () => {
+  assert.strictEqual(M.aiDecision(noModelStatus, { ...NONE, ollama: "starting" }), "wait");
+  assert.strictEqual(M.aiNeeded(noModelStatus, { ...NONE, ollama: "starting" }), false);
+});
+ok("what the AI's setup downloads: the engine and the model, or only the model when the engine is here", () => {
+  assert.strictEqual(M.aiPlan(NONE), "the AI engine (231 MB) and the model Gemma 4, 12B (7.2 GB)");
+  assert.strictEqual(M.aiPlan({ ...NONE, setup_offer: { ...OFFER, engine_bytes: null } }), "the AI engine and the model Gemma 4, 12B (7.2 GB)");
+  assert.strictEqual(M.aiPlan({ ...NONE, ollama: "stopped" }), "the model Gemma 4, 12B (7.2 GB)");
+  assert.strictEqual(M.aiPlan({ ...NONE, setup_offer: { ...OFFER, model: null } }), "");
+});
+ok("the AI's line: each setup step, then the model's download, then The AI is ready.", () => {
+  const run = (setup) => M.aiLine(noModelStatus, { ...NONE, setup: { state: "running", ...setup } }, "downloading", true);
+  assert.deepStrictEqual([run({ step: "find" }).kind, run({ step: "find" }).text], ["running", "Finding the AI engine…"]);
+  const dl = run({ step: "download", completed: 92e6, total: 230778782 });
+  assert.deepStrictEqual([dl.text, dl.action], ["Downloading the AI engine… 39% of 231 MB", null]);
+  assert.ok(Math.abs(dl.progress - 92e6 / 230778782) < 1e-9);
+  assert.strictEqual(run({ step: "check" }).text, "Checking the download…");
+  assert.strictEqual(run({ step: "install", completed: 5e8, total: 1e9 }).text, "Installing the AI engine… 50%");
+  assert.strictEqual(run({ step: "start" }).text, "Starting the AI…");
+  assert.strictEqual(run({ step: "model" }).text, "Starting the model download…");
+  const rows = (state, download) => NONE.rows.map((r, i) => (i === 1 ? { ...r, state, download } : r));
+  const model = M.aiLine(noModelStatus, { ...NONE, ollama: "running", setup: { state: "done" },
+    rows: rows("downloading", { state: "downloading", completed: 2e9, total: 8e9 }) }, "downloading", true);
+  assert.deepStrictEqual([model.kind, model.text, model.progress], ["downloading", "Downloading the model… 25% of 8 GB", 0.25]);
+  const ready = M.aiLine(noModelStatus, { ...NONE, ollama: "running", setup: { state: "done" }, rows: rows("in_use", null) }, "downloading", true);
+  assert.deepStrictEqual([ready.kind, ready.text, ready.action], ["ready", "The AI is ready.", null]);
+});
+ok("the AI's line: a failed or cancelled setup says so with Try again", () => {
+  const err = M.aiLine(noModelStatus, { ...NONE, setup: { state: "error", message: "The AI engine's download stopped before it finished." } }, "downloading");
+  assert.deepStrictEqual([err.kind, err.text, err.action, err.label], ["error", "The AI engine's download stopped before it finished.", "setup", "Try again"]);
+  assert.strictEqual(M.aiLine(noModelStatus, { ...NONE, setup: { state: "cancelled" } }, "done").text, "The AI setup was cancelled.");
+  const pull = M.aiLine(noModelStatus, { ...NONE, ollama: "running", setup: { state: "done" },
+    rows: NONE.rows.map((r, i) => (i === 1 ? { ...r, state: "not_installed", download: { state: "error", message: "The download stopped before it finished. Try again." } } : r)) }, "done");
+  assert.deepStrictEqual([pull.kind, pull.action], ["error", "setup"], "the model download the setup started failed");
+});
+ok("the AI's line: not set up and not running: Set up the AI, except before Download now (its banner says it)", () => {
+  const offer = M.aiLine(noModelStatus, NONE, "done");
+  assert.deepStrictEqual([offer.kind, offer.action, offer.label], ["offer", "setup", "Set up the AI"]);
+  assert.strictEqual(offer.text, "The AI isn't set up yet. Setting it up downloads the AI engine (231 MB) and the model Gemma 4, 12B (7.2 GB).");
+  assert.strictEqual(M.aiLine(noModelStatus, NONE, "saved"), null);
+  assert.strictEqual(M.aiLine(noModelStatus, { ...NONE, setup_offer: { ...OFFER, available: false } }, "done"), null);
+});
+ok("the AI's line: a person whose AI is ready sees only The AI is ready., and only once everything is downloaded", () => {
+  const ready = { ...noModelStatus, ollama: true, models: ["medium:12b"], model_installed: true, library_only: null };
+  assert.strictEqual(M.aiLine(ready, null, "saved"), null);
+  assert.strictEqual(M.aiLine(ready, null, "downloading"), null);
+  assert.strictEqual(M.aiLine(ready, null, "done").text, "The AI is ready.");
+  assert.strictEqual(M.aiLine(noModelStatus, { ...NONE, ollama: "starting" }, "downloading"), null, "starting, not asked for: nothing");
+  assert.strictEqual(M.aiLine(noModelStatus, { ...NONE, ollama: "starting" }, "downloading", true).text, "Starting the AI…");
+});
+ok("no word the person reads in models.js names Ollama, except the credit sentence and the manual route", () => {
+  const src = require("fs").readFileSync(path.resolve(process.argv[2] || "app/static/models.js"), "utf8")
+    .split("\n").filter((l) => !l.trim().startsWith("//")).join("\n");
+  const literals = src.match(/"(?:[^"\\\n]|\\.)*"|`(?:[^`\\]|\\.)*`/g) || [];
+  const named = literals.filter((l) => l.includes("Ollama")).map((l) => l.slice(1, -1));
+  assert.deepStrictEqual(named, ["The engine is Ollama, a free open-source program.", "You can also install Ollama yourself from ",
+    "You can install Ollama yourself from "]);
+  const shown = JSON.stringify([M.lead({ memory_gb: 8 }), ...["running", "stopped", "starting", "missing"].map(M.ollamaView),
+    M.welcomeNote({ library_only: "no_ollama" }), M.NO_MODEL_LINE, M.setupLead(OFFER).slice(0, 2), Object.values(M.STEP_TEXT),
+    M.rowView({ ...ROWS[1], state: "not_installed" }, "stopped"), M.aiLine(noModelStatus, NONE, "done"), M.aiPlan(NONE)]);
+  assert.ok(!/ollama/i.test(shown), shown);
 });
 
 // ---------- Remove ----------

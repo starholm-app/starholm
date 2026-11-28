@@ -468,7 +468,8 @@ for _ in range(10):  # the guides: 350 KB in a second
     s.add(35_000)
 check("no figure from a tiny first pack", s.rate() is None)
 check("so no time left either", packs.seconds_left(16_000_000_000, s.rate()) is None)
-for _ in range(100):  # then the library at 5 MB a second for 10 seconds
+check("no figure before 15 seconds of downloading", s.rate() is None)
+for _ in range(200):  # then the library at 5 MB a second for 20 seconds
     now[0] += 0.1
     s.add(500_000)
 r = s.rate()
@@ -482,13 +483,21 @@ for _ in range(60):  # the next 30 s at 5 MB a second, looked at every half seco
         s.add(500_000)
     s.rate()
 steady = s.rate()
-for _ in range(20):  # a 10-second stall, looked at every half second
+for _ in range(40):  # a 20-second stall, looked at every half second
     now[0] += 0.5
     s.rate()
 stalled = s.rate()
 check("a stall lowers the speed instead of freezing it, and still gives a figure",
       stalled is not None and stalled < steady * 0.9, (steady, stalled))
 check("the figure moves smoothly: a stall doesn't drop it to nothing at once", stalled > steady * 0.3, (steady, stalled))
+# a slow patch (a third of the speed for 20 s) moves the figure only a little, not 9 -> 20 -> 14 -> 23 -> 10 minutes
+before = s.rate()
+for _ in range(40):
+    now[0] += 0.5
+    s.add(800_000)
+    s.rate()
+dip = s.rate()
+check("a slow patch does not make the time left jump about", dip and 0.5 < dip / before < 1.2, (before, dip))
 check("nothing left: no time left", packs.seconds_left(0, 5e6) is None)
 
 # a real job: right after the start the page gets no figure, never an absurd one

@@ -45,10 +45,10 @@ check("api.js asks only this app's own /api/free-library endpoints",
       'call("/api/free-library")' in api and "post(`/api/free-library/${encodeURIComponent(str(action))}`, json)" in api)
 start = re.findall(r'freeAct\("start"[^)]*\)', app)
 check("a download starts only from Download, after the person confirms it",
-      start == ['freeAct("start", { keys })'] and 'if (ok) freeAct("start", { keys });' in app
+      start == ['freeAct("start", { keys })'] and 'if (!ok) return;\n      await freeAct("start", { keys });' in app
       and 'confirmDialog("Download the free library?"' in app)
 check("the page draws the server's answer through SLFreeLibrary.view, and polls only while something runs",
-      "FL.view(L.free, L.freeUi, { h, icon, on: freeOn })" in app and 'L.freeTimer = setTimeout(pollFree, 1500);' in app
+      "FL.view(L.free, L.freeUi, { h, icon, on: freeOn, ai: aiUi(\"first\") })" in app and 'L.freeTimer = setTimeout(pollFree, 1500);' in app
       and '["downloading", "building"].includes(job.phase)' in app)
 check("the library under the cards is hidden only when the view says so", '$("lib-content").hidden = v.hideLibrary;' in app)
 check("the upgrade buttons open Settings (its Upgrade page once it exists)",

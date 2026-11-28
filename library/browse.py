@@ -5,8 +5,8 @@ Every function takes `lib`, an open library.search.Library (its read-only connec
 and only reads. The queries use the indexes every build has since build_library.REQUIRED_SCHEMA: docs_source_sort
 (titles of one source in the Library page's order, by cleanup.sort_key()), docs_title (titles across sources),
 passages_doc (a document's first passage) and the reading tables of library/categories.py. A library built before
-them still answers, more slowly (titles() and letters() by raw title), except random_articles(), which returns []
-without the reading table; `build_library.py --upgrade` adds them.
+them still answers, more slowly (titles() and letters() by raw title); random_articles() then draws from the
+documents themselves ("anything" only); `build_library.py --upgrade` adds them.
 
 Importing this module imports library/search.py, which marks the live build as in use by this process (the server
 has done that already).
@@ -333,6 +333,37 @@ def first_passage(lib, doc_id):
             "official": key in search.OFFICIAL_LABEL, "text": lib._read(file_id, passage[1], passage[2])}
 
 
+def _random_any(lib, count, rng):
+    """Random articles of a library with no usable reading table (a build from before the categories, or none of its
+    sources is classified): Wikipedia's if it has any, else any source's. category is always "other"."""
+    try:
+        keys = [r[0] for r in lib.db.execute("SELECT id FROM sources WHERE key=?", ("wikipedia",))]
+        if not keys:
+            keys = [r[0] for r in lib.db.execute("SELECT id FROM sources WHERE done=1")]
+        if not keys:
+            return []
+        marks = ",".join("?" * len(keys))
+        lo, hi = lib.db.execute(f"SELECT MIN(id), MAX(id) FROM docs WHERE source_id IN ({marks})", keys).fetchone()
+    except sqlite3.OperationalError:
+        return []
+    if lo is None:
+        return []
+    picked, out = set(), []
+    for _ in range(count * 4):
+        row = lib.db.execute(f"SELECT id, title FROM docs WHERE source_id IN ({marks}) AND id >= ? ORDER BY id LIMIT 1",
+                             (*keys, rng.randint(lo, hi))).fetchone()
+        if not row or row[0] in picked or categories.SKIP_TITLE.search(row[1] or ""):
+            continue
+        picked.add(row[0])
+        first = first_passage(lib, row[0])
+        if first:
+            out.append({"doc_id": first["doc_id"], "passage_id": first["passage_id"], "title": first["title"],
+                        "source": first["source"], "source_name": first["source_name"], "category": categories.OTHER})
+        if len(out) >= count:
+            break
+    return out
+
+
 def random_articles(lib, category="anything", count=1, rng=None):
     """Random readable articles for "Something to read", from the sources in categories.READING_SOURCES.
 
@@ -340,7 +371,7 @@ def random_articles(lib, category="anything", count=1, rng=None):
     count: how many, 1 to 50 (anything else that is not a number counts as 1). rng: a random.Random to draw with (tests pass a seeded one).
     Returns [{"doc_id": 123, "passage_id": 4567, "title": "Barbary Coast", "source": "wikipedia",
     "source_name": "Wikipedia", "category": "places"}, ...], different articles, up to count long ([] for an
-    unknown category or a library built before the categories). "category" is the article's own category
+    unknown category, or a specific category in a library built before the categories). "category" is the article's own category
     ("other" is possible with "anything")."""
     rng = rng or random.SystemRandom()
     try:
@@ -356,9 +387,9 @@ def random_articles(lib, category="anything", count=1, rng=None):
             lo, hi = lib.db.execute("SELECT MIN(doc_id), MAX(doc_id) FROM reading WHERE category=?",
                                     (category,)).fetchone()
     except sqlite3.OperationalError:  # no reading table: a build from before the categories
-        return []
+        lo = None
     if lo is None:
-        return []
+        return _random_any(lib, count, rng) if category == "anything" else []
     picked, out = set(), []
     for _ in range(count * 4):
         start = rng.randint(lo, hi)

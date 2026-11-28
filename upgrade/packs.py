@@ -692,10 +692,10 @@ class Speed:
     content that arrives (asking for links and checking files on disk don't count), and smoothed so the figure
     doesn't jump. rate() is None until MIN_SECONDS of downloading and MIN_BYTES have been seen, so a tiny first pack
     (the guides) or a slow start can't stand in for the whole download."""
-    WINDOW = 30.0       # seconds of recent progress the speed is measured over
-    MIN_SECONDS = 8.0   # of downloading before any figure is given
+    WINDOW = 75.0       # seconds of recent progress the speed is measured over (a slow patch of 20 s barely moves it)
+    MIN_SECONDS = 15.0  # of downloading before any figure is given
     MIN_BYTES = 8_000_000
-    SMOOTHING = 0.2     # weight of each new measurement (about a 5-second time constant at one look a second)
+    SMOOTHING = 0.03    # weight of each new measurement, at most two a second (about a 15-second time constant)
 
     def __init__(self, clock=time.monotonic):
         self.clock = clock
@@ -757,6 +757,7 @@ class Job:
         self.app_dir = app_dir
         self.service = service or KEY_SERVICE
         self.on_installed = on_installed  # called with (pack name, install record) after each pack is installed
+        self.log = None  # called with one line of text when a download starts and when it ends (the app's log)
         self.lock = threading.Lock()
         self.thread = None
         self.stopping = threading.Event()
@@ -929,8 +930,16 @@ class Job:
     def _links_fresh(self):
         return bool(self.links and self.links["expires"] - LINK_MARGIN > time.time())
 
+    def _say(self, text):
+        if self.log:
+            try:
+                self.log(text)
+            except Exception:  # noqa: BLE001 - a log that can't be written must not stop a download
+                pass
+
     def _run(self, key):
         self.speed = Speed()
+        self._say("The packs' download started.")
         try:
             self._ask(key)
             self._set(phase="downloading")
@@ -972,6 +981,9 @@ class Job:
             with self.inflight_lock:
                 self.inflight = {}
             self.installing = set()
+            state = self.state or {}
+            self._say(f"The packs' download ended: {state.get('phase')}"
+                      + (f" ({state.get('error')})" if state.get("error") else "") + ".")
 
     def _installed(self, name, p, record):
         with self.lock:

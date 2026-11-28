@@ -15,6 +15,7 @@ library, plus pywebview for the window and cryptography for the upgrade key's Ed
 
 The API the interface may call is described in README.md, "API for the interface".
 """
+import atexit
 import datetime
 import errno
 import filecmp
@@ -191,8 +192,9 @@ PLATFORM = sys.platform  # the folder picker is Mac-only; a test passes another 
 # folders count, and never one inside this checkout, so a file next to this code is never run.
 OLLAMA_CANDIDATES = ("/opt/homebrew/bin/ollama", "/usr/local/bin/ollama",
                      "/Applications/Ollama.app/Contents/Resources/ollama") + ollama_install.candidates(PLATFORM)
-if PLATFORM == "win32":  # Ollama's Windows installer puts it in %LOCALAPPDATA%\Programs\Ollama, for one user
-    OLLAMA_CANDIDATES = ollama_install.candidates(PLATFORM) or (
+if PLATFORM == "win32":  # Starholm's own engine in its data folder first ("Set up the AI" unpacks it there), then
+    # an Ollama the person installed (its installer puts it in %LOCALAPPDATA%\Programs\Ollama, for one user)
+    OLLAMA_CANDIDATES = ollama_install.candidates(PLATFORM, data_dir=packs.data_dir()) or (
         os.path.join(os.path.expanduser("~"), "AppData", "Local", "Programs", "Ollama", "ollama.exe"),)
 
 
@@ -236,11 +238,12 @@ def find_ollama(candidates=OLLAMA_CANDIDATES, search_path=None):
 
 
 OLLAMA_BIN = find_ollama()
-PROXY_VARS = {"http_proxy", "https_proxy", "all_proxy", "ftp_proxy", "no_proxy"}
+PROXY_VARS = ollama_install.PROXY_VARS
 
 # ---------- where things are kept ----------
 
 STATE = os.path.join(APP_DIR, "server.json")
+LOGS_DIR = os.path.abspath(os.environ.get("SURVIVAL_LLM_LOGS") or os.path.join(REPO, "logs"))  # as safe_fetch.LOG_DIR
 CUSTOM_PROMPT = os.path.join(APP_DIR, "instructions.txt")  # the person's own edit of the AI's instructions
 CHATS_DIR = os.path.join(APP_DIR, "chats")  # one JSON file per conversation
 MY_DB = os.path.join(APP_DIR, "my-files.sqlite")
@@ -278,7 +281,11 @@ lib_lock = threading.Lock()
 chat_lock = threading.Lock()  # one chat file written at a time
 my_files_checked = [0.0]  # when the folder was last looked at
 warming = {}  # model -> "loading" | "error"
-ollama_started_at = [0.0]
+ollama_started_at = [0.0]  # when Ollama was last started by this app
+ollama_trying_since = [0.0]  # when it was first started since it last answered (0: it answers, or nothing was tried)
+ollama_attempts = [0]  # starts since it last answered: each one waits longer than the one before
+OLLAMA_PROC = [None]  # the `ollama serve` process this app started, if it started one
+START_GRACE = 90  # seconds a started Ollama counts as "starting"; after that it is "stopped", and questions fall back
 quit_hooks = []  # run when someone presses Quit (closes the app window)
 windows = []  # the app's window, for the folder picker
 quit_event = threading.Event()
@@ -1330,6 +1337,7 @@ def pulled(model):
 
 
 PULLS.on_done = pulled
+PULLS.log = lambda text: log_line(text)
 
 
 def setup_model():
@@ -1339,11 +1347,18 @@ def setup_model():
 
 # "Set up the AI" (app/ollama_install.py): installs the official Ollama when there is none, starts it, then hands over
 # to PULLS. It finds Ollama with the app's own search, so an Ollama already installed is used as it is.
+def setup_installed(binary):
+    """The setup installed Ollama there: the app uses that one from now on."""
+    global OLLAMA_BIN
+    OLLAMA_BIN = binary
+
+
 SETUP = ollama_install.Setup(
     find=lambda: OLLAMA_BIN if refind_ollama() else None, answering=lambda: chat_models() is not None,
     start_existing=lambda: restart_ollama(), pull=lambda model: PULLS.start(model),
-    work_dir=os.path.join(APP_DIR, "ollama-setup"), platform=PLATFORM,
-    on_start=lambda: ollama_started_at.__setitem__(0, time.time()))  # start_ollama's throttle covers the setup's start
+    work_dir=os.path.join(APP_DIR, "ollama-setup"), platform=PLATFORM, data_dir=packs.data_dir(),
+    on_start=lambda: ollama_begun(), on_installed=setup_installed, on_started=lambda proc: engine_started(proc),
+    stop_engine=lambda: stop_engine(), log=lambda text: log_line(text), engine_log=os.path.join(LOGS_DIR, "ollama.log"))
 
 
 def model_table():
@@ -1383,7 +1398,7 @@ def remove_model(model):
     show."""
     models = chat_models()
     if models is None:
-        raise HTTPProblem(503, "Ollama isn't running. Start it first.")
+        raise HTTPProblem(503, "The AI isn't running. Start it in Settings › Model first.")
     if model_setup.base(model) not in {model_setup.base(m) for m in models}:
         raise HTTPProblem(400, "That model isn't installed.")
     if PULLS.busy() == model:
@@ -1395,7 +1410,7 @@ def remove_model(model):
     try:
         model_setup.remove_model(model)
     except (OSError, ValueError) as exc:
-        raise HTTPProblem(502, f"Ollama couldn't remove the model: {str(getattr(exc, 'reason', exc))[:200]}") from None
+        raise HTTPProblem(502, f"The model couldn't be removed: {str(getattr(exc, 'reason', exc))[:200]}") from None
     caps_cache.pop(model, None)
     name = names.get(model_setup.base(model)) or model
     if then is None:
@@ -1433,37 +1448,117 @@ def no_model_reason(model, models):
 
 
 def ollama_starting():
-    return time.time() - ollama_started_at[0] < 60
+    """Whether Ollama was started and may still be coming up: within START_GRACE seconds of the first start since it
+    last answered. After that it counts as stopped, so the page stops saying "starting" and a question shows the
+    library's documents; the app still tries again in the background, each time after a longer wait."""
+    return bool(ollama_trying_since[0]) and time.time() - ollama_trying_since[0] < START_GRACE
+
+
+def ollama_begun():
+    """A start of Ollama begins now (by start_ollama, or by "Set up the AI", so the two never start it twice)."""
+    now = time.time()
+    ollama_started_at[0] = now
+    if not ollama_trying_since[0]:
+        ollama_trying_since[0] = now
+    ollama_attempts[0] += 1
+
+
+def ollama_answered():
+    """Ollama's API answers: the count of failed starts begins again."""
+    if ollama_trying_since[0]:
+        log_line(f"The AI engine answers ({time.time() - ollama_trying_since[0]:.0f} s after it was started).")
+    ollama_trying_since[0] = 0.0
+    ollama_attempts[0] = 0
+
+
+def retry_after():
+    """Seconds between two starts of an Ollama that doesn't answer: 30, 60, 120 and so on, ten minutes at most."""
+    return min(30 * 2 ** max(0, ollama_attempts[0] - 1), 600)
+
+
+def engine_log():
+    return os.path.join(LOGS_DIR, "ollama.log")  # what `ollama serve` prints, when this app started it
+
+
+def launch_ollama(binary):
+    """Start that Ollama the way that fits it (ollama_install.start_program) and keep the process when it is
+    `ollama serve`. Truthy when it was started."""
+    started = ollama_install.start_program(binary, PLATFORM, popen=subprocess.Popen, log_path=engine_log())
+    engine_started(started)
+    return started
+
+
+def engine_started(proc):
+    """Keep the `ollama serve` process this app (or its setup) started; opening Ollama's Mac app gives none."""
+    if proc is not None and hasattr(proc, "poll"):
+        OLLAMA_PROC[0] = proc
+
+
+def stop_engine():
+    """End the `ollama serve` this app started, if it still runs (before its folder is replaced, and when the
+    Windows app quits: nothing of Starholm's keeps running in the background)."""
+    proc, OLLAMA_PROC[0] = OLLAMA_PROC[0], None
+    if proc is None or proc.poll() is not None:
+        return
+    try:
+        proc.terminate()
+        proc.wait(10)
+    except (OSError, subprocess.SubprocessError):
+        pass
+
+
+if PLATFORM == "win32":  # the Windows app leaves nothing running: its engine ends with it, however it quits
+    quit_hooks.append(stop_engine)
+    atexit.register(stop_engine)
 
 
 def restart_ollama():
-    """Start the installed Ollama now, without waiting out start_ollama's 30 seconds (a button press)."""
+    """Start the installed Ollama now, without waiting out start_ollama's delay (a button press, or the setup)."""
     ollama_started_at[0] = 0
-    start_ollama()
+    ollama_trying_since[0] = 0.0
+    ollama_attempts[0] = 0
+    start_ollama(force=True)
 
 
-def start_ollama():
-    """Start the installed Ollama in the background when it isn't answering (at most every 30 seconds). Ollama's own
-    app is opened as an app (`open -g -j Ollama.app`), so its updater runs and only one Ollama ever starts; opening it
-    again while it runs does nothing. Homebrew's or another bare program runs `ollama serve`, listening on
-    127.0.0.1:11434 and with no proxy settings. Normally `brew services` or Ollama's own app keeps it running and this
-    does nothing."""
-    if time.time() - ollama_started_at[0] < 30 or not ollama_installed():
+def start_ollama(force=False):
+    """Start the installed Ollama in the background when it isn't answering. Ollama's own Mac app is opened as an app
+    (`open -g -j Ollama.app`), so its updater runs and only one Ollama ever starts; opening it again while it runs
+    does nothing. Every other Ollama runs `ollama serve` with no window, listening on 127.0.0.1:11434 and with no
+    proxy settings: Homebrew's or another bare program on a Mac, and every Ollama on Windows, whose desktop app is
+    never opened. Normally `brew services` or Ollama's own app keeps it running and this does nothing.
+
+    A start that doesn't lead to an answer is tried again after retry_after() seconds, and not at all while "Set up
+    the AI" runs (it starts Ollama itself). What happened goes to the log: the first start, and each later one with
+    the engine's exit code or its last lines."""
+    if not ollama_installed() or (not force and (SETUP.busy() or time.time() - ollama_started_at[0] < retry_after())):
         return
-    ollama_started_at[0] = time.time()
-    if PLATFORM == "win32" and os.path.isfile(os.path.join(os.path.dirname(OLLAMA_BIN), "ollama app.exe")):
-        ollama_install.start_app(OLLAMA_BIN, "win32", popen=subprocess.Popen)  # its tray app, which runs the server
+    again = ollama_attempts[0]
+    proc = OLLAMA_PROC[0]
+    if again and proc is not None and proc.poll() is None:
+        ollama_begun()  # it still runs without answering: it is given more time, never started a second time
+        log_line(f"The AI engine runs (pid {proc.pid}) but doesn't answer yet.")
         return
-    if ollama_install.how_installed(OLLAMA_BIN) == "app":
-        ollama_install.start_app(os.path.realpath(OLLAMA_BIN), "darwin", popen=subprocess.Popen)
-        return
-    env = {k: v for k, v in os.environ.items() if k.lower() not in PROXY_VARS}
-    env["OLLAMA_HOST"] = "127.0.0.1:11434"
-    try:
-        subprocess.Popen([OLLAMA_BIN, "serve"], env=env, cwd=os.path.expanduser("~"), stdin=subprocess.DEVNULL,
-                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
-    except OSError:
-        pass
+    if again:
+        code = f" It exited with code {proc.returncode}." if proc is not None else ""
+        tail = ollama_install.log_tail(engine_log()) if again <= 2 and proc is not None else ""
+        log_line(f"The AI engine didn't answer.{code} Starting it again (start {again + 1})."
+                 + (f" Its last lines:\n{tail}" if tail else ""))
+    else:
+        log_line(f"Starting the AI engine ({OLLAMA_BIN}).")
+    ollama_begun()
+    if not launch_ollama(OLLAMA_BIN):
+        log_line(f"The AI engine couldn't be started ({OLLAMA_BIN}).")
+
+
+def wait_for_ollama(seconds=15):
+    """While Ollama is starting: its chat models as soon as it answers, or None after that many seconds."""
+    deadline = time.monotonic() + seconds
+    while time.monotonic() < deadline and ollama_starting() and not quit_event.is_set():
+        models = chat_models()
+        if models is not None:
+            return models
+        time.sleep(1)
+    return chat_models()
 
 
 def chat_models():
@@ -1471,6 +1566,8 @@ def chat_models():
     models = installed_models()
     if models is None:
         return None
+    if ollama_trying_since[0]:
+        ollama_answered()
     return [m.removesuffix(":latest") for m in models if not any(x in m for x in NOT_CHAT)]
 
 
@@ -1517,8 +1614,7 @@ def friendly_error(exc):
             detail = ""
         low = detail.lower()
         if exc.code == 404 or "not found" in low:
-            return ("This model isn't installed. Pick another one, or install it from the terminal with "
-                    "`ollama pull`.")
+            return "This model isn't installed. Pick another one, or download it in Settings › Model."
         if "newer version" in low or "requires" in low and "ollama" in low:
             return ollama_install.upgrade_hint(OLLAMA_BIN)  # brew upgrade only for Homebrew's Ollama
         if "memory" in low:
@@ -1529,7 +1625,7 @@ def friendly_error(exc):
     reason = getattr(exc, "reason", exc)
     if isinstance(reason, ConnectionRefusedError) or "refused" in str(reason).lower():
         start_ollama()
-        return "The AI engine (Ollama) isn't running. Starting it now; try again in a few seconds."
+        return "The AI isn't running. Starting it now; try again in a few seconds."
     if "timed out" in str(reason).lower():
         return "The AI engine took too long to answer. Try again, or pick a faster model."
     return f"Something went wrong: {exc}"
@@ -1644,10 +1740,19 @@ def remove_state():
         pass
 
 
-def quit_app():
-    """Stop serving and close the window; the app then exits. Safe to call more than once."""
+exit_reason = [None]  # why the app is quitting, for the one line written to logs/app.log when it stops
+
+
+def log_line(text):
+    """One timestamped line in the log (stdout, which is logs/app.log in the Windows app), flushed at once."""
+    print(f"{datetime.datetime.now():%Y-%m-%d %H:%M:%S} {text}", flush=True)
+
+
+def quit_app(reason="asked to quit"):
+    """Stop serving and close the window; the app then exits. Safe to call more than once. reason goes in the log."""
     if quit_event.is_set():
         return
+    exit_reason[0] = exit_reason[0] or reason
     if httpd:
         threading.Thread(target=httpd.shutdown, daemon=True).start()
     quit_event.set()
@@ -1658,7 +1763,6 @@ def quit_app():
 # ---------- the library build and the weekly refresh ----------
 
 BUILD_INFO = "build.json"  # library/build_library.py writes it in each build: {"built": "<UTC ISO time>", ...}
-LOGS_DIR = os.path.abspath(os.environ.get("SURVIVAL_LLM_LOGS") or os.path.join(REPO, "logs"))  # as safe_fetch.LOG_DIR
 REFRESH_STATUS = os.path.join(LOGS_DIR, "refresh-status.json")  # written by library/refresh.py
 REFRESH_LABEL = "local.survival-library.refresh"
 REFRESH_PLIST = os.path.expanduser(f"~/Library/LaunchAgents/{REFRESH_LABEL}.plist")
@@ -1959,7 +2063,7 @@ def quit_on_sigterm():
     reader, writer = os.pipe()
     os.set_blocking(writer, False)
     signal.set_wakeup_fd(writer, warn_on_full_buffer=False)
-    signal.signal(signal.SIGTERM, lambda *_: quit_app())
+    signal.signal(signal.SIGTERM, lambda *_: quit_app("the system asked it to stop (SIGTERM)"))
 
     def watch():
         while True:
@@ -1970,7 +2074,7 @@ def quit_on_sigterm():
             if not data:
                 return
             if signal.SIGTERM in data:
-                quit_app()
+                quit_app("the system asked it to stop (SIGTERM)")
     threading.Thread(target=watch, daemon=True, name="sigterm").start()
 
 
@@ -2028,7 +2132,8 @@ def free_library_status():
     """GET /api/free-library: the picker's sources and total, the free disk space, the job (or null), and whether the
     library in use is a free (raw) build."""
     return {**free_library.picker(), "free_bytes": free_library.disk_free(), "job": FREE.snapshot(),
-            "library_raw": free_library.built_raw(LIB), "has_library": os.path.isfile(DB_PATH)}
+            "library_raw": free_library.built_raw(LIB), "has_library": os.path.isfile(DB_PATH),
+            "ready_made": {"download": packs.ESTIMATE_DOWNLOAD["library"], "disk": packs.ESTIMATE_BYTES["library"]}}
 
 
 def free_library_action(action, body):
@@ -2150,12 +2255,14 @@ def guide_preview(entry, markdown):
 
 def on_pack_installed(name, record):
     global GUIDES_DIR
+    log_line(f"The {name} pack was installed (version {record.get('version')}).")
     if name == "guides":
         import core
         GUIDES_DIR = core.GUIDES_DIR = packs.guides_dir() or GUIDES_DIR
 
 
 PACKS = packs.Job(APP_DIR, on_installed=on_pack_installed)
+PACKS.log = lambda text: log_line(text)
 PACK_UPDATES = [None]  # the last "Check for updates" in this run: check_updates()'s answer, or {"error"}; memory only
 UPDATER = appupdate.Updater(APP_DIR, packs.data_dir(), bundle=app_bundle())  # Starholm's own updates
 
@@ -2208,11 +2315,13 @@ def upgrade_action(action, body):
         result = upgrade_key.check(text, app_dir=APP_DIR)
         if result["verdict"] != "valid":
             reason = result.get("reason") or "revoked"
+            log_line(f"An upgrade key was refused ({reason}).")  # never the key itself
             raise HTTPProblem(400, KEY_REFUSALS[reason], {"reason": reason})
         try:
             upgrade_key.save(APP_DIR, text)
         except OSError as exc:
             raise HTTPProblem(500, save_failed(exc, upgrade_key.key_path(APP_DIR)))
+        log_line("An upgrade key was accepted and saved.")
         return upgrade_status()
     if action == "remove-key":
         PACK_UPDATES[0] = None
@@ -3073,7 +3182,7 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send(200, {"ok": True, "model": chosen_model()})
             models = chat_models()
             if models is None:
-                raise HTTPProblem(503, "The AI engine (Ollama) isn't running.")
+                raise HTTPProblem(503, "The AI isn't running.")
             if model.removesuffix(":latest") not in models:
                 raise HTTPProblem(400, "That model isn't installed.")
             MEMORY.set_setting("model", model.removesuffix(":latest"))
@@ -3084,9 +3193,8 @@ class Handler(BaseHTTPRequestHandler):
             warm_model(model)
             return self._send(200, {"ok": True})
         if url.path == "/api/start-ollama":
-            ollama_started_at[0] = 0
             refind_ollama()  # installed since the app started
-            start_ollama()
+            restart_ollama()
             return self._send(200, {"ok": True, "installed": ollama_installed()})
         if url.path == "/api/ollama/setup":  # "Set up the AI": install Ollama if needed, start it, download the model
             if not SETUP.start(setup_model()):
@@ -3115,7 +3223,7 @@ class Handler(BaseHTTPRequestHandler):
             if gb is not None and row["memory_gb"] > gb and not update:
                 raise HTTPProblem(400, "That model is too large for this computer's memory.")
             if chat_models() is None:
-                raise HTTPProblem(503, "Ollama isn't running. Start it first.")
+                raise HTTPProblem(503, "The AI isn't running. Start it in Settings › Model first.")
             if not PULLS.start(model):
                 raise HTTPProblem(409, "Another model is downloading. Wait for it, or cancel it.")
             return self._send(200, {"ok": True, "models": model_table()})
@@ -3267,7 +3375,7 @@ class Handler(BaseHTTPRequestHandler):
             out = updates_restart()
             self._send(200, out)
             if out["mode"] == "replace":
-                quit_app()
+                quit_app("quitting so the update can be installed")
             return None
         if url.path.startswith("/api/upgrade/") and url.path[len("/api/upgrade/"):] in UPGRADE_ACTIONS:
             # the Upgrade page: only "Download now", Resume and Download again ever contact the key service
@@ -3312,11 +3420,11 @@ class Handler(BaseHTTPRequestHandler):
                                                  "again."})
             start_relaunch(bundle)
             self._send(200, {"ok": True})
-            quit_app()
+            quit_app("Restart now: quitting to open the app again")
             return None
         if url.path == "/api/quit":
             self._send(200, {"ok": True})
-            quit_app()
+            quit_app("Quit from the app's own menu or button")
             return None
         return self._send(404, {"error": "not found"})
 
@@ -3435,6 +3543,8 @@ class Handler(BaseHTTPRequestHandler):
         # No model to answer with (no Ollama, Ollama not running, or the model not downloaded): library-only mode, the
         # passages the library finds with one line saying written answers need a model.
         models = chat_models()
+        if models is None and ollama_starting():  # just started: a few seconds for it, rather than no written answer
+            models = wait_for_ollama()
         why = no_model_reason(model, models)
         if why:
             if why == "stopped":
@@ -3648,6 +3758,24 @@ def save_window_frame(window):
         print(f"Couldn't keep the window's place: {exc}", flush=True)
 
 
+def window_background():
+    """Windows: create_window's background_color, the interface's own page colour for the theme in use (the setting, or
+    the system's light or dark when it is "system"), so the window isn't white before the page paints. Elsewhere {}
+    (the Mac window opens without a white flash)."""
+    if PLATFORM != "win32":
+        return {}
+    dark = True  # the interface's default (app.css)
+    try:
+        theme = preferences()["theme"]
+        if theme == "system":
+            dark = oscompat.windows_apps_dark()
+        else:
+            dark = theme == "dark"
+    except Exception:  # noqa: BLE001  (no registry value: the dark default)
+        pass
+    return {"background_color": "#171716" if dark else "#F5F3EE"}  # --bg in app.css
+
+
 def window_place(webview):
     """Mac: create_window's screen, x, y, width and height for the place the window was closed in, or {} (centred on
     the main screen). Elsewhere {}."""
@@ -3685,7 +3813,8 @@ def open_window(url):
             menu = [Menu("__app__", [MenuAction("Settings…", settings_from_menu), MenuAction("Check for Updates…", check_from_menu)])]
             mac_menu_shortcuts()
         place = {"width": WINDOW_SIZE[0], "height": WINDOW_SIZE[1], **window_place(webview)}
-        window = webview.create_window(window_title(), url, min_size=WINDOW_MIN, text_select=True, menu=menu, **place)
+        window = webview.create_window(window_title(), url, min_size=WINDOW_MIN, text_select=True, menu=menu,
+                                       **place, **window_background())
 
         def close_window():  # Quit and Restart now: keep the window's place first, then close it
             save_window_frame(window)
@@ -3793,6 +3922,10 @@ if __name__ == "__main__":
             os.environ.get("SURVIVAL_LLM_LOGS"):  # the Windows app has no console: what it prints goes to its log
         os.makedirs(LOGS_DIR, exist_ok=True)
         sys.stdout = sys.stderr = open(os.path.join(LOGS_DIR, "app.log"), "a", encoding="utf-8", buffering=1)
+        sys.stdout.reconfigure(write_through=True)  # every line is in the file as it is printed
+        import faulthandler
+        faulthandler.enable(sys.stderr)  # a crash with no Python error (WebView2, a native library) leaves its trace here
+    log_line(f"Starholm {UPDATER.version} starting (pid {os.getpid()})")  # before anything slow, so a hang still shows
     os.chdir(os.path.expanduser("~"))
     headless, use_browser = "--no-browser" in sys.argv, "--browser" in sys.argv
     existing = None if "--port" in sys.argv else running_instance()  # an explicit port means "start another"
@@ -3834,6 +3967,16 @@ if __name__ == "__main__":
                 webbrowser.open(launch_url(PORT))
                 quit_event.wait()
     except KeyboardInterrupt:
-        pass
+        exit_reason[0] = exit_reason[0] or "interrupted from the keyboard"
+    except BaseException:  # noqa: BLE001  (log what ended the app, then let it end as before)
+        import traceback
+        log_line("Starholm stopped by an unhandled error:\n" + traceback.format_exc())
+        raise
     finally:
         remove_state()
+        if exit_reason[0]:
+            log_line(f"Starholm stopped: {exit_reason[0]}")
+        elif not (headless or use_browser):
+            log_line("Starholm stopped: the window was closed")
+        else:
+            log_line("Starholm stopped: the server ended")

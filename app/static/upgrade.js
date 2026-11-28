@@ -27,7 +27,7 @@
 
   function unlocks(guideCount) {
     return [
-      ["The ready-made library", "About 16 GB, about 1.1 million documents, cleaned and checked."],
+      ["The ready-made library", "About 1.1 million documents, cleaned and checked. About 5.8 GB to download."],
       ["Every guide", `${guideCount ? `All ${guideCount} guides` : "All the guides"}, booklets to print and fold, and the emergency pack.`],
       ["Offline maps", "Street maps by region that work with no internet."],
       ["The family plan", "A form for who to call and where to meet, printed for the fridge and as wallet cards."],
@@ -106,13 +106,36 @@
     return out;
   }
 
+  // The AI's own line, under the packs' progress: line is models.js aiLine()'s answer (null: nothing). It never hides
+  // or holds up the packs: its button (Set up the AI, or Try again) only calls on.setupAi().
+  function aiBlock(line, ctx) {
+    const { h, icon, on } = ctx;
+    if (!line) return null;
+    if (line.kind === "ready") return h("p", { class: "hint", "data-role": "ai", "data-kind": "ready" }, icon("check", "sm"), str(line.text));
+    if (line.kind === "running" || line.kind === "downloading") {
+      const pct = line.progress != null ? Math.min(100, Math.floor(Number(line.progress) * 100)) : null;
+      return h("div", { class: "up-dl", "data-role": "ai", "data-kind": line.kind, "aria-live": "polite" },
+        h("div", { class: "up-dl-top" }, h("b", null, "The AI for this computer"), pct != null ? h("span", { class: "hint" }, `${pct}%`) : null),
+        h("span", { class: "map-state st-dl" }, h("i", { class: "dot" }), str(line.text)),
+        pct != null ? h("div", { class: "bar", role: "progressbar", "aria-valuenow": String(pct), "aria-valuemin": "0", "aria-valuemax": "100",
+          "aria-label": str(line.text) }, h("i", { class: "up-pct", "data-pct": String(pct) })) : null);
+    }
+    return h("div", { class: "banner up-dl", "data-role": "ai", "data-kind": line.kind, role: line.kind === "error" ? "alert" : null },
+      h("span", null, h("b", null, "The AI for this computer"), h("span", { class: "hint" }, str(line.text))),
+      line.action ? h("button", { class: line.kind === "error" ? "btn" : "btn primary", type: "button", "data-action": "setup-ai",
+        onclick: () => on.setupAi() }, line.kind === "error" ? icon("retry", "sm") : icon("down", "sm"), str(line.label)) : null);
+  }
+
   // ctx: {h, icon(name, size), on: {save(text), remove(), download(), pause(), resume(), again(), getUpgrade(),
-  // resend(), writeToUs(), tryAgain(), removeFree(free), checkUpdates(), update()}}.
-  // ui: {draft, error, checking, guideCount, library: {articles, size_bytes}, downloaded}.
+  // resend(), writeToUs(), tryAgain(), removeFree(free), checkUpdates(), update(), setupAi()}}.
+  // ui: {draft, error, checking, guideCount, library: {articles, size_bytes}, downloaded, ai: {plan, line}}. ai.plan:
+  // what Download now also sets up (models.js aiPlan(), "" when the AI is ready, Library only is on, or it can't be set
+  // up here); ai.line: models.js aiLine().
   function view(st, ui, ctx) {
     const { h, icon, on } = ctx;
     ui = ui || {};
     const s = state(st, ui);
+    const ai = ui.ai || {};
     const unlockList = (done) => h("ul", { class: `up-unlocks${done ? " done" : ""}` },
       unlocks(ui.guideCount).map(([b, t]) => h("li", null, icon(done ? "check" : "lock", "sm"),
         h("span", null, h("b", null, b), h("span", { class: "hint" }, t)))));
@@ -147,13 +170,17 @@
 
     if (s === "saved") {
       const est = st.estimate || {};
+      // With the AI still to set up, the same button sets it up too, and the sentence says so with every size.
+      const what = ai.plan
+        ? `The guides, the ready-made library (${est.disk ? `about ${size(est.bytes)} to download, ${size(est.disk)} once unpacked` : `about ${size(est.bytes)} in all`}) and the AI for this computer: ${str(ai.plan)}. The library takes about ${duration(est.seconds)} on a fast connection. Nothing downloads until you press the button.`
+        : `${est.disk ? `About ${size(est.bytes)} to download, ${size(est.disk)} on this computer once unpacked` : `About ${size(est.bytes)} in all`}: the guides, then the library. About ${duration(est.seconds)} on a fast connection. Nothing downloads until you press the button.`;
       parts.push(h("div", { class: "banner up-ok" }, icon("check", "sm"),
         h("span", null, h("b", null, "Key saved. Thank you for supporting Starholm."), " These are now unlocked:")),
       unlockList(true),
       h("div", { class: "banner up-dl" }, h("span", null, h("b", null, "Download now"),
-        h("span", { class: "hint" }, `${est.disk ? `About ${size(est.bytes)} to download, ${size(est.disk)} on this computer once unpacked` : `About ${size(est.bytes)} in all`}: the guides, then the library. About ${duration(est.seconds)} on a fast connection. Nothing downloads until you press the button.`)),
+        h("span", { class: "hint" }, what)),
       h("button", { class: "btn primary", type: "button", "data-action": "download", onclick: () => on.download() }, icon("down", "sm"), "Download now")),
-      removeFree(st, ctx), keyRow(), keyFacts());
+      aiBlock(ai.line, ctx), removeFree(st, ctx), keyRow(), keyFacts());
       return { state: s, body: h("div", { class: "up-page", "data-state": s }, parts) };
     }
 
@@ -203,7 +230,8 @@
           h("i", { class: "up-pct", "data-pct": String(pct) }));
       }
       parts.push(h("div", { class: "up-dl", "data-pack": "all" },
-        h("div", { class: "up-dl-top" }, h("b", null, title), checking ? null : h("span", { class: "hint" }, `${pct}%`)), line, bar));
+        h("div", { class: "up-dl-top" }, h("b", null, title), checking ? null : h("span", { class: "hint" }, `${pct}%`)), line, bar),
+      aiBlock(ai.line, ctx));
       if (packs.some((p) => p.pack === "guides" && p.state === "done") && packs.some((p) => p.state !== "done")) {
         parts.push(h("p", { class: "hint", "data-role": "guides-ready" }, "The guides are in and work now. The library is still coming."));
       }
@@ -223,6 +251,7 @@
       const facts = [lib.articles ? `${Number(lib.articles).toLocaleString("en-GB")} articles` : null,
         lib.size_bytes ? size(lib.size_bytes) : null, ui.downloaded ? `downloaded ${ui.downloaded}` : null].filter(Boolean).join(" · ");
       parts.push(h("div", { class: "banner up-ok" }, icon("check", "sm"), h("span", null, "Everything is downloaded. The ready-made library is in use.")),
+        aiBlock(ai.line, ctx),
         unlockList(true),
         h("div", { class: "set-row" }, h("div", { class: "set-label" }, h("span", null, "Library"), h("span", { class: "hint" }, facts))),
         ...updates(st, ui, ctx),
@@ -369,7 +398,7 @@
   }
 
   const API = { LOCKED, BUY_URL, state, view, lockedGuide, downloadGuide, lockedPack, lockedBooklets, lockedMap, lockedMapCard, lockedPlan, shelfNote,
-    paint, size, duration, unlocks, computers, keyFactsText, CHECKING };
+    paint, size, duration, unlocks, computers, keyFactsText, CHECKING, aiBlock };
   root.SLUpgrade = API;
   if (typeof module !== "undefined" && module.exports) module.exports = API;
 })(typeof window !== "undefined" ? window : globalThis);

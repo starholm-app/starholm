@@ -334,3 +334,12 @@ if WINDOWS:
     _windows_children()
     _windows_replace()
     _windows_remove()
+
+
+def windows_apps_dark():
+    """Windows: True when the person has chosen dark mode for apps (Settings > Personalisation > Colours). Raises
+    OSError when the setting isn't there (an older Windows); the caller then uses its own default."""
+    import winreg
+    with winreg.OpenKey(winreg.HKEY_CURRENT_USER,
+                        r"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize") as key:
+        return winreg.QueryValueEx(key, "AppsUseLightTheme")[0] == 0

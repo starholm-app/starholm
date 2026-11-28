@@ -299,12 +299,14 @@
   }
   // Why a question can't be answered now, or null if it can (or the status is unknown). With "Documents only" on, a
   // question needs only the library; Summarise (needModel) needs the model too.
-  function notReady(needModel = !libraryOnly()) {
+  function notReady(needModel = !libraryOnly(), summarise = false) {
     const s = S.status;
     if (!s) return null;
     if (!needModel) return s.library ? null : "There's no library on this computer yet, so there's nothing to search.";
     if (s.ollama_checked === false) return null;  // Documents only: the model wasn't checked; Summarise says if it fails
-    if (!s.ollama) return s.ollama_starting ? "The model is still starting. Try again in a moment." : "The model isn't running. You can still browse the library.";
+    // Starting: with a library the question is sent anyway. The server gives the model a few seconds, then shows the
+    // library's documents; a question is never refused because the model is slow or failed to start.
+    if (!s.ollama) return s.ollama_starting ? (s.library && !summarise ? null : "The AI is still starting. Try again in a moment.") : "The AI isn't running. You can still browse the library.";
     if (!Array.isArray(s.models) || !s.models.length) return "No model is installed. You can still browse the library.";
     if (!s.model_installed) return "The chosen model isn't installed. Download one in Settings › Model.";
     return null;
@@ -315,12 +317,12 @@
     const v = s.view;
     if (v.refresh && v.refresh.running) return { dot: "warn", text: "Refreshing the library" };
     if (v.newer) return { dot: "", text: "New library ready, restart" };
-    if (s.ollama_checked === false || M.noModel(s)) return s.library ? { dot: M.noModel(s) ? "warn" : "", text: `Library only${v.built ? ` · library from ${shortDate(v.built)}` : ""}` } : { dot: "warn", text: "No library found" };
+    if (s.ollama_checked === false || M.noModel(s)) return s.library ? { dot: M.noModel(s) ? "warn" : "", text: `Library only${v.built ? ` · library built ${shortDate(v.built)}` : ""}` } : { dot: "warn", text: "No library found" };
     if (!s.ollama) return { dot: "off", text: s.ollama_starting ? "Starting the model…" : "Model not running" };
     if (!Array.isArray(s.models) || !s.models.length) return { dot: "off", text: "No model installed" };
     if (!s.model_installed) return { dot: "off", text: "Model not installed" };
     if (!s.library) return { dot: "warn", text: "No library found" };
-    return { dot: "", text: v.built ? `Ready · library from ${shortDate(v.built)}` : "Ready" };
+    return { dot: "", text: v.built ? `Ready · library built ${shortDate(v.built)}` : "Ready" };
   }
   function renderStatus() {
     const st = statusLine();
@@ -741,7 +743,7 @@
   // Summarise a "Documents only" question: the model answers it now (in place when it is saved).
   function summariseTurn(turn) {
     if (!turn) return;
-    const blocked = notReady(true);
+    const blocked = notReady(true, true);
     if (blocked) { toast(blocked); return; }
     ask(turn.text, { replace: turn, summarise: true });
   }
@@ -1690,6 +1692,7 @@
     const [src, info, files, free] = await Promise.allSettled([API.library.sources(), API.library.info(), API.myFiles(false),
       API.freeLibrary.status()]);
     if (free.status === "fulfilled") L.free = free.value;
+    if (L.free && (!L.free.has_library || aiActive() || AI.started)) await aiLoad();  // the free card's "and the AI"
     if (src.status === "fulfilled") L.sources = Array.isArray(src.value.sources) ? src.value.sources.filter((s) => s && /^[a-z0-9-]{1,60}$/.test(str(s.key))) : [];
     else toast(src.reason.message);
     L.info = info.status === "fulfilled" ? info.value : null;
@@ -1722,6 +1725,52 @@
   function libFiltersChanged() { renderLibMain(); if (L.q.trim()) runTitleSearch(); }
   function clearLibFilters() { Object.assign(L, { topic: "all", official: false, updated: false, lic: "any", kind: "any" }); libFiltersChanged(); }
 
+  // ---------- "and the AI too" (models.js aiDecision, aiPlan, aiLine) ----------
+  // The Upgrade page's Download now and the free library's download also set up the AI (POST /api/ollama/setup) when
+  // it isn't ready: Library only off, no chat model, no setup running, and a setup this computer can run. AI.data is
+  // GET /api/models, asked only when /api/status doesn't already say a model is installed or Library only is on.
+  // AI.wanted: a button was pressed while the engine was still starting, so the choice waits until it answers.
+  const AI = { data: null, wanted: false, started: false, req: 0 };
+  const aiActive = () => AI.wanted || !!(AI.data && ((AI.data.setup && AI.data.setup.state === "running")
+    || (Array.isArray(AI.data.rows) && AI.data.rows.some((r) => r.state === "downloading"))));
+  async function aiLoad() {
+    const s = S.status;
+    if (!s) return;  // not known yet: /api/models (which may check the registry for updates) waits for it
+    if ((s.ollama_checked === false || s.model_installed || (Array.isArray(s.models) && s.models.length))) {
+      AI.data = null;  // ready, or Library only: nothing to ask, and nothing to set up
+      AI.wanted = false;
+      return;
+    }
+    const req = ++AI.req;
+    const was = aiActive();
+    try {
+      const data = await API.models.load();
+      if (req === AI.req) AI.data = data;
+    } catch { /* the next look tries again */ }
+    if (was && !aiActive()) statusPoll.tick();  // the model is in: the rest of the app hears it now
+    await aiKick();
+  }
+  // A button asked for the AI: start its setup now, or once the engine has answered, or not at all.
+  async function aiKick() {
+    if (!AI.wanted) return;
+    const d = M.aiDecision(S.status, AI.data);
+    if (d === "wait") return;
+    AI.wanted = false;
+    if (d !== "start") return;
+    AI.started = true;
+    try { const out = await API.setup.start(); if (out && out.models) AI.data = out.models; }
+    catch (err) { if (err.status !== 409) toast(err.message); }  // 409: it is already running
+  }
+  async function aiWant() {
+    AI.wanted = true;
+    await aiLoad();
+    renderUpgrade();
+    renderLibMain();
+  }
+  // What the Upgrade page and the free card show about the AI.
+  const aiUi = (page) => ({ plan: M.aiNeeded(S.status, AI.data) ? M.aiPlan(AI.data) : "",
+    line: M.aiLine(S.status, AI.data, page, AI.started) });
+
   // ---------- the free library (free-library.js): the cards, the source picker, the build's progress ----------
   const FL = window.SLFreeLibrary;
   const upgradeTab = () => (tabs.some((t) => t.dataset.pane === "upgrade") ? "upgrade" : "status");
@@ -1739,12 +1788,17 @@
     download: async (keys) => {
       const set = new Set(keys);
       const total = (L.free.sources || []).filter((s) => set.has(s.key)).reduce((a, s) => a + (Number(s.size) || 0), 0);
+      const plan = aiUi("first").plan;
       const ok = await confirmDialog("Download the free library?", [
         `About ${FL.size(total)} from Kiwix and government sites, ${plural(keys.length, "source")}. Each file comes from the site that publishes it.`,
-        "It can take several hours, then the library is built on this computer. You can pause it, or quit Starholm and carry on later."],
+        "It can take several hours, then the library is built on this computer. You can pause it, or quit Starholm and carry on later.",
+        plan ? `It also sets up the AI for this computer: ${plan}.` : null].filter(Boolean),
       "Download");
-      if (ok) freeAct("start", { keys });
+      if (!ok) return;
+      await freeAct("start", { keys });
+      aiWant();  // and the AI, when it isn't ready (models.js aiDecision)
     },
+    openModel: () => openSettings("model"),
     pause: () => freeAct("pause"),
     resume: () => freeAct("resume"),
     cancel: async () => {
@@ -1773,6 +1827,7 @@
       if (req !== L.freeReq) return;
       const was = L.free && L.free.job ? L.free.job.phase : null;
       L.free = next;
+      if (aiActive()) await aiLoad();
       if (was && was !== "done" && next.job && next.job.phase === "done") return loadLibrary();  // the new library is in
       renderLibMain();
     } catch { /* the next look tries again */ }
@@ -1780,7 +1835,7 @@
   function renderFree() {
     clearTimeout(L.freeTimer);
     if (!L.built || !FL || !L.free) return;
-    const v = FL.view(L.free, L.freeUi, { h, icon, on: freeOn });
+    const v = FL.view(L.free, L.freeUi, { h, icon, on: freeOn, ai: aiUi("first") });
     fill($("lib-free-top"), v.top);
     fill($("lib-free"), v.body);
     FL.sizeBars($("lib-free"));
@@ -1990,7 +2045,13 @@
     if (!row) return;
     const label = Object.fromEntries(CATEGORIES);
     if (!L.reads) { row.replaceChildren(h("p", { class: "empty-note" }, "Finding something to read…")); return; }
-    if (!L.reads.length) { row.replaceChildren(h("p", { class: "empty-note" }, "Nothing to read in this category yet.")); return; }
+    if (!L.reads.length) {
+      const has = L.info && L.info.articles;  // a library is there: never say there is nothing, offer another try
+      row.replaceChildren(has ? h("p", { class: "empty-note" }, "Couldn't find anything to read just now. ",
+        h("button", { class: "link", type: "button", onclick: () => loadReads() }, "Try again"))
+        : h("p", { class: "empty-note" }, "Nothing to read in this category yet."));
+      return;
+    }
     // the five cover colours in turn, so no two covers side by side share one
     row.replaceChildren(...L.reads.map((r, i) => h("button", { class: `cover cv-${window.SLRender.readColour(i)}`, type: "button", title: r.title,
       onclick: (e) => openReadItem(r, L.cat, e.currentTarget) },
@@ -2004,7 +2065,8 @@
     L.reads = null;
     renderCovers();
     try {
-      const list = await API.reads.random(L.cat, 12);
+      let list = await API.reads.random(L.cat, 12);
+      if (!list.length && L.cat !== "anything") list = await API.reads.random("anything", 12);  // a category with none: anything
       if (req === L.rreq) { L.reads = list; renderCovers(); }
     } catch (err) {
       if (req === L.rreq) { L.reads = []; renderCovers(); toast(err.message); }
@@ -2201,12 +2263,16 @@
   // The key is checked by the server on this computer; "Download now", Resume, Download again, Check for updates
   // and Update are the only buttons that make it contact the key service. Locked features open a preview in #lock-dialog.
   const UPG = window.SLUpgrade;
-  const UP = { st: null, ui: { draft: "", error: "" }, timer: null, req: 0 };
-  async function loadUpgrade() {
+  const UP = { st: null, ui: { draft: "", error: "" }, timer: null, req: 0, savedAt: 0 };
+  // "Download now" appears right where "Save" was: a second click or key press meant for Save must not start the download.
+  const justSaved = () => Date.now() - UP.savedAt < 1500;
+  // tick: asked again by the page's own timer. /api/models (for the AI's line) is asked when the page opens, and on a
+  // tick only while the AI is being set up or its model downloads.
+  async function loadUpgrade(tick = false) {
     const req = ++UP.req;
     clearTimeout(UP.timer);
     try {
-      const st = await API.upgrade.status();
+      const [st] = await Promise.all([API.upgrade.status(), !tick || aiActive() ? aiLoad() : null]);
       if (req !== UP.req) return;
       UP.st = st;
     } catch (err) {
@@ -2220,11 +2286,11 @@
     if (!UP.st) return;
     const done = UP.st.installed && UP.st.installed.library && Date.parse(str(UP.st.installed.library.installed));
     const v = UPG.view(UP.st, { ...UP.ui, guideCount: G.list ? G.list.length : 0, library: S.status && S.status.library,
-      downloaded: Number.isFinite(done) ? longDate(done / 1000) : "" }, { h, icon, on: upOn });
+      downloaded: Number.isFinite(done) ? longDate(done / 1000) : "", ai: aiUi(UPG.state(UP.st, UP.ui)) }, { h, icon, on: upOn });
     pane.replaceChildren(v.body);
     UPG.paint(pane);
     clearTimeout(UP.timer);
-    if (v.state === "downloading" && settings.open && !pane.hidden) UP.timer = setTimeout(loadUpgrade, 1000);
+    if ((v.state === "downloading" || aiActive()) && settings.open && !pane.hidden) UP.timer = setTimeout(() => loadUpgrade(true), 1000);
   }
   async function upAct(action, body = {}) {
     try { UP.st = await API.upgrade.act(action, body); } catch (err) { toast(err.message); }
@@ -2241,6 +2307,7 @@
       UP.ui.draft = text;
       try {
         UP.st = await API.upgrade.act("key", { key: text });
+        UP.savedAt = Date.now();
         UP.ui = { draft: "", error: "" };
         unlockChanged();
       } catch (err) { UP.ui.error = err.message; }
@@ -2254,10 +2321,12 @@
       await upAct("remove-key");
       unlockChanged();
     },
-    download: () => upAct("download"),
-    tryAgain: () => upAct("download"),
-    resume: () => upAct("resume"),
+    // Download now, its Try again and Resume also set up the AI when it isn't ready (aiWant, models.js aiDecision).
+    download: () => { if (!justSaved()) { upAct("download"); aiWant(); } },
+    tryAgain: () => { if (!justSaved()) upAct("download"); },
+    resume: () => { if (!justSaved()) { upAct("resume"); aiWant(); } },
     again: () => upAct("again"),
+    setupAi: () => { AI.started = true; aiWant(); },
     pause: () => upAct("pause"),
     checkUpdates: async () => {  // the one Check for updates: Starholm itself and the packs, as on the Status page
       UP.ui.checking = true;
@@ -2450,7 +2519,7 @@
     let hint = "Only installed models are listed.";
     if (!s) hint = S.statusError || "Can't reach Starholm.";
     else if (s.ollama_checked === false) hint = "Library only is on, so the model isn't checked or loaded.";
-    else if (!s.ollama) hint = s.ollama_starting ? "Starting…" : s.ollama_installed ? "Stopped." : "Ollama isn't installed. Set it up in Settings › Model.";
+    else if (!s.ollama) hint = s.ollama_starting ? "Starting…" : s.ollama_installed ? "Stopped." : "The AI isn't set up yet. Set it up in Settings › Model.";
     else if (s.model_installed) {
       const loaded = Array.isArray(s.loaded) && s.loaded.includes(s.model);
       const warming = Array.isArray(s.warming) && s.warming.includes(s.model);
@@ -2496,7 +2565,7 @@
   async function startEngine() {
     try {
       const out = await API.startOllama();
-      if (out.installed === false) toast("Ollama isn't installed yet. Press Set up the AI in Settings › Model.");
+      if (out.installed === false) toast("The AI isn't set up yet. Press Set up the AI in Settings › Model.");
     } catch (err) { toast(err.message); }
     statusPoll.tick();
   }
